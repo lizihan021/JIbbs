@@ -7,11 +7,11 @@ class Base_Controller extends CI_Controller
         parent::__construct();
         $this->load->database();
         
-        //$this->output->enable_profiler(TRUE);
-        //È«¾Ö´«µİÍøÕ¾ÉèÖÃÊı¾İ
-        //$this->load->model('site_m');
-        //$site_settings = $this->site_m->get_site_settings();
-        //$this->load->vars($site_settings);
+        $this->output->enable_profiler(TRUE);
+        //å…¨å±€ä¼ é€’ç½‘ç«™è®¾ç½®æ•°æ®
+        $this->load->model('site_model');
+        $site_settings = $this->site_model->get_site_settings();
+        $this->load->vars($site_settings);
     }
 }
 
@@ -20,7 +20,7 @@ class Front_Controller extends Base_Controller
     public function __construct()
     {
         parent::__construct();
-        //¸üĞÂÓÃ»§×é¡¢ÌáĞÑÊıÁ¿¡¢½ûÑÔ
+        //æ›´æ–°ç”¨æˆ·ç»„ã€æé†’æ•°é‡ã€ç¦è¨€
         /*if ($this->session->userdata('uid')) {
             $this->db->where('uid', $this->session->userdata('uid'));
             $query = $this->db->get('letsbbs_user');
@@ -37,7 +37,7 @@ class Admin_Controller extends Base_Controller
     public function __construct()
     {
         parent::__construct();
-        //admin·ÃÎÊ¿ØÖÆ
+        //adminè®¿é—®æ§åˆ¶
         //$this->load->helper('auth');
         //is_admin_exit();
     }

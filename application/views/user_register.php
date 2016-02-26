@@ -1,36 +1,35 @@
-<?php //include 'common/header_common.php';
-?>
+<?php include 'common/header_common.php';?>
 
     <div class="container">
         <div class="row">
             <div class="col-md-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">ª∂”≠◊¢≤·</h3>
+                        <h3 class="panel-title">Ê¨¢ËøéÊ≥®ÂÜå</h3>
                     </div>
                     <div class="panel-body">
                         <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
-                        <?php echo form_open('reg', array('class' => 'form-horizontal', 'role' => 'form'));?>
+                        <?php echo form_open('user/register', array('class' => 'form-horizontal', 'role' => 'form'));?>
                             <div class="form-group">
-                                <label for="username" class="col-sm-2 control-label">”√ªß√˚</label>
+                                <label for="username" class="col-sm-2 control-label">Áî®Êà∑Âêç</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="username" name="username" placeholder="«Î π”√3-12Œª≥§∂»–°–¥◊÷ƒ∏ªÚ ˝◊÷◊È∫œ">
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="ËØ∑‰ΩøÁî®3-12‰ΩçÈïøÂ∫¶Â∞èÂÜôÂ≠óÊØçÊàñÊï∞Â≠óÁªÑÂêà">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="password" class="col-sm-2 control-label">√‹¬Î</label>
+                                <label for="password" class="col-sm-2 control-label">ÂØÜÁ†Å</label>
                                 <div class="col-sm-10">
                                     <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="email" class="col-sm-2 control-label">” œ‰</label>
+                                <label for="email" class="col-sm-2 control-label">ÈÇÆÁÆ±</label>
                                 <div class="col-sm-10">
                                     <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="captcha" class="col-sm-2 control-label">—È÷§¬Î</label>
+                                <label for="captcha" class="col-sm-2 control-label">È™åËØÅÁ†Å</label>
                                 <div class="col-sm-5">
                                     <input type="text" class="form-control" id="captcha" name="captcha" placeholder="Captcha">
                                 </div>
@@ -40,7 +39,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-default">◊¢≤·</button>
+                                    <button type="submit" class="btn btn-default">Ê≥®ÂÜå</button>
                                 </div>
                             </div>
                             <script type="text/javascript">
