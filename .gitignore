@@ -25,3 +25,12 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 *.stTheme.cache
 *.sublime-workspace
 *.sublime-project
+
+## UltraEdit backup files
+*.bak
+
+# Windows:
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
