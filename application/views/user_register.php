@@ -1,5 +1,18 @@
-<?php include 'common/header_common.php';?>
-
+<?php
+include 'common/header_common.php';
+include 'common/text_validation.php';
+?>
+	
+    <script type='text/javascript'>
+		$(document).ready
+		(function(){
+			$("#username").change
+			(function(){
+				text_valid($("#username").val(),'trim|required|alpha_numeric|min_length[3]|max_length[12]|is_unique[bbs_user.username]','username_error','用户名');
+			});
+		});
+	</script>
+    
     <div class="container">
         <div class="row">
             <div class="col-md-8">
@@ -12,9 +25,10 @@
                         <?php echo form_open('user/register', array('class' => 'form-horizontal', 'role' => 'form'));?>
                             <div class="form-group">
                                 <label for="username" class="col-sm-2 control-label">用户名</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-6">
                                     <input type="text" class="form-control" id="username" name="username" placeholder="请使用3-12位长度小写字母或数字组合">
                                 </div>
+                                <label for="username" class="col-sm-3 control-label" id="username_error"></label>
                             </div>
                             <div class="form-group">
                                 <label for="password" class="col-sm-2 control-label">密码</label>
