@@ -12,12 +12,10 @@ class User extends Front_Controller
 	{
 		$this->load->helper('form');
         $this->load->library('form_validation');
-        
         $this->form_validation->set_rules('username', '用户名', 'trim|required|alpha_numeric|min_length[3]|max_length[12]|is_unique[bbs_user.username]');
         $this->form_validation->set_rules('password', '密码', 'trim|required|md5');
         $this->form_validation->set_rules('email', '邮箱', 'trim|required|valid_email|is_unique[bbs_user.email]');
         $this->form_validation->set_rules('captcha', '验证码', 'trim|callback_captcha_check');
-
         
         if ($this->form_validation->run() == FALSE)
         {
@@ -35,7 +33,6 @@ class User extends Front_Controller
                 'email' => $this->input->post('email'),
                 //'regtime' => time()
             );
-            echo '111111111111';
             $this->user_model->register($data);
             //$this->user_m->login($data);
             //更新网站统计信息 注册用户

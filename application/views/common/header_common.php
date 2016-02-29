@@ -7,6 +7,7 @@
     <link href="<?php echo base_url('static/css/bootstrap.min.css');?>" rel="stylesheet">                                                                             
     <link href="<?php echo base_url('static/css/custom.css');?>" rel="stylesheet">                                                                                    
     <link rel="shortcut icon" href="<?php echo base_url('static/img/favicon.png');?>">                                                                                
+    <script src="../../../static/js/jquery.min.js"></script>
                                                                                                                                                                       
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->                                                                            
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->                                                                                        
@@ -59,3 +60,4 @@
             </div><!-- /.navbar-collapse -->                                                                                                                          
         </div><!-- /.container -->                                                                                                                                    
     </nav>                                                                                                                                                            
+    
