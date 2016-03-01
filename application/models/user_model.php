@@ -3,12 +3,12 @@
 class User_Model extends CI_Model
 {
 	
-	public $validation_rules;
+	private $validation_rules;
 	
     function __construct()
     {
         parent::__construct();
-		$this->$validation_rules = array
+		$this->validation_rules = array
 		(
 			'username' => 'trim|required|alpha_dash|min_length[3]|max_length[12]|is_unique[bbs_user.username]',
 			'password' => 'trim|required|min_length[6]|max_length[20]',
@@ -31,7 +31,7 @@ class User_Model extends CI_Model
     
 	public function get_validation_rules($data)
 	{
-		return $this->$validation_rules[$data];
+		return $this->validation_rules[$data];
 	}
 }    
 ?>

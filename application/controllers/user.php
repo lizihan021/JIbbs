@@ -13,9 +13,9 @@ class User extends Front_Controller
 		$this->load->helper('form');
         $this->load->library('form_validation');
         $this->form_validation->set_rules('username', '用户名', $this->user_model->get_validation_rules('username'));
-        //$this->form_validation->set_rules('password', '密码', $this->user_model->$validation_rules['passwprd']);
-        //$this->form_validation->set_rules('email', '邮箱', $this->user_model->$validation_rules['email']);
-        //$this->form_validation->set_rules('captcha', '验证码', $this->user_model->$validation_rules['captcha']);
+        $this->form_validation->set_rules('password', '密码', $this->user_model->get_validation_rules('password'));
+        $this->form_validation->set_rules('email', '邮箱', $this->user_model->get_validation_rules('email'));
+        $this->form_validation->set_rules('captcha', '验证码', $this->user_model->get_validation_rules('captcha'));
         
         if ($this->form_validation->run() == FALSE)
         {

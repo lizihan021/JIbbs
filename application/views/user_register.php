@@ -13,7 +13,7 @@ include 'common/text_validation.php';
 				text_valid
 				(
 					$("#username").val(),
-					"<?php echo $this->user_model->$validation_rules['username'];?>",
+					"<?php echo $this->user_model->get_validation_rules('username');?>",
 					'用户名',
 					$.username_change
 				);
@@ -24,7 +24,7 @@ include 'common/text_validation.php';
 			{
 				text_valid(
 					$("#password").val(),
-					'trim|required|min_length[6]|max_length[20]',
+					"<?php echo $this->user_model->get_validation_rules('password');?>",
 					'密码',
 					$.password_change
 				);
@@ -41,7 +41,7 @@ include 'common/text_validation.php';
 			{
 				text_valid(
 					$("#email").val(),
-					'trim|required|valid_email|is_unique[bbs_user.email]',
+					"<?php echo $this->user_model->get_validation_rules('email');?>",
 					'邮箱',
 					$.email_change
 				);
@@ -52,7 +52,7 @@ include 'common/text_validation.php';
 			{
 				text_valid(
 					$("#captcha").val(),
-					'trim|callback_captcha_check',
+					"<?php echo $this->user_model->get_validation_rules('captcha');?>",
 					'验证码',
 					$.captcha_change
 				);
@@ -62,39 +62,47 @@ include 'common/text_validation.php';
 			// 验证后回调函数
 			$.extend(
 			{
-				username_change: function(data)
+				common_change: function(id, data, flag)
 				{
-					//var output;
 					if(data=='success')
 					{
 						data='';
+						$("#"+id+"_img").attr('src','../../static/img/success.png');
 					}
 					else
 					{
-						
+						$("#"+id+"_img").attr('src','../../static/img/error.png');
 					}
-					$("#username_error").html(data);
+					if(flag)
+					{
+						$("#"+id+"_error").html(data);
+					}
+				},
+				
+				username_change: function(data)
+				{
+					$.common_change('username',data,true);
 				},
 				
 				password_change: function(data)
 				{
-					$("#password_error").html(data);
+					$.common_change('password',data,true);
 					$.password_reconfirm();
 				},
 				
 				password_confirm_change: function(data)
 				{
-					$("#password_confirm_error").html(data);
+					$.common_change('password_confirm',data,true);
 				},
 				
 				email_change: function(data)
 				{
-					$("#email_error").html(data);
+					$.common_change('email',data,true);
 				},
 				
 				captcha_change: function(data)
 				{
-					$("#captcha_error").html(data);
+					$.common_change('captcha',data,false);
 				},
 				
 				password_reconfirm: function()
@@ -130,40 +138,45 @@ include 'common/text_validation.php';
                             <div class="form-group">
                                 <label for="username" class="col-sm-2 control-label">用户名</label>
                                 <div class="col-sm-5">
-                                    <input type="text" class="form-control" id="username" name="username" placeholder="请使用3-12位长度小写字母或数字组合">
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="只能使用3-12位的字母数字和下划线">
                                 </div>
-                                <label for="username" class="col-sm-5 control-label-left" id="username_error"></label>
+                                <img class="col-sm-1" id="username_img"></img>
+                                <label for="username" class="col-sm-4 control-label-left" id="username_error"></label>
                             </div>
                             <div class="form-group">
                                 <label for="password" class="col-sm-2 control-label">密码</label>
                                 <div class="col-sm-5">
                                     <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                                 </div>
-                                <label for="password" class="col-sm-5 control-label-left" id="password_error"></label>
+                                <img class="col-sm-1" id="password_img"></img>
+                                <label for="password" class="col-sm-4 control-label-left" id="password_error"></label>
                             </div>
                             <div class="form-group">
                                 <label for="password_confirm" class="col-sm-2 control-label">确认密码</label>
                                 <div class="col-sm-5">
                                     <input type="password" class="form-control" id="password_confirm" name="password_confirm" placeholder="Confirm Password">
                                 </div>
-                                <label for="password_confirm" class="col-sm-5 control-label-left" id="password_confirm_error"></label>
+                                <img class="col-sm-1" id="password_confirm_img"></img>
+                                <label for="password_confirm" class="col-sm-4 control-label-left" id="password_confirm_error"></label>
                             </div>
                             <div class="form-group">
                                 <label for="email" class="col-sm-2 control-label">邮箱</label>
                                 <div class="col-sm-5">
                                     <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                                 </div>
-                                <label for="email" class="col-sm-5 control-label-left" id="email_error"></label>
+                                <img class="col-sm-1" id="email_img"></img>
+                                <label for="email" class="col-sm-4 control-label-left" id="email_error"></label>
                             </div>
                             <div class="form-group">
                                 <label for="captcha" class="col-sm-2 control-label">验证码</label>
-                                <div class="col-sm-5">
+                                <div class="col-sm-4">
                                     <input type="text" class="form-control" id="captcha" name="captcha" placeholder="Captcha">
                                 </div>
                                 <div class="col-sm-3" id="cap_img" onclick="get_cap_img()">
                                     <?php echo $cap_image; ?>
                                 </div>
-                                <label for="captcha" class="col-sm-3 control-label-left" id="captcha_error"></label>
+                                <img class="col-sm-1" id="captcha_img"></img>
+                                
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
