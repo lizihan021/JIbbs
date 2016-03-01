@@ -1,5 +1,5 @@
 <script type="text/javascript">
-	function text_valid(text,rules,id,display)
+	function text_valid(text,rules,display,callback_func)
 	{
 		$.ajax
 		({
@@ -8,7 +8,11 @@
   			data: {text: text, rules: rules, display: display},
   			success: function(data)
 			{
-				$("#"+id).html(data);
+				callback_func(data);
+			},
+			error: function()
+			{
+				callback_func('服务器连接失败');
 			},
   			dataType: 'text'
 		});

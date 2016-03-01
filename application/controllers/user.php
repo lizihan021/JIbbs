@@ -12,10 +12,10 @@ class User extends Front_Controller
 	{
 		$this->load->helper('form');
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('username', '用户名', 'trim|required|alpha_numeric|min_length[3]|max_length[12]|is_unique[bbs_user.username]');
-        $this->form_validation->set_rules('password', '密码', 'trim|required|md5');
-        $this->form_validation->set_rules('email', '邮箱', 'trim|required|valid_email|is_unique[bbs_user.email]');
-        $this->form_validation->set_rules('captcha', '验证码', 'trim|callback_captcha_check');
+        $this->form_validation->set_rules('username', '用户名', $this->user_model->get_validation_rules('username'));
+        //$this->form_validation->set_rules('password', '密码', $this->user_model->$validation_rules['passwprd']);
+        //$this->form_validation->set_rules('email', '邮箱', $this->user_model->$validation_rules['email']);
+        //$this->form_validation->set_rules('captcha', '验证码', $this->user_model->$validation_rules['captcha']);
         
         if ($this->form_validation->run() == FALSE)
         {
@@ -29,7 +29,7 @@ class User extends Front_Controller
             //form success
             $data = array(
                 'username' => strtolower($this->input->post('username')),
-                'password' => $this->input->post('password'),
+                'password' => md5($this->input->post('password')),
                 'email' => $this->input->post('email'),
                 //'regtime' => time()
             );
