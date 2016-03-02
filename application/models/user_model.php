@@ -16,9 +16,6 @@ class User_Model extends CI_Model
 			'captcha'  => 'trim|callback_captcha_check'
 		);
     }
-    
-	
-	
 	
     /**
      * 用户注册
@@ -29,9 +26,42 @@ class User_Model extends CI_Model
     	return $this->db->insert('bbs_user', $data);
     }
     
+	public function login($data)
+    {
+        $this->db->where('username', $data['username']);
+        $query = $this->db->get('bbs_user');
+        if ($query->num_rows() > 0)
+		{
+            $user = $query->row_array();
+            if ($user['password']==$data['password'])
+			{
+                $this->session->set_userdata('username', $user['username']);
+                //$this->session->set_userdata('uid', $user['uid']);
+                //$this->session->set_userdata('group_id', $user['group_id']);
+                //$this->session->set_userdata('notification', $user['notice']);
+                //$this->session->set_userdata('is_active', $user['is_active']);
+                //$this->session->set_userdata('avatar', $user['avatar']);
+                //$this->session->set_userdata('node_follow', $user['node_follow']);
+                //$this->session->set_userdata('user_follow', $user['user_follow']);
+                //$this->session->set_userdata('topic_follow', $user['topic_follow']);
+                return TRUE;
+            }
+			else
+			{
+                return FALSE;
+            }
+        }
+		else
+		{
+            return FALSE;
+        }
+    }
+	
 	public function get_validation_rules($data)
 	{
 		return $this->validation_rules[$data];
 	}
+	
+	
 }    
 ?>

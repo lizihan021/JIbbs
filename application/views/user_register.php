@@ -5,60 +5,6 @@ include 'common/text_validation.php';
     <script type='text/javascript'>
 		$(document).ready(function()
 		{
-			// 表单值改变
-			
-			// 检查 username 是否有效
-			$("#username").change(function()
-			{
-				text_valid
-				(
-					$("#username").val(),
-					"<?php echo $this->user_model->get_validation_rules('username');?>",
-					'用户名',
-					$.username_change
-				);
-			});
-			
-			// 检查 password 是否有效
-			$("#password").change(function()
-			{
-				text_valid(
-					$("#password").val(),
-					"<?php echo $this->user_model->get_validation_rules('password');?>",
-					'密码',
-					$.password_change
-				);
-			});
-			
-			// 检查 password_confirm 是否和 password 一致
-			$("#password_confirm").change(function()
-			{
-				$.password_reconfirm();
-			});
-			
-			// 检查 email 是否有效
-			$("#email").change(function()
-			{
-				text_valid(
-					$("#email").val(),
-					"<?php echo $this->user_model->get_validation_rules('email');?>",
-					'邮箱',
-					$.email_change
-				);
-			});
-			
-			// 检查 captcha 是否正确
-			$("#captcha").change(function()
-			{
-				text_valid(
-					$("#captcha").val(),
-					"<?php echo $this->user_model->get_validation_rules('captcha');?>",
-					'验证码',
-					$.captcha_change
-				);
-			});
-			
-			
 			// 验证后回调函数
 			$.extend(
 			{
@@ -79,6 +25,17 @@ include 'common/text_validation.php';
 					}
 				},
 				
+				username_change_trig: function()
+				{
+					text_valid
+					(
+						$("#username").val(),
+						"<?php echo $this->user_model->get_validation_rules('username');?>",
+						'用户名',
+						$.username_change
+					);
+				},
+				
 				username_change: function(data)
 				{
 					$.common_change('username',data,true);
@@ -87,12 +44,26 @@ include 'common/text_validation.php';
 				password_change: function(data)
 				{
 					$.common_change('password',data,true);
-					$.password_reconfirm();
+					if($("#password_confirm").val()!='')
+					{
+						$.password_reconfirm();
+					}
 				},
 				
 				password_confirm_change: function(data)
 				{
 					$.common_change('password_confirm',data,true);
+				},
+				
+				email_change_trig: function()
+				{
+					text_valid
+					(
+						$("#email").val(),
+						"<?php echo $this->user_model->get_validation_rules('email');?>",
+						'邮箱',
+						$.email_change
+					);
 				},
 				
 				email_change: function(data)
@@ -122,12 +93,71 @@ include 'common/text_validation.php';
 				}
 				
 			});
+			
+			// 表单值重新填充
+			var tempStr;
+			tempStr="<?php echo set_value('username')?>";
+			if(tempStr!='')
+			{
+				$("#username").val(tempStr);
+				$.username_change_trig();
+			}
+			tempStr="<?php echo set_value('email')?>";
+			if(tempStr!='')
+			{
+				$("#email").val(tempStr);
+				$.email_change_trig();
+			}
+			
+			// 检查 username 是否有效
+			$("#username").change(function()
+			{
+				$.username_change_trig();
+			});
+			
+
+			// 检查 password 是否有效
+			$("#password").change(function()
+			{
+				text_valid(
+					$("#password").val(),
+					"<?php echo $this->user_model->get_validation_rules('password');?>",
+					'密码',
+					$.password_change
+				);
+			});
+			
+			// 检查 password_confirm 是否和 password 一致
+			$("#password_confirm").change(function()
+			{
+				$.password_reconfirm();
+			});
+			
+			// 检查 email 是否有效
+			$("#email").change(function()
+			{
+				$.email_change_trig();
+			});
+			
+			// 检查 captcha 是否正确
+			$("#captcha").change(function()
+			{
+				text_valid(
+					$("#captcha").val(),
+					"<?php echo $this->user_model->get_validation_rules('captcha');?>",
+					'验证码',
+					$.captcha_change
+				);
+			});
+			
+			
+			
 		});
 	</script>
     
     <div class="container">
         <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">欢迎注册</h3>
@@ -197,13 +227,13 @@ include 'common/text_validation.php';
                 </div>
             </div><!-- /.col-md-8 -->
 
-<?php //include 'common/sidebar_common.php';
+<?php include 'common/sidebar_common.php';
 ?>
 
         </div><!-- /.row -->
     </div><!-- /.container -->
 
-<?php //include 'common/footer_common.php';
+<?php include 'common/footer_common.php';
 ?>
 </body>
 </html>
