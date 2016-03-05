@@ -12,12 +12,10 @@ class User extends Front_Controller
 	{
 		$this->load->helper('form');
         $this->load->library('form_validation');
-        
-        $this->form_validation->set_rules('username', '用户名', 'trim|required|alpha_numeric|min_length[3]|max_length[12]|is_unique[bbs_user.username]');
-        $this->form_validation->set_rules('password', '密码', 'trim|required|md5');
-        $this->form_validation->set_rules('email', '邮箱', 'trim|required|valid_email|is_unique[bbs_user.email]');
-        $this->form_validation->set_rules('captcha', '验证码', 'trim|callback_captcha_check');
-
+        $this->form_validation->set_rules('username', '用户名', $this->user_model->get_validation_rules('username'));
+        $this->form_validation->set_rules('password', '密码', $this->user_model->get_validation_rules('password'));
+        $this->form_validation->set_rules('email', '邮箱', $this->user_model->get_validation_rules('email'));
+        $this->form_validation->set_rules('captcha', '验证码', $this->user_model->get_validation_rules('captcha'));
         
         if ($this->form_validation->run() == FALSE)
         {
@@ -31,13 +29,12 @@ class User extends Front_Controller
             //form success
             $data = array(
                 'username' => strtolower($this->input->post('username')),
-                'password' => $this->input->post('password'),
+                'password' => md5($this->input->post('password')),
                 'email' => $this->input->post('email'),
                 //'regtime' => time()
             );
-            echo '111111111111';
             $this->user_model->register($data);
-            //$this->user_m->login($data);
+            $this->user_model->login($data);
             //更新网站统计信息 注册用户
             //$this->db->set('ovalue', 'ovalue+1', FALSE)->where('oname', 'site_user_number')->update('letsbbs_option');
             redirect();
@@ -89,6 +86,40 @@ class User extends Front_Controller
        echo $cap_image;
     }
 	
+	/**
+     * 用户登录
+     */
+    public function login()
+    {
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('username', '用户名', 'trim|required');
+        $this->form_validation->set_rules('password', '密码', 'trim|required|md5');
+        $this->form_validation->set_rules('captcha', '验证码', 'trim|callback_captcha_check');
+
+        if ($this->form_validation->run() == FALSE)
+        {
+            //form failed
+            $data['cap_image']=$this->_get_cap_image();
+            $data['site_title'] = '登录';
+            $this->load->view('user_login', $data);
+        }
+        else
+        {
+            //form success
+            $data = array(
+                'username' => $this->input->post('username', TRUE),
+                'password' => $this->input->post('password')
+            );
+
+            if ($this->user_model->login($data)) {
+                redirect();
+            } else {
+                redirect('user/login');
+            }
+        }
+    }
 }
 
 ?>

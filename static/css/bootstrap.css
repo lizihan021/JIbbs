@@ -2766,6 +2766,13 @@ select[multiple].form-group-lg .form-control {
     text-align: right;
   }
 }
+@media (min-width: 768px) {
+  .form-horizontal .control-label-left {
+    padding-top: 7px;
+    margin-bottom: 0;
+    text-align: left;
+  }
+}
 .form-horizontal .has-feedback .form-control-feedback {
   right: 15px;
 }
