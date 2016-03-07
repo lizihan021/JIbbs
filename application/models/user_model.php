@@ -23,39 +23,64 @@ class User_Model extends CI_Model
      */
     public function register($data)
     {
-    	return $this->db->insert('bbs_user', $data);
+    	$this->db->insert('bbs_user', $data);
+		// 更新网站统计信息 注册用户
+        $this->db->set('ovalue', 'ovalue+1', FALSE)->where('oname', 'site_user_number')->update('bbs_option');
     }
     
 	public function login($data)
     {
-        $this->db->where('username', $data['username']);
-        $query = $this->db->get('bbs_user');
-        if ($query->num_rows() > 0)
+		$flag_find = false;
+		if(!$flag_find)
 		{
-            $user = $query->row_array();
-            if ($user['password']==$data['password'])
+			// 尝试查找用户名
+			$this->db->where('username', $data['username']);
+			$query = $this->db->get('bbs_user');
+			if ($query->num_rows() > 0)
 			{
-                $this->session->set_userdata('username', $user['username']);
-                //$this->session->set_userdata('uid', $user['uid']);
-                //$this->session->set_userdata('group_id', $user['group_id']);
-                //$this->session->set_userdata('notification', $user['notice']);
-                //$this->session->set_userdata('is_active', $user['is_active']);
-                //$this->session->set_userdata('avatar', $user['avatar']);
-                //$this->session->set_userdata('node_follow', $user['node_follow']);
-                //$this->session->set_userdata('user_follow', $user['user_follow']);
-                //$this->session->set_userdata('topic_follow', $user['topic_follow']);
-                return TRUE;
-            }
-			else
+				$user = $query->row_array();
+				$flag_find = true;
+			}
+		}
+		if(!$flag_find)
+		{
+			// 尝试查找邮箱
+			$this->db->where('email', $data['username']);
+        	$query = $this->db->get('bbs_user');
+			if ($query->num_rows() > 0)
 			{
-                return FALSE;
-            }
+				$user = $query->row_array();
+				$flag_find = true;
+			}
+		}
+		if(!$flag_find)
+		{
+			return 'error_username';
+		}
+		// 验证密码
+		if ($user['password']==$data['password'])
+		{
+            $this->session->set_userdata('username', $user['username']);
+			//$this->session->set_userdata('uid', $user['uid']);
+			//$this->session->set_userdata('group_id', $user['group_id']);
+			//$this->session->set_userdata('notification', $user['notice']);
+			//$this->session->set_userdata('is_active', $user['is_active']);
+			//$this->session->set_userdata('avatar', $user['avatar']);
+			//$this->session->set_userdata('node_follow', $user['node_follow']);
+			//$this->session->set_userdata('user_follow', $user['user_follow']);
+			//$this->session->set_userdata('topic_follow', $user['topic_follow']);
+            return 'success';
         }
 		else
 		{
-            return FALSE;
+        	return 'error_password';
         }
     }
+	
+	public function logout()
+	{
+		$this->session->set_userdata('username', '');
+	}
 	
 	public function get_validation_rules($data)
 	{

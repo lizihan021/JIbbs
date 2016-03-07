@@ -10,9 +10,9 @@ include 'common/text_validation.php';
 			{
 				common_change: function(id, data, flag)
 				{
-					if(data=='success')
+					if(data == 'success')
 					{
-						data='';
+						data = '';
 						$("#"+id+"_img").attr('src','../../static/img/success.png');
 					}
 					else
@@ -38,13 +38,13 @@ include 'common/text_validation.php';
 				
 				username_change: function(data)
 				{
-					$.common_change('username',data,true);
+					$.common_change('username', data, true);
 				},
 				
 				password_change: function(data)
 				{
-					$.common_change('password',data,true);
-					if($("#password_confirm").val()!='')
+					$.common_change('password', data, true);
+					if($("#password_confirm").val() != '')
 					{
 						$.password_reconfirm();
 					}
@@ -52,7 +52,7 @@ include 'common/text_validation.php';
 				
 				password_confirm_change: function(data)
 				{
-					$.common_change('password_confirm',data,true);
+					$.common_change('password_confirm', data, true);
 				},
 				
 				email_change_trig: function()
@@ -68,21 +68,21 @@ include 'common/text_validation.php';
 				
 				email_change: function(data)
 				{
-					$.common_change('email',data,true);
+					$.common_change('email', data, true);
 				},
 				
 				captcha_change: function(data)
 				{
-					$.common_change('captcha',data,false);
+					$.common_change('captcha', data, false);
 				},
 				
 				password_reconfirm: function()
 				{
-					if ($("#password_confirm").val()=='')
+					if ($("#password_confirm").val() == '')
 					{
 						$.password_confirm_change('');
 					}
-					else if($("#password").val()==$("#password_confirm").val())
+					else if($("#password").val() == $("#password_confirm").val())
 					{
 						$.password_confirm_change('success');
 					}
@@ -97,13 +97,13 @@ include 'common/text_validation.php';
 			// 表单值重新填充
 			var tempStr;
 			tempStr="<?php echo set_value('username')?>";
-			if(tempStr!='')
+			if(tempStr != '')
 			{
 				$("#username").val(tempStr);
 				$.username_change_trig();
 			}
 			tempStr="<?php echo set_value('email')?>";
-			if(tempStr!='')
+			if(tempStr != '')
 			{
 				$("#email").val(tempStr);
 				$.email_change_trig();
@@ -199,7 +199,7 @@ include 'common/text_validation.php';
                             </div>
                             <div class="form-group">
                                 <label for="captcha" class="col-sm-2 control-label">验证码</label>
-                                <div class="col-sm-4">
+                                <div class="col-sm-5">
                                     <input type="text" class="form-control" id="captcha" name="captcha" placeholder="Captcha">
                                 </div>
                                 <div class="col-sm-3" id="cap_img" onclick="get_cap_img()">
@@ -216,7 +216,7 @@ include 'common/text_validation.php';
                             <script type="text/javascript">
                             function get_cap_img(){
                               $.ajax({
-                                url: '<?php echo site_url('user/refresh_cap_image');?>',
+                                url: '<?php echo base_url('user/refresh_cap_image');?>',
                                 success: function(data) {
                                   $("#cap_img").html(data);
                               }});

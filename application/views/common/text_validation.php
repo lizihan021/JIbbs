@@ -1,10 +1,10 @@
 <script type="text/javascript">
-	function text_valid(text,rules,display,callback_func)
+	function text_valid(text, rules, display, callback_func)
 	{
 		$.ajax
 		({
 			type: 'POST',
-  			url: '<?php echo site_url("text_validation")?>',
+  			url: '<?php echo base_url("text_validation")?>',
   			data: {text: text, rules: rules, display: display},
   			success: function(data)
 			{

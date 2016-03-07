@@ -26,7 +26,7 @@
                         <?php if ($this->session->userdata('username')) : ?>
                         <a href="<?php echo base_url('notification');?>"><?php echo $this->session->userdata('notification');?> 条未读提醒</a>
                         <?php else : ?>
-                        <a href="<?php echo site_url('user/register');?>">注册</a>　<a href="<?php echo site_url('user/login');?>">登录</a>
+                        <a href="<?php echo base_url('user/register');?>">注册</a>　<a href="<?php echo base_url('user/login');?>">登录</a>
                         <?php endif; ?>
                     </div>
                 </div>
