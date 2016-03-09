@@ -7,17 +7,20 @@ include 'common/text_validation.php';
 		$(document).ready(function()
 		{
 			var result = '<?php echo $result;?>';
-			
+			$("[data-toggle='tooltip']").tooltip();
 			if(result == 'error_username')
 			{
-				$("#username_img").attr('src','../../static/img/error.png');
+				$("#username_div").attr('class','form-group has-error has-feedback');
+				$("#username_img").attr({'style':'display:inline', 'class':"glyphicon glyphicon-remove form-control-feedback"});
 				$("#username_error").html('用户名或邮箱不存在');
 			}
 			else if(result == 'error_password')
 			{
-				$("#username_img").attr('src','../../static/img/success.png');
+				$("#username_div").attr('class','form-group has-success has-feedback');
+				$("#username_img").attr({'style':'display:inline', 'class':"glyphicon glyphicon-ok form-control-feedback"});
 				$("#username").val('<?php echo set_value('username')?>');
-				$("#password_img").attr('src','../../static/img/error.png');
+				$("#password_div").attr('class','form-group has-error has-feedback');
+				$("#password_img").attr({'style':'display:inline', 'class':"glyphicon glyphicon-remove form-control-feedback"});
 				$("#password_error").html('密码错误');
 			}
 			else if(result == 'error')
@@ -35,17 +38,26 @@ include 'common/text_validation.php';
 				);
 			});
 			
+			$("#password").keyup(function()
+			{
+				$("#password_div").attr('class','form-group');
+				$("#password_img").attr({'style':'display:none'});
+				$("#password_error").html('');
+			});
+			
 			$.extend(
 			{
 				captcha_change: function(data)
 				{
 					if(data == 'success')
 					{
-						$("#captcha_img").attr('src','../../static/img/success.png');
+						$("#captcha_div").attr('class','form-group has-success has-feedback');
+						$("#captcha_img").attr({'style':'display:inline', 'class':"glyphicon glyphicon-ok form-control-feedback"});
 					}
 					else
 					{
-						$("#captcha_img").attr('src','../../static/img/error.png');
+						$("#captcha_div").attr('class','form-group has-error has-feedback');
+						$("#captcha_img").attr({'style':'display:inline', 'class':"glyphicon glyphicon-remove form-control-feedback"});
 					}
 				}
 			});
@@ -62,31 +74,34 @@ include 'common/text_validation.php';
                     <div class="panel-body">
                         <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
                         <?php echo form_open('user/login', array('class' => 'form-horizontal', 'role' => 'form'));?>
-                            <div class="form-group">
+                            <div id="username_div" class="form-group">
                                 <label for="username" class="col-sm-2 control-label">用户名</label>
                                 <div class="col-sm-5">
-                                    <input type="text" class="form-control" id="username" name="username" placeholder="User Name">
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="User Name" data-toggle="tooltip" 
+   title="请输入用户名或邮箱">
+                                    <span id="username_img" style="display:none" aria-hidden="true"></span>
                                 </div>
-                                <img class="col-sm-1" id="username_img"></img>
                                 <label for="username" class="col-sm-4 control-label-left" id="username_error"></label>
                             </div>
-                            <div class="form-group">
+                            <div id="password_div" class="form-group">
                                 <label for="password" class="col-sm-2 control-label">密码</label>
                                 <div class="col-sm-5">
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" data-toggle="tooltip" 
+   title="请输入密码，注意大小写">
+                                    <span id="password_img" style="display:none" aria-hidden="true"></span>
                                 </div>
-                                <img class="col-sm-1" id="password_img"></img>
                                 <label for="password" class="col-sm-4 control-label-left" id="password_error"></label>
                             </div>
-                            <div class="form-group">
+                            <div id="captcha_div" class="form-group">
                                 <label for="captcha" class="col-sm-2 control-label">验证码</label>
                                 <div class="col-sm-5">
-                                    <input type="text" class="form-control" id="captcha" name="captcha" placeholder="Captcha">
+                                    <input type="text" class="form-control" id="captcha" name="captcha" placeholder="Captcha" data-toggle="tooltip" 
+   title="请输入验证码">
+                                    <span id="captcha_img" style="display:none" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-sm-3" id="cap_img" onclick="get_cap_img()">
                                     <?php echo $cap_image; ?>
                                 </div>
-                                <img class="col-sm-1" id="captcha_img"></img>
                                 <script type="text/javascript">
                                 function get_cap_img(){
                                   $.ajax({
