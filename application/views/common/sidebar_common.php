@@ -26,13 +26,13 @@
                         <?php if ($this->session->userdata('username')) : ?>
                         <a href="<?php echo base_url('notification');?>"><?php echo $this->session->userdata('notification');?> 条未读提醒</a>
                         <?php else : ?>
-                        <a href="<?php echo site_url('user/register');?>">注册</a>　<a href="<?php echo site_url('user/login');?>">登录</a>
+                        <a href="<?php echo base_url('user/register');?>">注册</a>　<a href="<?php echo base_url('user/login');?>">登录</a>
                         <?php endif; ?>
                     </div>
                 </div>
                 <div class="panel panel-default">
                     <center class="panel-body">
-                        <p>这里是预设的广告位，在 application/views/common/sidebar_common.php 文件中修改。广告宽度为250px。</p>
+                        <p>本网站由JI技术部开发</p>
                     </center>
                 </div>
                 <div class="panel panel-default">
