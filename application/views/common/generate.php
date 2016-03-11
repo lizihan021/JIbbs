@@ -39,7 +39,15 @@
 		({
 			type: 'GET',
   			url: '<?php echo base_url("ajax/get_preview_topic")?>',
-  			data: {first: 0, step: 10, time: 'change', sorting: 'desc', key: ''},
+  			data:
+			{
+				id: list_data['module_id'],
+				first: 0,
+				step: 10,
+				time: 'change',
+				sorting: 'asc',
+				key: ''
+			},
   			success: function(data)
 			{
 				var result = '<hr class="smallhr">';
@@ -53,7 +61,7 @@
 			},
 			error: function()
 			{
-				alert('服务器连接失败');
+				callback_func('');
 			},
   			dataType: 'text'
 		});

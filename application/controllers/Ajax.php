@@ -46,7 +46,8 @@ class Ajax extends CI_Controller
 	
 	public function get_preview_topic()
 	{
-		echo 'user_name,1|user_name,2|user_name,3|user_name,3';
+		$id = $this->input->get('id');
+		echo 'module_name,'.$id.'|module_name,'.$id.'|module_name,'.$id.'|module_name,'.$id.'';
 		
 	}
 	
