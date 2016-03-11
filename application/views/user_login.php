@@ -73,7 +73,7 @@ include 'common/text_validation.php';
                     </div>
                     <div class="panel-body">
                         <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
-                        <?php echo form_open('user/login', array('class' => 'form-horizontal', 'role' => 'form'));?>
+                        <form action="<?php echo base_url('user/login');?>" class="form-horizontal" role="form" method="post" accept-charset="utf-8">
                             <div id="username_div" class="form-group">
                                 <label for="username" class="col-sm-2 control-label">用户名</label>
                                 <div class="col-sm-5">
