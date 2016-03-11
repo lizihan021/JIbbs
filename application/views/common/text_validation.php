@@ -4,7 +4,7 @@
 		$.ajax
 		({
 			type: 'POST',
-  			url: '<?php echo base_url("text_validation")?>',
+  			url: '<?php echo base_url("ajax/text_validation")?>',
   			data: {text: text, rules: rules, display: display},
   			success: function(data)
 			{
