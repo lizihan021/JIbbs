@@ -51,10 +51,10 @@
                     <?php if ($this->session->userdata('group_id')==1) {                                                                                              
                         echo '<li><a href="'. base_url('admin') . '">后台</a></li>';}?>                                                                               
                     <li><a href="<?php echo base_url('settings'); ?>">设置</a></li>                                                                                   
-                    <li><a href="<?php echo base_url('logout'); ?>">登出</a></li>                                                                                     
+                    <li><a href="<?php echo base_url('user/logout'); ?>">登出</a></li>                                                                                     
                     <?php else : ?>                                                                                                                                   
-                    <li><a href="<?php echo base_url('reg');?>">注册</a></li>                                                                                         
-                    <li><a href="<?php echo base_url('login');?>">登录</a></li>                                                                                       
+                    <li><a href="<?php echo base_url('user/register');?>">注册</a></li>                                                                                         
+                    <li><a href="<?php echo base_url('user/login');?>">登录</a></li>                                                                                       
                     <?php endif;?>                                                                                                                                    
                 </ul>                                                                                                                                                 
             </div><!-- /.navbar-collapse -->                                                                                                                          
