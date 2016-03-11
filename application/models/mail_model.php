@@ -5,6 +5,7 @@ class Mail_model extends CI_Model {
 	function __construct(){
 		parent::__construct();
 		$this->load->database();
+		//$this->load->library('smtp');
 
 		$query = $this->db->get('bbs_mail');
         $settings = $query->result_array();
@@ -13,8 +14,10 @@ class Mail_model extends CI_Model {
         }
 	}
 
-	function send($to,$title,$body){
+	public function send($to, $title, $body) //eg, send('840737618@qq.com', 'hi', 'hi')
+	{
 		//******************** 配置信息 ********************************
+		/*
 		$smtpserver = $this->data['mail_host'];//SMTP服务器
 		$smtpserverport = $this->data['mail_port'];//SMTP服务器端口
 		$smtpusermail = $this->data['mail_from'];//SMTP服务器的用户邮箱
@@ -28,5 +31,6 @@ class Mail_model extends CI_Model {
 		$smtp = new smtp($smtpserver, $smtpserverport, true, $smtpuser, $smtppass);//这里面的一个true是表示使用身份验证,否则不使用身份验证.
 		$smtp->debug = false;//是否显示发送的调试信息
 		return $smtp->sendmail($smtpemailto, $smtpusermail, $mailtitle, $mailcontent, $mailtype);
+		*/
 	}
 }
