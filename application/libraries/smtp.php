@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * PHPMailer RFC821 SMTP email transport class.
  * PHP Version 5
