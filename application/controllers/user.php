@@ -6,6 +6,7 @@ class User extends Front_Controller
     {
         parent::__construct();
         $this->load->model('user_model');
+        $this->load->library('smtp');
     }
 	
 	public function register()
