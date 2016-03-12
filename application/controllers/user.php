@@ -6,6 +6,7 @@ class User extends Front_Controller
     {
         parent::__construct();
         $this->load->model('user_model');
+        $this->load->library('smtp');
     }
 	
 	public function register()
@@ -27,7 +28,8 @@ class User extends Front_Controller
         else
         {
             //form success
-            $data = array(
+            $data = array
+			(
                 'username' => strtolower($this->input->post('username')),
                 'password' => md5($this->input->post('password')),
                 'email' => $this->input->post('email'),

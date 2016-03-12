@@ -13,7 +13,7 @@ class Site_Model extends CI_Model {
      */
     public function get_site_settings()
     {
-        $query = $this->db->get('bbs_option');
+        $query = $this->db->get('bbs_config');
         $settings = $query->result_array();
         foreach ($settings as $setting) {
             $data[$setting['oname']]=$setting['ovalue'];
