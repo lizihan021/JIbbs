@@ -10,7 +10,7 @@
 			var col_max = 4;
 			var col_current = 1;
 			var row = 1;
-			var head_str = '内容A,内容B,内容C,内容D,内容E';
+			var head_str = '<?php echo implode(',', $this->module_model->get_topic_arr());?>';
 			var head_name_array = head_str.split(',');
 			for (index in head_name_array)
 			{

@@ -23,6 +23,7 @@ class Welcome extends Front_Controller {
     {
         parent::__construct();
         $this->load->model('site_model');
+        $this->load->model('module_model');
     } 
 	
 	public function index()
