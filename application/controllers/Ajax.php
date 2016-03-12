@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Text_Validation extends CI_Controller 
+class Ajax extends CI_Controller 
 {
 	
 	public function __construct()
@@ -10,7 +10,7 @@ class Text_Validation extends CI_Controller
 		$this->load->database();
     }
 	
-	public function index()
+	public function text_validation()
 	{
 		$this->load->helper('form');
         $this->load->library('form_validation');
@@ -43,5 +43,12 @@ class Text_Validation extends CI_Controller
             return TRUE;
         }
     }
+	
+	public function get_preview_topic()
+	{
+		$id = $this->input->get('id');
+		echo 'module_name,'.$id.'|module_name,'.$id.'|module_name,'.$id.'|module_name,'.$id.'';
+		
+	}
 	
 }
