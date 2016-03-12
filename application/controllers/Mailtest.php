@@ -8,9 +8,7 @@ class Mailtest extends CI_controller{
 	}
 
 	function index(){
-		echo '1';
-		$a = $this->Mail_model->send('lizihan@umich.edu','hi','hi');
-		echo "$a";
+		$a = $this->Mail_model->send(array('to'=>'liuyh615@126.com','title'=>'hi','body'=>'hi'));
 	}
 
 }
