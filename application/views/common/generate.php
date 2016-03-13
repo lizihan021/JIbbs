@@ -50,12 +50,16 @@
 			},
   			success: function(data)
 			{
+				//alert(data);
 				var result = '<hr class="smallhr">';
-				var raw_data = data.split('|');
-				for (index in raw_data)
+				if (data != '')
 				{
-					result += generate_preview_topic(generate_array(raw_data[index]));
-					result += '<hr class="smallhr">';
+					var raw_data = data.split('|');
+					for (index in raw_data)
+					{
+						result += generate_preview_topic(generate_array(raw_data[index]));
+						result += '<hr class="smallhr">';
+					}
 				}
 				callback_func(result);
 			},

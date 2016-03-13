@@ -7,7 +7,7 @@ class Ajax extends CI_Controller
 	public function __construct()
     {
         parent::__construct();
-		$this->load->database();
+		//$this->load->database();
     }
 	
 	public function text_validation()
@@ -46,8 +46,42 @@ class Ajax extends CI_Controller
 	
 	public function get_preview_topic()
 	{
-		$id = $this->input->get('id');
-		echo 'module_name,'.$id.'|module_name,'.$id.'|module_name,'.$id.'|module_name,'.$id.'';
+		$this->load->model('topic_model');
+		$this->load->model('user_model');
+		$this->load->model('module_model');
+		//$id = $this->input->get('id');
+		$topic_arr = $this->topic_model->get_topic_arr(array
+		(
+			'module_id'   => $this->input->get('module_id'),
+			'first'       => $this->input->get('first'),
+			'step'        => $this->input->get('step'),
+			'order_field' => $this->input->get('order_field'),
+			'order'       => $this->input->get('order'),
+			'key'         => $this->input->get('key')
+		));
+		
+		if (count($topic_arr) == 0)
+		{
+			return;
+		}
+		
+		$index = 0;
+		foreach ($topic_arr as $topic)
+		{
+			$topic_str[$index++] = 
+				 'user_name,'       . $this->user_model->get_user_by_id($topic->user_id)->username .
+				',user_reply_name,' . $this->user_model->get_user_by_id($topic->last_reply_id)->username .
+				',module_name,'     . $this->module_model->get_module_by_id($topic->module_id)->name .
+				',module_id,'       . $topic->module_id .
+				',topic_name,'      . $topic->name .
+				',topic_id,'        . $topic->id .
+				',reply_num,'       . $topic->reply_num .
+				',time_ago,'        . '1s ago'
+			;
+		}
+		echo implode('|', $topic_str);
+		//print_r(serialize($data));
+		//echo 'module_name,'.$id.'|module_name,'.$id.'|module_name,'.$id.'|module_name,'.$id.'';
 		
 	}
 	

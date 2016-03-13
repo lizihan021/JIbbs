@@ -6,7 +6,7 @@ class Topic_Model extends CI_Model
     function __construct()
     {
         parent::__construct();
-		$this->load->library('topic');
+		$this->load->library('topic_obj');
     }
 	
 	public function get_topic_arr($data)
@@ -29,10 +29,12 @@ class Topic_Model extends CI_Model
 		
 		$index = 0;
 		
-        foreach ($query->result('Topic') as $topic)
+		$topic_arr = NULL;
+		
+        foreach ($query->result('Topic_Obj') as $topic)
 		{
-            $data[$index++] = $topic;
+            $topic_arr[$index++] = $topic;
         }
-        return $data;
+        return $topic_arr;
 	}
 }
