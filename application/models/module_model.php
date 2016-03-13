@@ -8,7 +8,7 @@ class Module_Model extends CI_Model
         parent::__construct();
     }
 	
-	public function get_topic_arr()
+	public function get_module_arr()
 	{
 		$query = $this->db->get('bbs_module');
 		$modules = $query->result_array();
