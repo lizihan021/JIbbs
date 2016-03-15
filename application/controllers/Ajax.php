@@ -44,6 +44,36 @@ class Ajax extends CI_Controller
         }
     }
 	
+	public function get_time_delay($time_str)
+	{
+		$now = time();
+		$past = strtotime($time_str);
+		$delay = $now - $past;
+		$time_data = array
+		(
+			'second' => $delay % 60,
+			'minute' => floor($delay /= 60) % 60,
+			'hour'   => floor($delay /= 60) % 24,
+			'day'    => floor($delay /= 24) % 365,
+			'year'   => floor($delay /= 365)
+		);
+		$time_result = array
+		(
+			'second' => '秒',
+			'minute' => '分钟',
+			'hour'   => '小时',
+			'day'    => '天',
+			'year'   => '年'
+		);
+		foreach ($time_data as $key => $value)
+		{
+			if ($value > 0)
+			{
+				
+			}
+		}
+	}
+	
 	public function get_preview_topic()
 	{
 		$this->load->model('topic_model');
@@ -59,7 +89,7 @@ class Ajax extends CI_Controller
 			'order'       => $this->input->get('order'),
 			'key'         => $this->input->get('key')
 		));
-		
+
 		if (count($topic_arr) == 0)
 		{
 			return;
@@ -68,6 +98,7 @@ class Ajax extends CI_Controller
 		$index = 0;
 		foreach ($topic_arr as $topic)
 		{
+
 			$topic_str[$index++] = 
 				 'user_name,'       . $this->user_model->get_user_by_id($topic->user_id)->username .
 				',user_reply_name,' . $this->user_model->get_user_by_id($topic->last_reply_id)->username .
@@ -76,7 +107,7 @@ class Ajax extends CI_Controller
 				',topic_name,'      . $topic->name .
 				',topic_id,'        . $topic->id .
 				',reply_num,'       . $topic->reply_num .
-				',time_ago,'        . '1s ago'
+				',time_ago,'        . $this->get_time_delay($topic->UPDATE_TIMESTAMP);
 			;
 		}
 		echo implode('|', $topic_str);
