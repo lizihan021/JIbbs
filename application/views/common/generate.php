@@ -50,7 +50,7 @@
 			},
   			success: function(data)
 			{
-				//alert(data);
+				alert(data);
 				var result = '<hr class="smallhr">';
 				if (data != '')
 				{
