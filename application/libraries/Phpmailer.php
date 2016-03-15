@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * PHPMailer - PHP email creation and transport class.
  * PHP Version 5

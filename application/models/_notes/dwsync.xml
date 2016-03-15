@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="user_model.php" server="G:/github/JIBBS/" local="131015782862377858" remote="131015782860000000" Dst="0" />
-<file name="site_model.php" server="G:/github/JIBBS/" local="131009741182291227" remote="131009741180000000" Dst="0" />
+<file name="user_model.php" server="G:/github/JIBBS/" local="131023435159375806" remote="131023435150000000" Dst="0" />
+<file name="site_model.php" server="G:/github/JIBBS/" local="131022301683027829" remote="131022301680000000" Dst="0" />
 <file name="mail_model.php" server="G:/github/JIBBS/" local="131022300319319552" remote="131022300310000000" Dst="0" />
+<file name="module_model.php" server="G:/github/JIBBS/" local="131023435159365808" remote="131023435150000000" Dst="0" />
+<file name="topic_model.php" server="G:/github/JIBBS/" local="131023443886208594" remote="131023443880000000" Dst="0" />
 </dwsync>

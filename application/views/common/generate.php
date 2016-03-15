@@ -41,21 +41,25 @@
   			url: '<?php echo base_url("ajax/get_preview_topic")?>',
   			data:
 			{
-				id: list_data['module_id'],
+				module_id: list_data['module_id'],
 				first: 0,
 				step: 10,
-				time: 'change',
-				sorting: 'asc',
+				order_field: 'UPDATE_TIMESTAMP',
+				order: 'asc',
 				key: ''
 			},
   			success: function(data)
 			{
+				//alert(data);
 				var result = '<hr class="smallhr">';
-				var raw_data = data.split('|');
-				for (index in raw_data)
+				if (data != '')
 				{
-					result += generate_preview_topic(generate_array(raw_data[index]));
-					result += '<hr class="smallhr">';
+					var raw_data = data.split('|');
+					for (index in raw_data)
+					{
+						result += generate_preview_topic(generate_array(raw_data[index]));
+						result += '<hr class="smallhr">';
+					}
 				}
 				callback_func(result);
 			},
