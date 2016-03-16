@@ -6,6 +6,7 @@ class User_Obj
 	public $username;
 	public $password;
 	public $email;
+	public $avatar;
 	
 	public function __construct()
 	{
@@ -18,5 +19,6 @@ class User_Obj
 		$this->username = 'error_user';
 		$this->password = '';
 		$this->email = '';
+		$this->avator= 'default.png';
 	}
 }

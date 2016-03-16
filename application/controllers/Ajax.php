@@ -7,7 +7,7 @@ class Ajax extends CI_Controller
 	public function __construct()
     {
         parent::__construct();
-		//$this->load->database();
+		$this->load->database();
     }
 	
 	public function text_validation()
@@ -65,13 +65,39 @@ class Ajax extends CI_Controller
 			'day'    => '天',
 			'year'   => '年'
 		);
+		
+		$result = array();
+		
 		foreach ($time_data as $key => $value)
 		{
 			if ($value > 0)
 			{
-				
+				$result[$key] = $value.$time_result[$key];
+			}
+			else
+			{
+				$result[$key] = '';
 			}
 		}
+		
+		$result_str = '';
+		if ($result['year'] != '')
+		{
+			$result_str = $result['year'].$result['day'];
+		}
+		else if ($result['day'] != '')
+		{
+			$result_str = $result['day'].$result['hour'];
+		}
+		else if ($result['hour'] != '')
+		{
+			$result_str = $result['hour'].$result['minute'];
+		}
+		else
+		{
+			$result_str = $result['minute'].$result['second'];
+		}
+		return $result_str.'前';
 	}
 	
 	public function get_preview_topic()
@@ -102,6 +128,7 @@ class Ajax extends CI_Controller
 			$topic_str[$index++] = 
 				 'user_name,'       . $this->user_model->get_user_by_id($topic->user_id)->username .
 				',user_reply_name,' . $this->user_model->get_user_by_id($topic->last_reply_id)->username .
+				',user_avatar,'     . $this->user_model->get_user_by_id($topic->user_id)->avatar .
 				',module_name,'     . $this->module_model->get_module_by_id($topic->module_id)->name .
 				',module_id,'       . $topic->module_id .
 				',topic_name,'      . $topic->name .

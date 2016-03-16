@@ -60,14 +60,14 @@ class User_Model extends CI_Model
 			return 'error_username';
 		}
 		// 验证密码
-		if ($user['password']==$data['password'])
+		if ($user['password'] == $data['password'])
 		{
             $this->session->set_userdata('username', $user['username']);
 			//$this->session->set_userdata('uid', $user['uid']);
 			//$this->session->set_userdata('group_id', $user['group_id']);
 			//$this->session->set_userdata('notification', $user['notice']);
 			//$this->session->set_userdata('is_active', $user['is_active']);
-			//$this->session->set_userdata('avatar', $user['avatar']);
+			$this->session->set_userdata('avatar', $user['avatar']);
 			//$this->session->set_userdata('node_follow', $user['node_follow']);
 			//$this->session->set_userdata('user_follow', $user['user_follow']);
 			//$this->session->set_userdata('topic_follow', $user['topic_follow']);
