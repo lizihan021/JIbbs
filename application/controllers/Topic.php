@@ -6,6 +6,7 @@ class Topic extends Front_Controller
     {
         parent::__construct();
         $this->load->model('topic_model');
+        $this->load->model('user_model');
     }
 	
 	public function _remap($id, $method)
@@ -19,7 +20,9 @@ class Topic extends Front_Controller
 		else
 		{
 			$topic = $query->row(0, 'Topic_Obj');
+			$user = $this->user_model->get_user_by_id($topic->user_id);
 			$data['site_title'] = $topic->name;
+			$data['user_name']= $user->username;
 			$this->load->view('topic', $data);
 		}
 		

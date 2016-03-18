@@ -70,6 +70,11 @@
   			dataType: 'text'
 		});
 		
+		function generate_reply_list()
+		{
+			
+			
+		}
 	}
 	
 </script>

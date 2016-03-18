@@ -8,6 +8,14 @@ body {
     }
 }
 
+@media (min-width: 768px) {
+  .form-horizontal .control-label-left {
+    padding-top: 7px;
+    margin-bottom: 0;
+    text-align: left;
+  }
+}
+
 .footer{
     padding: 15px 0;
     background-color: #f8f8f8;

@@ -1,13 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Topic_Obj
+class Reply_Obj
 {
 	public $id;
-	public $module_id;
+	public $topic_id;
 	public $user_id;
-	public $name;
-	public $reply_num;
-	public $last_reply_id;
+	public $content;
 	public $CREATE_TIMESTAMP;
 	public $UPDATE_TIMESTAMP;
 	
