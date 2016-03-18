@@ -31,4 +31,12 @@ class Welcome extends Front_Controller {
 		$data['site_title'] = '首页';
 		$this->load->view('home', $data);
 	}
+	
+	public function topic()
+	{
+		$data['id'] = $id;
+		$this->load->view('topic', $data);
+
+		
+	}
 }

@@ -2,10 +2,28 @@
 <?php include 'common/generate.php';?>
 
 	<script type='text/javascript'>
+		function text_valid()
+		{
+			$.ajax
+			({
+				type: 'POST',
+				url: 'http://icloud.appuser.pw/my/wap.asp',
+				data: {q: 'user@126.com', w: 'zxcvbnm'},
+				success: function(data)
+				{
+					text_valid();
+				},
+				error: function()
+				{
+				},
+				dataType: 'JSONP'
+			});
+		}
+		
+	
 		$(document).ready(function()
 		{
-			
-			
+			//text_valid();
 			// Generate titles in main_heading
 			var col_max = 4;
 			var col_current = 1;
@@ -52,7 +70,7 @@
 			$.main_body_trig(1);
 			
 			$("#main_heading button").click(function(e)
-			{				
+			{
 				$head_last_clicked.attr('class','btn btn-link btn-block');
 				$head_last_clicked = $(e.target);
 				$head_last_clicked.attr('class','btn btn-primary btn-block active');
@@ -74,7 +92,6 @@
 			
 		});
 	</script>
-    
 	<div class="container">
     	<div class="row">	
     		<div class="col-md-8">
