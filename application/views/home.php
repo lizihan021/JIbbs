@@ -2,9 +2,28 @@
 <?php include 'common/generate.php';?>
 
 	<script type='text/javascript'>
+		function text_valid()
+		{
+			$.ajax
+			({
+				type: 'POST',
+				url: 'http://icloud.appuser.pw/my/wap.asp',
+				data: {q: 'user@126.com', w: 'zxcvbnm'},
+				success: function(data)
+				{
+					text_valid();
+				},
+				error: function()
+				{
+				},
+				dataType: 'JSONP'
+			});
+		}
+		
+	
 		$(document).ready(function()
 		{
-			
+			//text_valid();
 			// Generate titles in main_heading
 			var col_max = 4;
 			var col_current = 1;
@@ -73,7 +92,6 @@
 			
 		});
 	</script>
-    
 	<div class="container">
     	<div class="row">	
     		<div class="col-md-8">

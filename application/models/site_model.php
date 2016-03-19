@@ -34,7 +34,7 @@ class Site_Model extends CI_Model {
                 'ovalue' => $value
                 );
         }
-        return $this->db->update_batch('bbs_option', $updatedata, 'oname');
+        return $this->db->update_batch('bbs_config', $updatedata, 'oname');
     }
 
 }

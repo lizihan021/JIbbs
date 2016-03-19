@@ -16,8 +16,5 @@ class Topic_Obj
 		 
 	}
 	
-	public function tostring()
-	{
-		
-	}
+
 }
