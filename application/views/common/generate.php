@@ -87,7 +87,7 @@
 							reply_data['content'] +
 						'</div>' +
 					'</div>' +
-					'<div class="reply-foot">' +
+					'<div class="reply-foot text-right text-muted">' +
 						'<span>' + reply_data['floor_name'] + '</span>&nbsp;•&nbsp;' +
 						'<span>' + reply_data['create_time'] + '</span>' +
 					'</div>' +
