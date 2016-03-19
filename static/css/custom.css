@@ -122,4 +122,6 @@ blockquote p {
     border-left:1px solid #ddd;
 }
 
-.
+.reply-foot{
+	text-align: right;
+}

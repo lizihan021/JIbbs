@@ -37,4 +37,16 @@ class Topic_Model extends CI_Model
         }
         return $topic_arr;
 	}
+	
+	public function get_topic_by_id($id)
+	{
+		$query = $this->db->select('*')->from('bbs_topic')->where('id', $id)->get();
+		if ($query->num_rows() == 1)
+		{
+			return $query->row(0, 'Topic_Obj');
+		}
+		$topic = new Topic_Obj();
+		$topic->set_error();
+		return $topic;
+	}
 }

@@ -46,6 +46,7 @@ class Ajax extends CI_Controller
 	
 	public function get_time_delay($time_str)
 	{
+		date_default_timezone_set('prc');
 		$now = time();
 		$past = strtotime($time_str);
 		$delay = $now - $past;
@@ -105,7 +106,6 @@ class Ajax extends CI_Controller
 		$this->load->model('topic_model');
 		$this->load->model('user_model');
 		$this->load->model('module_model');
-		//$id = $this->input->get('id');
 		$topic_arr = $this->topic_model->get_topic_arr(array
 		(
 			'module_id'   => $this->input->get('module_id'),
@@ -124,7 +124,6 @@ class Ajax extends CI_Controller
 		$index = 0;
 		foreach ($topic_arr as $topic)
 		{
-
 			$topic_str[$index++] = 
 				 'user_name,'       . $this->user_model->get_user_by_id($topic->user_id)->username .
 				',user_reply_name,' . $this->user_model->get_user_by_id($topic->last_reply_id)->username .
@@ -135,12 +134,42 @@ class Ajax extends CI_Controller
 				',topic_id,'        . $topic->id .
 				',reply_num,'       . $topic->reply_num .
 				',time_ago,'        . $this->get_time_delay($topic->UPDATE_TIMESTAMP);
-			;
 		}
-		echo implode('|', $topic_str);
-		//print_r(serialize($data));
-		//echo 'module_name,'.$id.'|module_name,'.$id.'|module_name,'.$id.'|module_name,'.$id.'';
-		
+		echo implode('|', $topic_str);		
 	}
 	
+	public function get_topic_reply()
+	{
+		$this->load->model('topic_model');
+		$this->load->model('user_model');
+		$this->load->model('reply_model');
+		$reply_arr = $this->reply_model->get_reply_arr(array
+		(
+			'topic_id'    => $this->input->get('topic_id'),
+			'first'       => $this->input->get('first'),
+			'step'        => $this->input->get('step'),
+			'order_field' => $this->input->get('order_field'),
+			'order'       => $this->input->get('order'),
+			'key'         => $this->input->get('key')
+		));
+		
+		if (count($reply_arr) == 0)
+		{
+			return;
+		}
+		
+		$index = 0;
+		foreach ($reply_arr as $reply)
+		{
+			$reply_str[$index++] = 
+				 'user_name,'       . $this->user_model->get_user_by_id($reply->user_id)->username .
+				',user_avatar,'     . $this->user_model->get_user_by_id($reply->user_id)->avatar .
+				',content,'         . $reply->content .
+				',time_ago,'        . $this->get_time_delay($reply->UPDATE_TIMESTAMP) .
+				',create_time,'     . $reply->CREATE_TIMESTAMP .
+				',update_time,'     . $reply->UPDATE_TIMESTAMP .
+				',floor_name,'      . $reply->floor_id . '楼';
+		}
+		echo implode('|', $reply_str);		
+	}
 }

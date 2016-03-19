@@ -9,20 +9,29 @@ class Topic extends Front_Controller
         $this->load->model('user_model');
     }
 	
-	public function _remap($id, $method)
+	public function _remap($id, $num)
 	{
-		$data['id'] = $id;
-		$query = $this->db->get_where('bbs_topic', 'id='.$id);
-		if ($query->num_rows() != 1)
+		$data['topic_id'] = $id;
+		$topic = $this->topic_model->get_topic_by_id($id);
+		if ($topic->id == 0)
 		{
 			
 		}
 		else
 		{
-			$topic = $query->row(0, 'Topic_Obj');
 			$user = $this->user_model->get_user_by_id($topic->user_id);
 			$data['site_title'] = $topic->name;
-			$data['user_name']= $user->username;
+			$data['user_name'] = $user->username;
+			$data['user_avatar'] = $user->avatar; 
+			$data['reply_num'] = $topic->reply_num;
+			if ($num < 1 || $num > $topic->reply_num)
+			{
+				$data['reply_now'] = $num;
+			}
+			else
+			{
+				$data['reply_now'] = 1;
+			}
 			$this->load->view('topic', $data);
 		}
 		

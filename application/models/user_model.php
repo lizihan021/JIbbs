@@ -96,10 +96,9 @@ class User_Model extends CI_Model
 		{
 			return $query->row(0, 'User_Obj');
 		}
-		$user = new User_Obj('error');
+		$user = new User_Obj();
 		$user->set_error();
 		return $user;
-		
 	}
 	
 }    

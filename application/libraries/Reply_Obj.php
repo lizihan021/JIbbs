@@ -5,6 +5,7 @@ class Reply_Obj
 	public $id;
 	public $topic_id;
 	public $user_id;
+	public $floor_id;
 	public $content;
 	public $CREATE_TIMESTAMP;
 	public $UPDATE_TIMESTAMP;
@@ -14,5 +15,12 @@ class Reply_Obj
 		 
 	}
 	
-
+	public function set_error()
+	{
+		$this->id = 0;
+		$this->topic_id = 0;
+		$this->user_id = 0;
+		$this->floor_id = 0;
+		$this->content = 'error_topic';
+	}
 }
