@@ -1,21 +1,49 @@
-<?php include 'common/header_common.php';?>
-<?php include 'common/generate.php';?>
-<?php include 'common/header_kindeditor.php';?>
+<?php 
+	include 'common/header_common.php';
+	include 'common/generate.php';
+	include 'common/header_kindeditor.php';
+	include 'common/header_syntaxhighlighter.php';	
+?>
 
-	<script src="../../static/syntaxhighlighter/scripts/XRegExp.js"></script>
-    <script src="../../static/syntaxhighlighter/scripts/shCore.js"></script>
-    <script src="../../static/syntaxhighlighter/scripts/shBrushCpp.js"></script>
-    <script src="../../static/syntaxhighlighter/scripts/shBrushPlain.js"></script>
-    <link href="../../static/syntaxhighlighter/styles/shThemeDefault.css" rel="stylesheet">
-    <link href="../../static/syntaxhighlighter/styles/shCoreDefault.css" rel="stylesheet">
-
-	<script type='text/javascript'>
 	
-		SyntaxHighlighter.config.clipboardSwf = '../../static/syntaxhighlighter/scripts/clipboard.swf';
-		SyntaxHighlighter.all();
+	<script type='text/javascript'>
 		
 		$(document).ready(function()
 		{
+			var editor;
+			KindEditor.ready(function(K) {
+				editor = K.create('textarea[name="content"]', {
+					cssPath : ['../../../static/kindeditor/plugins/code/prettify.css'],
+					allowFileManager : true,
+					autoHeightMode : true,
+					resizeType: 0,
+					afterCreate : function() {
+						this.loadPlugin('autoheight');
+					},
+					afterChange : function() {
+						var count = this.count('text');
+						var max_count = 10000;
+						if (count <= max_count)
+						{
+							$("#word_count").attr('class', '');
+						}
+						else
+						{
+							$("#word_count").attr('class', 'text-danger');
+						}
+						var result = count + '/' + max_count + '字节';
+						$("#word_count").html(result);
+					}
+				});
+				
+				
+				K('input[name=submit]').click(function(e) {
+					var result = editor.html();
+					alert(result.replace(',', '&cedil;'));
+				});
+				
+			});
+			
 			$.extend(
 			{
 				reply_list_change: function(data)
@@ -32,40 +60,7 @@
 			generate_reply_list(arr, $.reply_list_change);
 			
 		});
-		
-		var editor;
-		KindEditor.ready(function(K) {
-			editor = K.create('textarea[name="content"]', {
-				cssPath : ['../../../static/kindeditor/plugins/code/prettify.css'],
-				allowFileManager : true,
-				autoHeightMode : true,
-				resizeType: 0,
-				afterCreate : function() {
-					this.loadPlugin('autoheight');
-				},
-				afterChange : function() {
-					var count = this.count('text');
-					var max_count = 10000;
-					if (count <= max_count)
-					{
-						$("#word_count").attr('class', '');
-					}
-					else
-					{
-						$("#word_count").attr('class', 'text-danger');
-					}
-					var result = count + '/' + max_count + '字节';
-					$("#word_count").html(result);
-				}
-			});
-			
-			
-			K('input[name=submit]').click(function(e) {
-				alert(editor.html());
-			});
-			
-		});
-		
+
 	</script>
     
 	    
@@ -87,13 +82,11 @@
             	<h4 id="word_count"><h4>
             </div>
         </div>
-        <pre class="prettyprint brush: cpp;">#include &lt;iostream&gt;
-using namespace std;
-int main()
-{
-&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;"Hello world!";
-&nbsp;&nbsp;&nbsp;&nbsp;return 0;
-}</pre>
+        
+        
+        
+        
+        
     </div><!-- /.container -->
 
 <?php include 'common/footer_common.php';?>
