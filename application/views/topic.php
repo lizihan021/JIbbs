@@ -36,12 +36,6 @@
 					}
 				});
 				
-				
-				K('input[name=submit]').click(function(e) {
-					var result = editor.html();
-					alert(result.replace(',', '&cedil;'));
-				});
-				
 			});
 			
 			$.extend(
@@ -53,11 +47,19 @@
 				},
 				
 			});
+			
 			var arr=[];
 			arr['topic_id']   = <?php echo $topic_id;?>;
 			arr['reply_page'] = 0;
 			arr['topic_name'] = '<?php echo $site_title;?>';
 			generate_reply_list(arr, $.reply_list_change);
+			
+			$("#reply_button").click(function(e)
+			{
+				var result = editor.html();
+				alert(result.replace(',', '&cedil;'));
+				
+			});
 			
 		});
 
@@ -75,7 +77,7 @@
         <br>
 		<div class="row">
         	<div class="col-md-3">
-            	<input type="button" class="btn btn-default" name="submit" value="回复" />
+                <button id="reply_button" class="btn btn-default">回复</button>
             </div>
 
             <div class="col-md-9 text-right">
