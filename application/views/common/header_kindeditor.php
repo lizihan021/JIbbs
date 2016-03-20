@@ -1,4 +1,4 @@
-    <link href="<?php echo base_url('static/editor/themes/default/default.css');?>" rel="stylesheet">
-    <script src="../../../static/editor/kindeditor-min.js"></script>
-    <script src="../../../static/editor/lang/zh_CN.js"></script>
+    <link href="../../../static/kindeditor/themes/default/default.css" rel="stylesheet">
+    <script src="../../../static/kindeditor/kindeditor.js"></script>
+    <script src="../../../static/kindeditor/lang/zh_CN.js"></script>
     
