@@ -27,7 +27,7 @@ class User_Model extends CI_Model
     {
     	$this->db->insert('bbs_user', $data);
 		// 更新网站统计信息 注册用户
-        $this->db->set('ovalue', 'ovalue+1', FALSE)->where('oname', 'site_user_number')->update('bbs_option');
+        $this->db->set('ovalue', 'ovalue+1', FALSE)->where('oname', 'site_user_number')->update('bbs_config');
     }
     
 	public function login($data)
@@ -96,10 +96,9 @@ class User_Model extends CI_Model
 		{
 			return $query->row(0, 'User_Obj');
 		}
-		$user = new User_Obj('error');
+		$user = new User_Obj();
 		$user->set_error();
 		return $user;
-		
 	}
 	
 }    

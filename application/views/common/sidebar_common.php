@@ -8,7 +8,7 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <a href="<?php echo base_url('member/'.$this->session->userdata('username'));?>">
-                                    <img class="img-rounded img-responsive pull-left" src="<?php echo base_url('avatar/'.$this->session->userdata('avatar'));?>" alt="avatar">
+                                    <img class="img-rounded img-responsive pull-left" src="<?php echo base_url('avatar/'.$this->session->userdata('username').'-'.$this->session->userdata('avatar'));?>" alt="avatar">
                                 </a>
                                 <p class="username"><a href="<?php echo base_url('member/'.$this->session->userdata('username'));?>"><?php echo $this->session->userdata('username');?></a></p>
                             </div>
