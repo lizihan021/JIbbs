@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="<?php echo base_url('static/css/bootstrap.css');?>" rel="stylesheet">
     <link rel="shortcut icon" href="<?php echo base_url('static/img/favicon.png');?>">
+	<link href="<?php echo base_url('static/css/custom.css');?>" rel="stylesheet">
     <script src="../../../static/js/jquery.min.js"></script>
                                                                                                                                                                       
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->                                                                            
@@ -34,9 +35,9 @@
             <!-- Collect the nav links, forms, and other content for toggling -->                                                                                     
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">                                                                                  
                 <ul class="nav navbar-nav">                                                                                                                           
-                    <li<?php if (uri_string()=='') {echo ' class="active"';}?>><a href="<?php echo base_url();?>">首页</a></li>                                       
-                    <li<?php if (uri_string()=='node') {echo ' class="active"';}?>><a href="<?php echo base_url('node');?>">节点</a></li>                             
-                    <li<?php if (uri_string()=='topic/add') {echo ' class="active"';}?>><a href="<?php echo base_url('topic/add');?>">发表</a></li>                   
+                    <li<?php if (uri_string()=='') {echo ' class="active"';}?>><a href="<?php echo base_url();?>"><strong>首页</strong></a></li>                                       
+                    <li<?php if (uri_string()=='node') {echo ' class="active"';}?>><a href="<?php echo base_url('node');?>"><strong>节点</strong></a></li>                             
+                    <li<?php if (uri_string()=='topic/add') {echo ' class="active"';}?>><a href="<?php echo base_url('topic/add');?>"><strong>发表</strong></a></li>                   
                 </ul>                                                                                                                                                 
                 <form class="navbar-form navbar-left" role="search" action="http://www.google.com/search" method="get" target="_blank">                               
                     <div class="form-group">                                                                                                                          
