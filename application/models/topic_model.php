@@ -49,4 +49,21 @@ class Topic_Model extends CI_Model
 		$topic->set_error();
 		return $topic;
 	}
+	
+	public function create_reply($data)
+	{
+		$this->load->model('user_model');
+		$topic = get_topic_by_id($data['topic_id']);
+		$user = get_user_by_id($data['user_id']);
+		if ($topic->id != $data['topic_id'])
+		{
+			return 'topic error';
+		}
+		if ($user->id != $data['user_id'])
+		{
+			return 'user error';
+		}
+		$content = base64_encode($data['content']);
+
+	}
 }

@@ -37,4 +37,9 @@ class Reply_Model extends CI_Model
         }
         return $reply_arr;
 	}
+	
+	public function create($data)
+	{
+    	$this->db->insert('bbs_reply', $data);
+	}
 }

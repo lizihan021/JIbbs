@@ -63,7 +63,7 @@ class User_Model extends CI_Model
 		if ($user['password'] == $data['password'])
 		{
             $this->session->set_userdata('username', $user['username']);
-			//$this->session->set_userdata('uid', $user['uid']);
+			$this->session->set_userdata('uid', $user['uid']);
 			//$this->session->set_userdata('group_id', $user['group_id']);
 			//$this->session->set_userdata('notification', $user['notice']);
 			//$this->session->set_userdata('is_active', $user['is_active']);
