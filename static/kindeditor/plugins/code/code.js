@@ -61,7 +61,7 @@ KindEditor.plugin('code', function(K) {
 						var type = K('.ke-code-type', dialog.div).val(),
 							code = textarea.val(),
 							cls = type === '' ? '' : type,
-							html = '<p>' + cls_name[cls] + ' Source Code</p><pre class="prettyprint brush: ' + cls + ';">\n' + K.escape(code) + '</pre> ';
+							html = '<p>            ' + cls_name[cls] + ' Source Code</p><pre class="prettyprint brush: ' + cls + ';">\n' + K.escape(code) + '</pre> ';
 						if (K.trim(code) === '') {
 							alert(lang.pleaseInput);
 							textarea[0].focus();

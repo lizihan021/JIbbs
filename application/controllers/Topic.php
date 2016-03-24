@@ -11,6 +11,7 @@ class Topic extends Front_Controller
 	
 	public function _remap($id, $num)
 	{
+		
 		$data['topic_id'] = $id;
 		$topic = $this->topic_model->get_topic_by_id($id);
 		if ($topic->id == 0)
@@ -24,13 +25,17 @@ class Topic extends Front_Controller
 			$data['user_name'] = $user->username;
 			$data['user_avatar'] = $user->avatar; 
 			$data['reply_num'] = $topic->reply_num;
-			if ($num < 1 || $num > $topic->reply_num)
+			if ($num == NULL)
 			{
-				$data['reply_now'] = $num;
+				$data['reply_now'] = 1;
+			}
+			else if ($num[0] < 1 || $num[0] > $topic->reply_num)
+			{
+				$data['reply_now'] = 1;
 			}
 			else
 			{
-				$data['reply_now'] = 1;
+				$data['reply_now'] = $num[0];
 			}
 			$this->load->view('topic', $data);
 		}

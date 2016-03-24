@@ -1,3 +1,5 @@
+<script src="../../../static/js/base64.js"></script>
+
 <script type="text/javascript">
 	function generate_array(data_str)
 	{
@@ -16,7 +18,7 @@
 		var result = 
 			'<li class="media">' +
 				'<div class="pull-right">' +
-					'<span class="badge topic-comment"><a href="<?php echo base_url('topic')?>/' + topic_data['topic_id'] + '#Reply' + topic_data['reply_num'] + '">' + topic_data['reply_num'] + '</a></span>' +
+					'<span class="badge topic-comment"><a href="<?php echo base_url('topic')?>/' + topic_data['topic_id'] + '/' + topic_data['reply_num'] + '">' + topic_data['reply_num'] + '</a></span>' +
 				'</div>' +
 				'<a class="media-left" href="<?php echo base_url('member');?>/' + topic_data['user_name'] + '"><img class="img-rounded" src="<?php echo base_url('avatar');?>/' + topic_data['user_name'] + '-' + topic_data['user_avatar'] + '" alt="' + topic_data['user_name'] + '_avatar"></a>' +
 				'<div class="media-body">' +
@@ -45,7 +47,7 @@
 				first: 0,
 				step: 10,
 				order_field: 'UPDATE_TIMESTAMP',
-				order: 'asc',
+				order: 'desc',
 				key: ''
 			},
   			success: function(data)
@@ -74,8 +76,10 @@
 	
 	function generate_reply(reply_data)
 	{
+		var content = base64_decode(reply_data['content']);
+		
 		var result = 
-				'<div class="panel-body">' +
+				'<div class="panel-body" id="reply_' + reply_data['floor_id'] + '">' +
 					'<div class="row show-grid">' +
 						'<div class="col-md-3">' +
 							'<center>' +
@@ -84,11 +88,11 @@
 							'</center>' +
 						'</div>' +
 						'<div class="col-md-9">' +
-							reply_data['content'] +
+							content +
 						'</div>' +
 					'</div>' +
 					'<div class="reply-foot text-right text-muted">' +
-						'<span>' + reply_data['floor_name'] + '</span>&nbsp;•&nbsp;' +
+						'<span>' + reply_data['floor_id'] + '楼</span>&nbsp;•&nbsp;' +
 						'<span>' + reply_data['create_time'] + '</span>' +
 					'</div>' +
 				'</div>'
@@ -105,7 +109,7 @@
   			data:
 			{
 				topic_id: list_data['topic_id'],
-				first: list_data['reply_page']*20,
+				first: list_data['reply_page'] * 20,
 				step: 20,
 				order_field: 'floor_id',
 				order: 'asc',

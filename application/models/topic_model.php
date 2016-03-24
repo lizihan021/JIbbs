@@ -17,7 +17,7 @@ class Topic_Model extends CI_Model
 
 		$this->db->select('*')->from('bbs_topic')
 			->order_by($data['order_field'], $data['order'])
-			->limit($data['first'], $data['step'])
+			->limit($data['step'], $data['first'])
 			->like('name', $data['key']);
 			
 		if ($data['module_id'] > 0)

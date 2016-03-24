@@ -38,11 +38,18 @@
 				
 			});
 			
+			var floor_id = <?php echo $reply_now;?>;
+			//alert(floor_id);
+			
 			$.extend(
 			{
 				reply_list_change: function(data)
 				{
 					$("#reply_list").html(data);
+					if (floor_id % 20 != 1 && floor_id <= <?php echo $reply_num;?>)
+					{
+						setTimeout(function(){$("body,html").animate({scrollTop:$("#reply_"+floor_id).offset().top-15},0);},0.1);
+					}
 					SyntaxHighlighter.highlight();
 				},
 				
@@ -50,7 +57,7 @@
 			
 			var arr=[];
 			arr['topic_id']   = <?php echo $topic_id;?>;
-			arr['reply_page'] = 0;
+			arr['reply_page'] = Math.floor((floor_id - 1) / 20);
 			arr['topic_name'] = '<?php echo $site_title;?>';
 			generate_reply_list(arr, $.reply_list_change);
 			
@@ -58,7 +65,7 @@
 			{
 				var result = editor.html();
 				result = result.replace(',', '&cedil;');
-				alert(result);
+				//alert(result);
 				$.ajax
 				({
 					type: 'POST',
@@ -71,7 +78,11 @@
 					},
 					success: function(data)
 					{
-						
+						//alert(data);
+						floor_id = data;
+						arr['reply_page'] = Math.floor((floor_id - 1) / 20);
+						generate_reply_list(arr, $.reply_list_change);
+						editor.html('');
 					},
 					error: function()
 					{

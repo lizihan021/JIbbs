@@ -12,12 +12,12 @@ class Reply_Model extends CI_Model
 	public function get_reply_arr($data)
 	{
 		$data['first'] < 0 ? $data['first'] = 0 : 1;
-		$data['step'] < 1 ? $data['step'] = 10 : 1;
+		$data['step'] < 1 ? $data['step'] = 20 : 1;
 		$data['order'] != 'desc' ? $data['order'] = 'asc' : 1;
 
 		$this->db->select('*')->from('bbs_reply')
 			->order_by($data['order_field'], $data['order'])
-			->limit($data['first'], $data['step'])
+			->limit($data['step'], $data['first'])
 			->like('content', $data['key']);
 			
 		if ($data['topic_id'] > 0)
@@ -40,6 +40,7 @@ class Reply_Model extends CI_Model
 	
 	public function create($data)
 	{
+		$this->db->update('bbs_topic', array('reply_num'=>$data['floor_id'],'last_reply_id'=>$data['user_id']), 'id='.$data['topic_id']);
     	$this->db->insert('bbs_reply', $data);
 	}
 }
