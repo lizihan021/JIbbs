@@ -1,4 +1,5 @@
 <script src="../../../static/js/base64.js"></script>
+<script src="../../../static/js/base64_.js"></script>
 
 <script type="text/javascript">
 	function generate_array(data_str)

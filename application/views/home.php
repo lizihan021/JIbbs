@@ -1,5 +1,8 @@
-<?php include 'common/header_common.php';?>
-<?php include 'common/generate.php';?>
+<?php 
+	include 'common/header_common.php';
+    include 'common/generate.php';
+	include 'common/header_kindeditor.php';
+?>
 
 	<script type='text/javascript'>
 		function text_valid()
@@ -89,7 +92,34 @@
 			//alert(arr['user_name']);
 	
 			
-			
+			// Generate the editor
+			var editor;
+			KindEditor.ready(function(K) {
+				editor = K.create('textarea[name="content"]', {
+					cssPath : ['../../../static/kindeditor/plugins/code/prettify.css'],
+					allowFileManager : true,
+					autoHeightMode : true,
+					resizeType: 0,
+					afterCreate : function() {
+						this.loadPlugin('autoheight');
+					},
+					afterChange : function() {
+						var count = this.count('text');
+						var max_count = 10000;
+						if (count <= max_count)
+						{
+							$("#word_count").attr('class', '');
+						}
+						else
+						{
+							$("#word_count").attr('class', 'text-danger');
+						}
+						var result = '<h4>' + count + '/' + max_count + '字节</h4>';
+						$("#word_count").html(result);
+					}
+				});
+				
+			});
 		});
 	</script>
 	<div class="container">
@@ -115,7 +145,11 @@
                     </div>
                 </div>
                 
-                
+                <form>
+                    <textarea name="content" style="width:100%;height:250px;visibility:hidden;"></textarea>
+                </form>
+            	
+                <br>
             </div><!-- /.col-md-8 -->
 
 <?php include 'common/sidebar_common.php';?>
