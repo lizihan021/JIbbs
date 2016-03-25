@@ -21,7 +21,7 @@
 				'<div class="pull-right">' +
 					'<span class="badge topic-comment"><a href="<?php echo base_url('topic')?>/' + topic_data['topic_id'] + '/' + topic_data['reply_num'] + '">' + topic_data['reply_num'] + '</a></span>' +
 				'</div>' +
-				'<a class="media-left" href="<?php echo base_url('member');?>/' + topic_data['user_name'] + '"><img class="img-rounded" src="<?php echo base_url('avatar');?>/' + topic_data['user_name'] + '-' + topic_data['user_avatar'] + '" alt="' + topic_data['user_name'] + '_avatar"></a>' +
+				'<a class="media-left" href="<?php echo base_url('member');?>/' + topic_data['user_name'] + '"><img class="img-rounded" src="' + get_avatar_path(topic_data['user_name'], topic_data['user_avatar'], '') + '" alt="' + topic_data['user_name'] + '_avatar"></a>' +
 				'<div class="media-body">' +
 					'<h4 class="media-heading topic-list-heading"><a href="<?php echo base_url('topic');?>/' + topic_data['topic_id'] + '">' + topic_data['topic_name'] + '</a></h4>' +
 					'<p class="small text-muted">' +
@@ -84,7 +84,7 @@
 					'<div class="row show-grid">' +
 						'<div class="col-md-3">' +
 							'<center>' +
-								'<br><img class="img-rounded" src="<?php echo base_url('avatar');?>/' + reply_data['user_name'] + '-big-' + reply_data['user_avatar'] + '" alt="' + reply_data['user_name'] + '_avatar"><br>' +
+								'<br><img class="img-rounded" src="' + get_avatar_path(reply_data['user_name'], reply_data['user_avatar'], 'big') + '" alt="' + reply_data['user_name'] + '_avatar"><br>' +
 								'<br><a href="<?php echo base_url('member');?>/' + reply_data['user_name'] + '"><h4>' + reply_data['user_name'] + '</h4></a><br>' +
 							'</center>' +
 						'</div>' +

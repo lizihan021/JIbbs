@@ -15,7 +15,34 @@
       <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>                                                                                 
       <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>                                                                                  
     <![endif]-->                                                                                                                                                      
-                                                                                                                                                                      
+    <script type="text/javascript">
+		function get_avatar_path(username, avatar, type)
+		{
+			var path = '<?php echo base_url('avatar');?>/';
+			if (avatar == '')
+			{
+				if (type != '')
+				{
+					path += type + '-';
+				}
+				path += 'default.png';
+			}
+			else
+			{
+				if (username != '')
+				{
+					path += username + '-';
+				}
+				if (type != '')
+				{
+					path += type + '-';
+				}
+				path += avatar;
+			}
+			return path;
+		}
+	</script>
+      
     <title><?php echo $site_title;?> | <?php echo $site_name;?></title>                                                                                               
 </head>                                                                                                                                                               
 <body>                                                                                                                                                                
