@@ -95,11 +95,11 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-9">
-				<img src="./static/img/JIbuilding.jpg">
+				<img src="./static/img/JIbuilding.jpg" height="450">
 			</div>
 			<div class="col-md-3 col-xs-9 center-block">
 				<br><br>
-				<img src="./static/img/JIsign.jpg">
+				<img src="./static/img/JIsign.jpg" height="150">
 			</div>
 		</div>
 		<br>
