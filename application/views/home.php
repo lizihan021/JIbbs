@@ -93,11 +93,21 @@
 		});
 	</script>
 	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+				<img src="./static/img/JIbuilding.jpg">
+			</div>
+			<div class="col-md-3 col-xs-9 center-block">
+				<br><br>
+				<img src="./static/img/JIsign.jpg">
+			</div>
+		</div>
+		<br>
     	<div class="row">	
     		<div class="col-md-8">
             	<div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">精彩聚焦</h3>
+                        <h3 class="panel-title text-center"><strong>精彩聚焦</strong></h3>
                     </div>
                     <div class="panel-body">
                     	
