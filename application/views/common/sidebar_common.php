@@ -1,4 +1,11 @@
-            <div class="col-md-4">
+            <div class="col-md-4 col-lg-3">
+                <div class="center-block">
+                    <br>
+                    <center>
+                    	<img src="../../static/img/JIsign.jpg" height="150">
+                    </center>
+                    <br><br>
+                </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">你好<?php if ($this->session->userdata('username')) { echo '，'.$this->session->userdata('username');}?></h3>

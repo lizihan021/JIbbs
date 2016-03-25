@@ -1,5 +1,5 @@
 <script src="../../../static/js/base64.js"></script>
-<script src="../../../static/js/base64_.js"></script>
+<script src="../../../static/js/base64.js"></script>
 
 <script type="text/javascript">
 	function generate_array(data_str)
@@ -77,7 +77,7 @@
 	
 	function generate_reply(reply_data)
 	{
-		var content = base64_decode(reply_data['content']);
+		var content = Base64.decode(reply_data['content']);
 		
 		var result = 
 				'<div class="panel-body" id="reply_' + reply_data['floor_id'] + '">' +

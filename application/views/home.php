@@ -123,24 +123,21 @@
 		});
 	</script>
 	<div class="container">
-		<div class="row">
-			<div class="col-md-9">
-				<img src="./static/img/JIbuilding.jpg" height="450">
-			</div>
-			<div class="col-md-3 col-xs-9 center-block">
-				<br><br>
-				<img src="./static/img/JIsign.jpg" height="150">
-			</div>
-		</div>
-		<br>
     	<div class="row">	
-    		<div class="col-md-8">
+    		<div class="col-md-8 col-lg-9">
             	<div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title text-center"><strong>精彩聚焦</strong></h3>
                     </div>
-                    <div class="panel-body">
-                    	
+                    <div class="panel-body" style="position:relative">
+                    	<div class="ji-bg-building">
+							<br><br><br><br><br><br><br><br><br><br><br><br>
+                        </div>
+                        <div class="ji-bg-text">
+                        	<br>
+                        	测试
+
+						</div>
                     </div>
                 </div>
             	<div class="panel panel-default">
@@ -155,16 +152,21 @@
                     </div>
                 </div>
                 
-                <form>
-                    <textarea name="content" style="width:100%;height:250px;visibility:hidden;"></textarea>
-                </form>
+                
             	
-                <br>
             </div><!-- /.col-md-8 -->
 
 <?php include 'common/sidebar_common.php';?>
 
         </div><!-- /.row -->
+        <div class="row">
+        	<div class="col-md-12 col-lg-9">
+                <form>
+                    <textarea name="content" style="width:100%;height:250px;visibility:hidden;"></textarea>
+                </form>
+                <br>
+            </div>
+    	</div>
     </div><!-- /.container -->
 
 <?php include 'common/footer_common.php';?>
