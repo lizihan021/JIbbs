@@ -16,5 +16,14 @@ class Topic_Obj
 		 
 	}
 	
+	public function set_error()
+	{
+		$this->id = 0;
+		$this->module_id = 0;
+		$this->user_id = 0;
+		$this->name = 'error topic';
+		$this->reply_num = 0;
+		$this->last_reply_id = 0;
+	}
 
 }

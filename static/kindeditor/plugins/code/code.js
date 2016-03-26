@@ -16,7 +16,7 @@ KindEditor.plugin('code', function(K) {
 		var lang = self.lang(name + '.'),
 			html = ['<div style="padding:10px 20px;">',
 				'<div class="ke-dialog-row">',
-				'<select class="ke-code-type">',
+				'<select class="ke-code-type" id="ke-code-type-id">',
 				'<option value="js">JavaScript</option>',
 				'<option value="html">HTML</option>',
 				'<option value="css">CSS</option>',
@@ -30,7 +30,7 @@ KindEditor.plugin('code', function(K) {
 				'<option value="cs">C#</option>',
 				'<option value="xml">XML</option>',
 				'<option value="bsh">Shell</option>',
-				'<option value="">Other</option>',
+				'<option value="plain">Other</option>',
 				'</select>',
 				'</div>',
 				'<textarea class="ke-textarea" style="width:408px;height:260px;"></textarea>',
@@ -43,10 +43,25 @@ KindEditor.plugin('code', function(K) {
 				yesBtn : {
 					name : self.lang('yes'),
 					click : function(e) {
+						var cls_name = [];
+						cls_name['js'] = 'JavaScript';
+						cls_name['html'] = 'HTML';
+						cls_name['css'] = 'CSS';
+						cls_name['php'] = 'PHP';
+						cls_name['pl'] = 'Perl';
+						cls_name['py'] = 'Python';
+						cls_name['rb'] = 'Ruby';
+						cls_name['java'] = 'Java';
+						cls_name['vb'] = 'ASP/VB';
+						cls_name['cpp'] = 'C/C++';
+						cls_name['cs'] = 'C#';
+						cls_name['xml'] = 'XML';
+						cls_name['bsh'] = 'Shell';
+						cls_name['plain'] = 'Other';
 						var type = K('.ke-code-type', dialog.div).val(),
 							code = textarea.val(),
-							cls = type === '' ? '' :  ' lang-' + type,
-							html = '<pre class="prettyprint' + cls + '">\n' + K.escape(code) + '</pre> ';
+							cls = type === '' ? '' : type,
+							html = '<p>            ' + cls_name[cls] + ' Source Code</p><pre class="prettyprint brush: ' + cls + ';">\n' + K.escape(code) + '</pre> ';
 						if (K.trim(code) === '') {
 							alert(lang.pleaseInput);
 							textarea[0].focus();

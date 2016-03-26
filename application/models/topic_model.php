@@ -17,7 +17,7 @@ class Topic_Model extends CI_Model
 
 		$this->db->select('*')->from('bbs_topic')
 			->order_by($data['order_field'], $data['order'])
-			->limit($data['first'], $data['step'])
+			->limit($data['step'], $data['first'])
 			->like('name', $data['key']);
 			
 		if ($data['module_id'] > 0)
@@ -48,5 +48,22 @@ class Topic_Model extends CI_Model
 		$topic = new Topic_Obj();
 		$topic->set_error();
 		return $topic;
+	}
+	
+	public function create_reply($data)
+	{
+		$this->load->model('user_model');
+		$topic = get_topic_by_id($data['topic_id']);
+		$user = get_user_by_id($data['user_id']);
+		if ($topic->id != $data['topic_id'])
+		{
+			return 'topic error';
+		}
+		if ($user->id != $data['user_id'])
+		{
+			return 'user error';
+		}
+		$content = base64_encode($data['content']);
+
 	}
 }

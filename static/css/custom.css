@@ -2,10 +2,18 @@ body {
     background: url(../img/grid.png);
 }
 
+
 @media (min-width: 992px) {
     .container {
         max-width: 970px;
     }
+}
+
+@media (min-width: 1200px) {
+	.container {
+        max-width: 1170px;
+    }
+	
 }
 
 @media (min-width: 768px) {
@@ -124,4 +132,19 @@ blockquote p {
 
 .reply-foot{
 	text-align: right;
+}
+
+.ji-bg-building{
+	position:relative;
+	background: url("../../static/img/JIbuilding.jpg") no-repeat center;
+	opacity:0.2;
+	filter: "alpha(opacity=20)";
+	-ms-filter: "alpha(opacity=20)"; /* 旧版IE */
+	background-size: 100%;
+}
+
+.ji-bg-text{
+	position:absolute;
+	padding-left: 7px;
+	top: 0px;
 }

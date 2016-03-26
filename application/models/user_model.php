@@ -27,7 +27,7 @@ class User_Model extends CI_Model
     {
     	$this->db->insert('bbs_user', $data);
 		// 更新网站统计信息 注册用户
-        $this->db->set('ovalue', 'ovalue+1', FALSE)->where('oname', 'site_user_number')->update('bbs_option');
+        $this->db->set('ovalue', 'ovalue+1', FALSE)->where('oname', 'site_user_number')->update('bbs_config');
     }
     
 	public function login($data)
@@ -63,7 +63,7 @@ class User_Model extends CI_Model
 		if ($user['password'] == $data['password'])
 		{
             $this->session->set_userdata('username', $user['username']);
-			//$this->session->set_userdata('uid', $user['uid']);
+			$this->session->set_userdata('uid', $user['id']);
 			//$this->session->set_userdata('group_id', $user['group_id']);
 			//$this->session->set_userdata('notification', $user['notice']);
 			//$this->session->set_userdata('is_active', $user['is_active']);

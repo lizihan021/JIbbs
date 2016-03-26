@@ -168,8 +168,41 @@ class Ajax extends CI_Controller
 				',time_ago,'        . $this->get_time_delay($reply->UPDATE_TIMESTAMP) .
 				',create_time,'     . $reply->CREATE_TIMESTAMP .
 				',update_time,'     . $reply->UPDATE_TIMESTAMP .
-				',floor_name,'      . $reply->floor_id . '楼';
+				',floor_id,'        . $reply->floor_id;
 		}
 		echo implode('|', $reply_str);		
+	}
+	
+	public function reply_submit()
+	{
+		$this->load->model('topic_model');
+		$this->load->model('reply_model');
+		$topic = $this->topic_model->get_topic_by_id($this->input->post('topic_id'));
+		
+		if ($topic->id == 0)
+		{
+			echo 'topic undefined';
+			return;
+		}
+		
+		$data = array
+		(
+			'topic_id'    => $topic->id,
+			'user_id'     => $this->session->userdata('uid'),
+			'content'     => base64_encode($this->input->post('content'))
+		);
+		
+		if ($this->input->post('reply_id') > 0)
+		{
+			$data['floor_id'] = $this->input->post('reply_id');
+			$this->reply_model->update($data);
+		}
+		else
+		{
+			$data['floor_id'] = $topic->reply_num + 1;
+			$this->reply_model->create($data);
+		}
+		
+		echo $data['floor_id'];
 	}
 }
