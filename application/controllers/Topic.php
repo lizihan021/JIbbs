@@ -29,9 +29,13 @@ class Topic extends Front_Controller
 			{
 				$data['reply_now'] = 1;
 			}
-			else if ($num[0] < 1 || $num[0] > $topic->reply_num)
+			else if ($num[0] < 1)
 			{
 				$data['reply_now'] = 1;
+			}
+			else if ($num[0] > $topic->reply_num)
+			{
+				$data['reply_now'] = $topic->reply_num;
 			}
 			else
 			{

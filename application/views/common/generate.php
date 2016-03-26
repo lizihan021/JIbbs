@@ -1,5 +1,4 @@
 <script src="../../../static/js/base64.js"></script>
-<script src="../../../static/js/base64.js"></script>
 
 <script type="text/javascript">
 	function generate_array(data_str)
@@ -80,23 +79,23 @@
 		var content = Base64.decode(reply_data['content']);
 		
 		var result = 
-				'<div class="panel-body" id="reply_' + reply_data['floor_id'] + '">' +
-					'<div class="row show-grid">' +
-						'<div class="col-md-3">' +
-							'<center>' +
-								'<br><img class="img-rounded" src="' + get_avatar_path(reply_data['user_name'], reply_data['user_avatar'], 'big') + '" alt="' + reply_data['user_name'] + '_avatar"><br>' +
-								'<br><a href="<?php echo base_url('member');?>/' + reply_data['user_name'] + '"><h4>' + reply_data['user_name'] + '</h4></a><br>' +
-							'</center>' +
-						'</div>' +
-						'<div class="col-md-9">' +
-							content +
-						'</div>' +
+			'<div class="panel-body" id="reply_' + reply_data['floor_id'] + '">' +
+				'<div class="row show-grid">' +
+					'<div class="col-md-3">' +
+						'<center>' +
+							'<br><img class="img-rounded" src="' + get_avatar_path(reply_data['user_name'], reply_data['user_avatar'], 'big') + '" alt="' + reply_data['user_name'] + '_avatar"><br>' +
+							'<br><a href="<?php echo base_url('member');?>/' + reply_data['user_name'] + '"><h4>' + reply_data['user_name'] + '</h4></a><br>' +
+						'</center>' +
 					'</div>' +
-					'<div class="reply-foot text-right text-muted">' +
-						'<span>' + reply_data['floor_id'] + '楼</span>&nbsp;•&nbsp;' +
-						'<span>' + reply_data['create_time'] + '</span>' +
+					'<div class="col-md-9">' +
+						content +
 					'</div>' +
-				'</div>'
+				'</div>' +
+				'<div class="reply-foot text-right text-muted">' +
+					'<span>' + reply_data['floor_id'] + '楼</span>&nbsp;•&nbsp;' +
+					'<span>' + reply_data['create_time'] + '</span>' +
+				'</div>' +
+			'</div>'
 		;
 		return result;
 	}
@@ -110,7 +109,7 @@
   			data:
 			{
 				topic_id: list_data['topic_id'],
-				first: list_data['reply_page'] * 20,
+				first: (list_data['reply_page'] - 1) * 20,
 				step: 20,
 				order_field: 'floor_id',
 				order: 'asc',
@@ -122,28 +121,91 @@
 				var result = '';
 				if (data != '')
 				{
+					var pagination = generate_pagination(list_data['reply_page'], Math.ceil(list_data['reply_num'] / 20));
+					result += pagination;
 					var raw_data = data.split('|');
+					var reply_num = 0;
 					for (index in raw_data)
 					{
-						if (result == '')
+						if (index == 0)
 						{
-							result += '<div class="panel panel-default">';
-							result += '<div class="panel-heading">' + list_data['topic_name'] +'</div>';
+							reply_num = raw_data[0];
 						}
 						else
 						{
-							result += '<div class="panel panel-default">';
+							if (index == 1)
+							{
+								result += '<div class="panel panel-default">';
+								result += '<div class="panel-heading">' + list_data['topic_name'] +'</div>';
+							}
+							else
+							{
+								result += '<div class="panel panel-default">';
+							}
+							result += generate_reply(generate_array(raw_data[index])) + '</div>';
 						}
-						result += generate_reply(generate_array(raw_data[index])) + '</div>';
 					}
+					result += pagination;
 				}
-				callback_func(result);
+				
+				callback_func(result, reply_num);
 			},
 			error: function()
 			{
-				callback_func('');
+				callback_func('', 0);
 			},
   			dataType: 'text'
 		});
+	}
+	
+	function generate_pagination(page_now, page_num)
+	{
+		var result = 
+			'<center>' +
+				'<ul class="pagination">'
+		;
+		if (page_now == 1)
+		{
+			result += '<li class="disabled">';
+		}
+		else
+		{
+			result += '<li>';
+		}
+		result +=
+                        '<a class="ji-pagination" pageid="-1" href="javascipt:void(0);" aria-label="Previous">' +
+                            '<span pageid="-1" aria-hidden="true">&laquo;</span>' +
+                        '</a>' +
+                    '</li>'
+		;
+		for (var i = 1;i <= page_num;i++)
+		{
+			if (page_now == i)
+			{
+				result += '<li class="active">';
+			}
+			else
+			{
+				result += '<li>';
+			}
+			result += '<a class="ji-pagination" pageid="' + i + '" href="javascipt:void(0);">' + i + '</a></li>';
+		}
+		if (page_now == page_num)
+		{
+			result += '<li class="disabled">';
+		}
+		else
+		{
+			result += '<li>';
+		}
+		result +=
+                        '<a class="ji-pagination" pageid="-2" href="javascipt:void(0);" aria-label="Next">' +
+                            '<span pageid="-1" aria-hidden="true">&raquo;</span>' +
+                        '</a>' +
+                    '</li>' +
+				'</ul>' +
+			'</center>'
+		;
+		return result;
 	}
 </script>
