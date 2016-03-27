@@ -102,6 +102,7 @@
 
 	function generate_reply_list(list_data, callback_func)
 	{
+		var reply_per_page = <?php echo $site_topic_reply_per_page;?>;
 		$.ajax
 		({
 			type: 'GET',
@@ -109,8 +110,8 @@
   			data:
 			{
 				topic_id: list_data['topic_id'],
-				first: (list_data['reply_page'] - 1) * 20,
-				step: 20,
+				first: (list_data['reply_page'] - 1) * reply_per_page,
+				step: reply_per_page,
 				order_field: 'floor_id',
 				order: 'asc',
 				key: ''
@@ -121,7 +122,7 @@
 				var result = '';
 				if (data != '')
 				{
-					var pagination = generate_pagination(list_data['reply_page'], Math.ceil(list_data['reply_num'] / 20));
+					var pagination = generate_pagination(Math.floor(list_data['reply_page']), Math.ceil(list_data['reply_num'] / reply_per_page));
 					result += pagination;
 					var raw_data = data.split('|');
 					var reply_num = 0;
@@ -160,10 +161,54 @@
 	
 	function generate_pagination(page_now, page_num)
 	{
+		var step = <?php echo $site_topic_pagination_step;?>;
+		var start = 1;
+		var end = page_num;
 		var result = 
 			'<center>' +
 				'<ul class="pagination">'
 		;
+		
+		// First
+		if (page_now >= 2 + step)
+		{
+			result += '<li><a class="ji-pagination" pageid="1" href="javascipt:void(0);">1</a></li>';
+		}
+		else
+		{
+			if (page_now == 1)
+			{
+				result += '<li class="disabled">';
+			}
+			else
+			{
+				result += '<li>';
+			}
+			result += 
+                        '<a class="ji-pagination" pageid="1" href="javascipt:void(0);" aria-label="First">' +
+                            '<span class="glyphicon glyphicon-fast-backward" pageid="1" aria-hidden="true"></span>' +
+                        '</a>' +
+                    '</li>'
+			;
+		}
+		
+		// Backward
+		if (page_now == 1)
+		{
+			result += '<li class="disabled">';
+		}
+		else
+		{
+			result += '<li>';
+		}
+		result += 
+					'<a class="ji-pagination" pageid="backward" href="javascipt:void(0);" aria-label="Backward">' +
+						'<span class="glyphicon glyphicon-backward" pageid="backward" aria-hidden="true"></span>' +
+					'</a>' +
+				'</li>'
+		;
+		
+		// Previous
 		if (page_now == 1)
 		{
 			result += '<li class="disabled">';
@@ -173,12 +218,27 @@
 			result += '<li>';
 		}
 		result +=
-                        '<a class="ji-pagination" pageid="-1" href="javascipt:void(0);" aria-label="Previous">' +
-                            '<span pageid="-1" aria-hidden="true">&laquo;</span>' +
+                        '<a class="ji-pagination" pageid="previous" href="javascipt:void(0);" aria-label="Next">' +
+                            '<span class="glyphicon glyphicon-chevron-left" pageid="previous" aria-hidden="true"></span>' +
                         '</a>' +
                     '</li>'
 		;
-		for (var i = 1;i <= page_num;i++)
+		
+		// Main
+		if (page_now < 2 + step)
+		{
+			end = Math.min(step * 2 + 1, page_num);
+		}
+		else if (page_now >= page_num - step)
+		{
+			start = Math.max(1, page_num - step * 2);
+		}
+		else
+		{
+			start = page_now - step;
+			end = page_now + step;
+		}
+		for (var i = start;i <= end;i++)
 		{
 			if (page_now == i)
 			{
@@ -190,6 +250,8 @@
 			}
 			result += '<a class="ji-pagination" pageid="' + i + '" href="javascipt:void(0);">' + i + '</a></li>';
 		}
+		
+		// Next
 		if (page_now == page_num)
 		{
 			result += '<li class="disabled">';
@@ -199,13 +261,55 @@
 			result += '<li>';
 		}
 		result +=
-                        '<a class="ji-pagination" pageid="-2" href="javascipt:void(0);" aria-label="Next">' +
-                            '<span pageid="-1" aria-hidden="true">&raquo;</span>' +
+                        '<a class="ji-pagination" pageid="next" href="javascipt:void(0);" aria-label="Next">' +
+                            '<span class="glyphicon glyphicon-chevron-right" pageid="next" aria-hidden="true"></span>' +
                         '</a>' +
-                    '</li>' +
+                    '</li>'
+		;
+		
+		// Forward
+		if (page_now == page_num)
+		{
+			result += '<li class="disabled">';
+		}
+		else
+		{
+			result += '<li>';
+		}
+		result += 
+					'<a class="ji-pagination" pageid="forward" href="javascipt:void(0);" aria-label="Forward">' +
+						'<span class="glyphicon glyphicon-forward" pageid="forward" aria-hidden="true"></span>' +
+					'</a>' +
+				'</li>'
+
+		// Last
+		if (page_now < page_num - step)
+		{
+			result += '<li><a class="ji-pagination" pageid="' + page_num + '" href="javascipt:void(0);">' + page_num + '</a></li>';
+		}
+		else
+		{
+			if (page_now == page_num)
+			{
+				result += '<li class="disabled">';
+			}
+			else
+			{
+				result += '<li>';
+			}
+			result += 
+                        '<a class="ji-pagination" pageid="' + page_num + '" href="javascipt:void(0);" aria-label="Last">' +
+                            '<span class="glyphicon glyphicon-fast-forward" pageid="' + page_num + '" aria-hidden="true"></span>' +
+                        '</a>' +
+                    '</li>'
+			;
+		}
+		
+		result +=
 				'</ul>' +
 			'</center>'
 		;
 		return result;
+
 	}
 </script>

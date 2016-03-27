@@ -41,16 +41,16 @@
 			});
 						
 			var first_load = true;
-			
+			var reply_per_page = <?php echo $site_topic_reply_per_page;?>;
 			var floor_id = <?php echo $reply_now;?>;
 			
 			var arr=[];
 			arr['topic_id']   = <?php echo $topic_id;?>;
-			arr['reply_page'] = Math.ceil(floor_id / 20);
+			arr['reply_page'] = Math.ceil(floor_id / reply_per_page);
 			arr['topic_name'] = '<?php echo $site_title;?>';
 			arr['reply_num'] = <?php echo $reply_num;?>;
 			
-			var max_page = Math.ceil(arr['reply_num'] / 20);
+			var max_page = Math.ceil(arr['reply_num'] / reply_per_page);
 			
 			$.extend(
 			{		
@@ -62,13 +62,13 @@
 					history.pushState(stateObject,title,newUrl);
 					arr['reply_num'] = reply_num;
 					$("#reply_list").html(result);
-					if (floor_id % 20 != 1 && floor_id <= arr['reply_num'])
+					if (floor_id % reply_per_page != 1 && floor_id <= arr['reply_num'])
 					{
 						setTimeout(function(){$("body,html").animate({scrollTop:$("#reply_"+floor_id).offset().top-15},0);},0.1);
 					}
 					else if (!first_load)
 					{
-						setTimeout(function(){$("body,html").animate({scrollTop:$("#reply_list").offset().top-15},0);},0.1);
+						setTimeout(function(){$("body,html").animate({scrollTop:$("#reply_list").offset().top-100},0);},0.1);
 					}
 					if (first_load == true)
 					{
@@ -88,26 +88,52 @@
 					$("a.ji-pagination").click(function(e)
 					{
 						var page_id = $(e.target).attr("pageid");
+						var need_change = false;
+						var step = <?php echo $site_topic_pagination_step;?>;
+						//alert(page_id);
 						if (page_id >= 1 && page_id <= max_page)
 						{
 							arr['reply_page'] = page_id;
+							need_change = true;
 						}
-						else if (page_id == -1) // Previous
+						else if (page_id == 'backward')
+						{
+							if (arr['reply_page'] > 1)
+							{
+								arr['reply_page'] = Math.max(1, arr['reply_page'] - 1 - step);
+								need_change = true;
+							}
+						}
+						else if (page_id == 'previous')
 						{
 							if (arr['reply_page'] > 1)
 							{
 								arr['reply_page']--;
+								need_change = true;
 							}
 						}
-						else if (page_id == -2) // Next
+						else if (page_id == 'next')
 						{
 							if (arr['reply_page'] < max_page)
 							{
 								arr['reply_page']++;
+								need_change = true;
 							}
 						}
-						floor_id = 20 * arr['reply_page'] - 19;
-						generate_reply_list(arr, $.reply_list_change);
+						else if (page_id == 'forward')
+						{
+							if (arr['reply_page'] < max_page)
+							{
+								arr['reply_page'] = Math.min(max_page, arr['reply_page'] + 1 + step);
+								need_change = true;
+							}
+						}
+						if (need_change)
+						{
+							floor_id = reply_per_page * (arr['reply_page'] - 1) + 1;
+							generate_reply_list(arr, $.reply_list_change);
+						}
+						
 						
 					});				
 				}
@@ -137,7 +163,7 @@
 						//alert(data);
 						floor_id = data;
 						arr['reply_num'] = data;
-						arr['reply_page'] = Math.ceil(floor_id / 20);
+						arr['reply_page'] = Math.ceil(floor_id / reply_per_page);
 						generate_reply_list(arr, $.reply_list_change);
 						editor.html('');
 					},
