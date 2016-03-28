@@ -45,6 +45,8 @@
 				{
 					var arr=[];
 					arr['module_id'] = id;
+					arr['topic_page'] = 1;
+					arr['topic_num'] = 2;
 					generate_preview_list(arr, $.main_body_change);
 				}
 			});
@@ -61,18 +63,6 @@
 				$head_last_clicked.attr('class','btn btn-primary btn-block active');
 				$.main_body_trig($head_last_clicked.attr('module_id'));
 			});
-			
-			var arr=[];
-			arr['user_name']       = 'liuyh615';
-			arr['user_reply_name'] = 'lizihan';
-			arr['module_name'] 	   = 'test_module';
-			arr['module_id']       = '1';
-			arr['topic_name']      = 'test_topic';
-			arr['topic_id']        = '1';
-			arr['reply_num']       = '10';
-			arr['time_ago']        = '1秒前';
-			//alert(arr['user_name']);
-	
 			
 			// Generate the editor
 			var editor;

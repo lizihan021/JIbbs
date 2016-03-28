@@ -37,6 +37,7 @@
 	
 	function generate_preview_list(list_data, callback_func)
 	{
+		var topic_per_page = <?php echo $site_home_topic_per_page;?>;
 		$.ajax
 		({
 			type: 'GET',
@@ -44,8 +45,8 @@
   			data:
 			{
 				module_id: list_data['module_id'],
-				first: 0,
-				step: 10,
+				first: (list_data['topic_page'] - 1) * topic_per_page,
+				step: topic_per_page,
 				order_field: 'UPDATE_TIMESTAMP',
 				order: 'desc',
 				key: ''
@@ -63,6 +64,7 @@
 						result += '<hr class="smallhr">';
 					}
 				}
+				result += generate_pagination(Math.floor(list_data['topic_page']), Math.ceil(list_data['topic_num'] / topic_per_page), Math.floor(<?php echo $site_home_topic_pagination_step;?>));
 				callback_func(result);
 			},
 			error: function()
@@ -122,7 +124,7 @@
 				var result = '';
 				if (data != '')
 				{
-					var pagination = generate_pagination(Math.floor(list_data['reply_page']), Math.ceil(list_data['reply_num'] / reply_per_page));
+					var pagination = generate_pagination(Math.floor(list_data['reply_page']), Math.ceil(list_data['reply_num'] / reply_per_page), Math.floor(<?php echo $site_topic_pagination_step;?>));
 					result += pagination;
 					var raw_data = data.split('|');
 					var reply_num = 0;
@@ -159,9 +161,8 @@
 		});
 	}
 	
-	function generate_pagination(page_now, page_num)
+	function generate_pagination(page_now, page_num, step)
 	{
-		var step = <?php echo $site_topic_pagination_step;?>;
 		var start = 1;
 		var end = page_num;
 		var result = 
