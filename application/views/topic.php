@@ -10,6 +10,7 @@
 		
 		$(document).ready(function()
 		{
+			refresh_common_href(true);
 			var editor;
 			
 			KindEditor.ready(function(K)
@@ -53,13 +54,19 @@
 			var max_page = Math.ceil(arr['reply_num'] / reply_per_page);
 			
 			$.extend(
-			{		
-				reply_list_change: function(result, reply_num)
+			{	
+				change_url: function()
 				{
 					var stateObject = {};
 					var title = "";
 					var newUrl = '/topic/' + arr['topic_id'] + '/' + floor_id;
 					history.pushState(stateObject,title,newUrl);
+					refresh_common_href(true);
+				},
+				
+				reply_list_change: function(result, reply_num)
+				{
+					$.change_url();
 					arr['reply_num'] = reply_num;
 					$("#reply_list").html(result);
 					if (floor_id % reply_per_page != 1 && floor_id <= arr['reply_num'])
@@ -205,9 +212,15 @@
             </div>
             
         </div>
-        <div id="reply_login" style="display:none">
-        	
-        </div>
+        <div id="reply_login" class="panel panel-default">
+        	<div class="panel-heading">
+            	<h3 class="panel-title"></h3>
+            </div>
+            <div class="panel-body">
+            	发帖前请 <a class="login_href" href="<?php echo base_url('user/login');?>">登录</a >
+                 或 <a class="register_href" href="<?php echo base_url('user/register');?>">注册</a>
+            </div>
+       </div>
         
         
     </div><!-- /.container -->

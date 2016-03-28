@@ -6,6 +6,7 @@ include 'common/text_validation.php';
 	
 		$(document).ready(function()
 		{
+			refresh_common_href_str('<?php echo $redirect_url;?>');
 			var result = '<?php echo $result;?>';
 			$("[data-toggle='tooltip']").tooltip();
 			if(result == 'error_username')
@@ -73,7 +74,7 @@ include 'common/text_validation.php';
                     </div>
                     <div class="panel-body">
                         <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
-                        <form action="<?php echo base_url('user/login');?>" class="form-horizontal" role="form" method="post" accept-charset="utf-8">
+                        <form action="<?php echo base_url('user/login').$redirect_url;?>" class="form-horizontal" role="form" method="post" accept-charset="utf-8">
                             <div id="username_div" class="form-group">
                                 <label for="username" class="col-sm-2 control-label">用户名</label>
                                 <div class="col-sm-5">

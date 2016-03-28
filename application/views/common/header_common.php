@@ -41,6 +41,19 @@
 			}
 			return path;
 		}
+		
+		function refresh_common_href_str(str)
+		{
+			$(".login_href").attr('href', '<?php echo base_url('user/login');?>' + str);
+			$(".register_href").attr('href', '<?php echo base_url('user/register');?>' + str);
+			$(".logout_href").attr('href', '<?php echo base_url('user/logout');?>' + str);	
+		}
+		
+		function refresh_common_href()
+		{
+			refresh_common_href_str('?url=' + Base64.encodeURI(window.location.href));
+		}
+		
 	</script>
       
     <title><?php echo $site_title;?> | <?php echo $site_name;?></title>                                                                                               
@@ -78,10 +91,10 @@
                     <?php if ($this->session->userdata('group_id')==1) {                                                                                              
                         echo '<li><a href="'. base_url('admin') . '">后台</a></li>';}?>                                                                               
                     <li><a href="<?php echo base_url('settings'); ?>">设置</a></li>                                                                                   
-                    <li><a href="<?php echo base_url('user/logout'); ?>">登出</a></li>                                                                                     
+                    <li><a class="logout_href" href="<?php echo base_url('user/logout'); ?>">登出</a></li>                                                                                     
                     <?php else : ?>                                                                                                                                   
-                    <li><a href="<?php echo base_url('user/register');?>">注册</a></li>                                                                                         
-                    <li><a href="<?php echo base_url('user/login');?>">登录</a></li>                                                                                       
+                    <li><a class="register_href" href="<?php echo base_url('user/register');?>">注册</a></li>                                                                                         
+                    <li><a class="login_href" href="<?php echo base_url('user/login');?>">登录</a></li>                                                                                       
                     <?php endif;?>                                                                                                                                    
                 </ul>                                                                                                                                                 
             </div><!-- /.navbar-collapse -->                                                                                                                          

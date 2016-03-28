@@ -36,5 +36,21 @@ class Site_Model extends CI_Model {
         }
         return $this->db->update_batch('bbs_config', $updatedata, 'oname');
     }
-
+	
+	public function base64_decodeURI($str)
+	{
+		return base64_decode(str_replace('-', '+', $str));
+	}
+	
+	public function redirect($str)
+	{
+		if ($str == NULL)
+		{
+			redirect();
+		}
+		else
+		{
+			redirect($this->base64_decodeURI($str));
+		}
+	}
 }
