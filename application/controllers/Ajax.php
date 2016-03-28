@@ -143,6 +143,9 @@ class Ajax extends CI_Controller
 		$this->load->model('topic_model');
 		$this->load->model('user_model');
 		$this->load->model('reply_model');
+		
+		$topic = $this->topic_model->get_topic_by_id($this->input->get('topic_id'));
+		
 		$reply_arr = $this->reply_model->get_reply_arr(array
 		(
 			'topic_id'    => $this->input->get('topic_id'),
@@ -158,7 +161,8 @@ class Ajax extends CI_Controller
 			return;
 		}
 		
-		$index = 0;
+		$reply_str[0] = $topic->reply_num;
+		$index = 1;
 		foreach ($reply_arr as $reply)
 		{
 			$reply_str[$index++] = 
