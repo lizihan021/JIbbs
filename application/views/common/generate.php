@@ -55,16 +55,24 @@
 			{
 				//alert(data);
 				var result = '<hr class="smallhr">';
+				var topic_num = 0;
 				if (data != '')
 				{
 					var raw_data = data.split('|');
 					for (index in raw_data)
 					{
-						result += generate_preview_topic(generate_array(raw_data[index]));
-						result += '<hr class="smallhr">';
+						if (index == 0)
+						{
+							topic_num = raw_data[0];
+						}
+						else
+						{
+							result += generate_preview_topic(generate_array(raw_data[index]));
+							result += '<hr class="smallhr">';
+						}
 					}
 				}
-				result += generate_pagination(Math.floor(list_data['topic_page']), Math.ceil(list_data['topic_num'] / topic_per_page), Math.floor(<?php echo $site_home_topic_pagination_step;?>));
+				result += generate_pagination(Math.floor(list_data['topic_page']), Math.ceil(topic_num / topic_per_page), Math.floor(<?php echo $site_home_topic_pagination_step;?>));
 				callback_func(result);
 			},
 			error: function()

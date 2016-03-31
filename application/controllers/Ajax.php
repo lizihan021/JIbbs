@@ -106,6 +106,9 @@ class Ajax extends CI_Controller
 		$this->load->model('topic_model');
 		$this->load->model('user_model');
 		$this->load->model('module_model');
+		
+		$module = $this->module_model->get_module_by_id($this->input->get('module_id'));
+		
 		$topic_arr = $this->topic_model->get_topic_arr(array
 		(
 			'module_id'   => $this->input->get('module_id'),
@@ -121,7 +124,8 @@ class Ajax extends CI_Controller
 			return;
 		}
 		
-		$index = 0;
+		$topic_str[0] = $module->topic_num;
+		$index = 1;
 		foreach ($topic_arr as $topic)
 		{
 			$topic_str[$index++] = 
