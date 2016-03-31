@@ -46,7 +46,7 @@ class Site_Model extends CI_Model {
 	{
 		if ($str == NULL)
 		{
-			redirect();
+			redirect(base_url(''));
 		}
 		else
 		{

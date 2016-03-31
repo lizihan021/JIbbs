@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="<?php echo base_url('static/css/bootstrap.css');?>" rel="stylesheet">
+    <link href="<?php echo base_url('static/css/bootstrap.min.css');?>" rel="stylesheet">
     <link rel="shortcut icon" href="<?php echo base_url('static/img/favicon.png');?>">
 	<link href="<?php echo base_url('static/css/custom.css');?>" rel="stylesheet">
     <script src="../../../static/js/jquery.min.js"></script>
