@@ -18,7 +18,7 @@
     <script type="text/javascript">
 		function get_avatar_path(username, avatar, type)
 		{
-			var path = '<?php echo base_url('avatar');?>/';
+			var path = '<?php echo base_url('uploads/avatar');?>/';
 			if (avatar == '')
 			{
 				if (type != '')
@@ -31,13 +31,13 @@
 			{
 				if (username != '')
 				{
-					path += username + '-';
+					path += username;
 				}
 				if (type != '')
 				{
-					path += type + '-';
+					path += '-' + type;
 				}
-				path += avatar;
+				path += '.jpg';
 			}
 			return path;
 		}
@@ -76,8 +76,8 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">                                                                                  
                 <ul class="nav navbar-nav">                                                                                                                           
                     <li<?php if (uri_string()=='') {echo ' class="active"';}?>><a href="<?php echo base_url();?>"><strong>首页</strong></a></li>                                       
-                    <li<?php if (uri_string()=='node') {echo ' class="active"';}?>><a href="<?php echo base_url('node');?>"><strong>节点</strong></a></li>                             
-                    <li<?php if (uri_string()=='topic/add') {echo ' class="active"';}?>><a href="<?php echo base_url('topic/add');?>"><strong>发表</strong></a></li>                   
+                    <li<?php if (uri_string()=='node') {echo ' class="active"';}?>><a href="<?php echo base_url('');?>"><strong>节点</strong></a></li>                             
+                    <li<?php if (uri_string()=='topic/add') {echo ' class="active"';}?>><a href="<?php echo base_url('');?>"><strong>发表</strong></a></li>                   
                 </ul>                                                                                                                                                 
                 <form class="navbar-form navbar-left" role="search" action="http://www.google.com/search" method="get" target="_blank">                               
                     <div class="form-group">                                                                                                                          
@@ -85,7 +85,7 @@
                         <input type="hidden" name="sitesearch" value="<?php echo base_url()?>">                                                                       
                     </div>                                                                                                                                            
                 </form>                                                                                                                                               
-                <ul class="nav navbar-nav navbar-right">                                                                                                              
+                <ul class="nav navbar-nav navbar-right">$this->session->userdata('username'))                                                                                                              
                     <?php if ($this->session->userdata('username')) : ?>                                                                                              
                     <li><a href="<?php echo base_url('member/'.$this->session->userdata('username')); ?>"><?php echo $this->session->userdata('username'); ?></a></li>
                     <?php if ($this->session->userdata('group_id')==1) {                                                                                              

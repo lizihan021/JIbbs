@@ -75,13 +75,18 @@
 			
 			$("#reply_button").click(function(e)
 			{
+				if (editor.count('text') >= <?php echo $site_editor_count_max;?>)
+				{
+					alert("帖子长度超过限制");
+					return;
+				}
 				var content = editor.html();
-				content = content.replace(',', '&cedil;');
 				if (content == '')
 				{
 					alert("请输入回复内容");
 					return;
 				}
+				content = content.replace(',', '&cedil;');
 				$.ajax
 				({
 					type: 'POST',
