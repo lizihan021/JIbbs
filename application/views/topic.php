@@ -1,45 +1,16 @@
 <?php 
 	include 'common/header_common.php';
-	include 'common/generate.php';
-	include 'common/header_kindeditor.php';
-	include 'common/header_syntaxhighlighter.php';	
+	include 'common/generate.php';	
+	include 'common/kindeditor.php';
+	include 'common/header_syntaxhighlighter.php';
 ?>
-
 	
+    <script src="../../static/js/pagination.js"></script>
 	<script type='text/javascript'>
 		
 		$(document).ready(function()
 		{
 			refresh_common_href(true);
-			var editor;
-			
-			KindEditor.ready(function(K)
-			{
-				editor = K.create('textarea[name="content"]', 
-				{
-					cssPath : ['../../../static/kindeditor/plugins/code/prettify.css'],
-					allowFileManager : true,
-					autoHeightMode : true,
-					resizeType: 0,
-					afterCreate : function() {
-						this.loadPlugin('autoheight');
-					},
-					afterChange : function() {
-						var count = this.count('text');
-						var max_count = 10000;
-						if (count <= max_count)
-						{
-							$("#word_count").attr('class', '');
-						}
-						else
-						{
-							$("#word_count").attr('class', 'text-danger');
-						}
-						var result = '<h4>' + count + '/' + max_count + '字节</h4>';
-						$("#word_count").html(result);
-					}
-				});
-			});
 						
 			var first_load = true;
 			var reply_per_page = <?php echo $site_topic_reply_per_page;?>;
@@ -51,7 +22,6 @@
 			arr['topic_name'] = '<?php echo $site_title;?>';
 			arr['reply_num'] = <?php echo $reply_num;?>;
 			
-			var max_page = Math.ceil(arr['reply_num'] / reply_per_page);
 			
 			$.extend(
 			{	
@@ -77,72 +47,25 @@
 					{
 						setTimeout(function(){$("body,html").animate({scrollTop:$("#reply_list").offset().top-100},0);},0.1);
 					}
-					if (first_load == true)
-					{
-						if ('<?php echo $user_name;?>' == '')
-						{
-							$("#reply_form").attr('style','display:none');
-							$("#reply_login").attr('style','');					
-						}
-						else
-						{
-							$("#reply_form").attr('style','');
-							$("#reply_login").attr('style','display:none');
-						}
-						first_load = false;
-					}
+					first_load = false;
 					SyntaxHighlighter.highlight();
 					$("a.ji-pagination").click(function(e)
 					{
-						var page_id = $(e.target).attr("pageid");
-						var need_change = false;
-						var step = <?php echo $site_topic_pagination_step;?>;
-						//alert(page_id);
-						if (page_id >= 1 && page_id <= max_page)
+						var data = [];
+						data.max_page = Math.ceil(arr['reply_num'] / reply_per_page);
+						data.page_id = $(e.target).attr("pageid");
+						data.step = <?php echo $site_topic_pagination_step;?>;
+						data.page_now = arr['reply_page'];
+						
+						pagination_change(data);
+						
+						if (data.page_now != arr['reply_page'])
 						{
-							arr['reply_page'] = page_id;
-							need_change = true;
-						}
-						else if (page_id == 'backward')
-						{
-							if (arr['reply_page'] > 1)
-							{
-								arr['reply_page'] = Math.max(1, arr['reply_page'] - 1 - step);
-								need_change = true;
-							}
-						}
-						else if (page_id == 'previous')
-						{
-							if (arr['reply_page'] > 1)
-							{
-								arr['reply_page']--;
-								need_change = true;
-							}
-						}
-						else if (page_id == 'next')
-						{
-							if (arr['reply_page'] < max_page)
-							{
-								arr['reply_page']++;
-								need_change = true;
-							}
-						}
-						else if (page_id == 'forward')
-						{
-							if (arr['reply_page'] < max_page)
-							{
-								arr['reply_page'] = Math.min(max_page, arr['reply_page'] + 1 + step);
-								need_change = true;
-							}
-						}
-						if (need_change)
-						{
+							arr['reply_page'] = data.page_now;
 							floor_id = reply_per_page * (arr['reply_page'] - 1) + 1;
 							generate_reply_list(arr, $.reply_list_change);
 						}
-						
-						
-					});				
+					});	
 				}
 			});
 			
@@ -152,27 +75,38 @@
 			
 			$("#reply_button").click(function(e)
 			{
-				var result = editor.html();
-				result = result.replace(',', '&cedil;');
-				//alert(result);
+				var content = editor.html();
+				content = content.replace(',', '&cedil;');
+				if (content == '')
+				{
+					alert("请输入回复内容");
+					return;
+				}
 				$.ajax
 				({
 					type: 'POST',
 					url: '<?php echo base_url("ajax/reply_submit")?>',
 					data:
 					{
-						content: result,
+						content: content,
 						topic_id: arr['topic_id'],
 						reply_id: 0
 					},
 					success: function(data)
 					{
 						//alert(data);
-						floor_id = data;
-						arr['reply_num'] = data;
-						arr['reply_page'] = Math.ceil(floor_id / reply_per_page);
-						generate_reply_list(arr, $.reply_list_change);
-						editor.html('');
+						switch(data)
+						{
+							case 'topic undefined'   : alert('发送失败：帖子不存在'); break;
+							case 'user undefined'    : alert('发送失败：用户未登录'); break;
+							case 'content undefined' : alert('发送失败：回复内容为空'); break;
+							default:
+								floor_id = data;
+								arr['reply_num'] = data;
+								arr['reply_page'] = Math.ceil(floor_id / reply_per_page);
+								generate_reply_list(arr, $.reply_list_change);
+								editor.html('');
+						}
 					},
 					error: function()
 					{
@@ -194,7 +128,7 @@
             <!-- Generated by jQuery -->
         </div>
         
-        <div id="reply_form" style="display:none">
+        <div id="editor_form" style="display:none">
             <form>
                 <textarea name="content" style="width:100%;height:250px;visibility:hidden;"></textarea>
             </form>
@@ -212,15 +146,8 @@
             </div>
             
         </div>
-        <div id="reply_login" class="panel panel-default">
-        	<div class="panel-heading">
-            	<h3 class="panel-title"></h3>
-            </div>
-            <div class="panel-body">
-            	发帖前请 <a class="login_href" href="<?php echo base_url('user/login');?>">登录</a >
-                 或 <a class="register_href" href="<?php echo base_url('user/register');?>">注册</a>
-            </div>
-       </div>
+        
+        <?php include 'common/editor_login.php';?>
         
         
     </div><!-- /.container -->
