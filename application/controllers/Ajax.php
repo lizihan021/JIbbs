@@ -193,6 +193,18 @@ class Ajax extends CI_Controller
 			return;
 		}
 		
+		if ($this->session->userdata('uid') == '')
+		{
+			echo 'user undefined';
+			return;
+		}
+		
+		if ($this->input->post('content') == '')
+		{
+			echo 'content undefined';
+			return;
+		}
+		
 		$data = array
 		(
 			'topic_id'    => $topic->id,
@@ -212,5 +224,42 @@ class Ajax extends CI_Controller
 		}
 		
 		echo $data['floor_id'];
+	}
+	
+	public function topic_submit()
+	{
+		$this->load->model('topic_model');
+		if ($this->input->post('module_id') <= 0)
+		{
+			echo 'module undefined';
+			return;
+		}
+		if ($this->input->post('topic') == '')
+		{
+			echo 'topic undefined';
+			return;
+		}
+		if ($this->session->userdata('uid') == '')
+		{
+			echo 'user undefined';
+			return;
+		}
+		if ($this->input->post('content') == '')
+		{
+			echo 'content undefined';
+			return;
+		}
+		
+		
+		$data = array
+		(
+			'module_id'   => $this->input->post('module_id'),
+			'topic'       => base64_encode($this->input->post('topic')),
+			'user_id'     => $this->session->userdata('uid'),
+			'content'     => base64_encode($this->input->post('content'))
+		);
+		
+		$topic_id = $this->topic_model->create($data);
+		echo $topic_id;
 	}
 }

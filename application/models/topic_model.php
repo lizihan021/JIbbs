@@ -50,20 +50,31 @@ class Topic_Model extends CI_Model
 		return $topic;
 	}
 	
-	public function create_reply($data)
+	public function create($data)
 	{
-		$this->load->model('user_model');
-		$topic = get_topic_by_id($data['topic_id']);
-		$user = get_user_by_id($data['user_id']);
-		if ($topic->id != $data['topic_id'])
+    	$this->db->insert('bbs_topic', array
+		(
+			'module_id'     => $data['module_id'],
+			'user_id'       => $data['user_id'],
+			'name'          => $data['topic'],
+			'reply_num'     => 1,
+			'last_reply_id' => $data['user_id']
+		));
+		$query = $this->db->select('id')->from('bbs_topic')->where('name', $data['topic'])->order_by('CREATE_TIMESTAMP', 'desc')->limit(1, 0)->get();
+		$topic_id = $query->row(0)->id;
+		if ($topic_id <= 0)
 		{
-			return 'topic error';
+			return 0;
 		}
-		if ($user->id != $data['user_id'])
-		{
-			return 'user error';
-		}
-		$content = base64_encode($data['content']);
-
+		$this->db->set('topic_num', 'topic_num+1', FALSE)->where('id', $data['module_id'])->update('bbs_module');
+		//$this->db->update('bbs_module', array('topic_num'=>'topic_num+1'), 'id='.$data['module_id']);
+		$this->db->insert('bbs_reply', array
+		(
+			'topic_id'      => $topic_id,
+			'user_id'       => $data['user_id'],
+			'floor_id'      => 1,
+			'content'       => $data['content']
+		));
+		return $topic_id;
 	}
 }
