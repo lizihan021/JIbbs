@@ -1,4 +1,11 @@
-            <div class="col-md-4">
+            <div class="col-md-4 col-lg-3">
+                <div class="center-block">
+                    <br>
+                    <center>
+                    	<img src="../../static/img/JIsign.jpg" height="150">
+                    </center>
+                    <br><br>
+                </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">你好<?php if ($this->session->userdata('username')) { echo '，'.$this->session->userdata('username');}?></h3>
@@ -8,7 +15,13 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <a href="<?php echo base_url('member/'.$this->session->userdata('username'));?>">
-                                    <img class="img-rounded img-responsive pull-left" src="<?php echo base_url('avatar/'.$this->session->userdata('username').'-'.$this->session->userdata('avatar'));?>" alt="avatar">
+                                	<script type="text/javascript">
+										$(document).ready(function()
+										{
+											$("#sidebar_avatar").attr('src', get_avatar_path('<?php echo $this->session->userdata('username');?>', '<?php echo $this->session->userdata('avatar');?>', ''));
+										});
+									</script>
+                                    <img class="img-rounded img-responsive pull-left" id="sidebar_avatar" src="?" alt="avatar">
                                 </a>
                                 <p class="username"><a href="<?php echo base_url('member/'.$this->session->userdata('username'));?>"><?php echo $this->session->userdata('username');?></a></p>
                             </div>
@@ -26,7 +39,7 @@
                         <?php if ($this->session->userdata('username')) : ?>
                         <a href="<?php echo base_url('notification');?>"><?php echo $this->session->userdata('notification');?> 条未读提醒</a>
                         <?php else : ?>
-                        <a href="<?php echo base_url('user/register');?>">注册</a>　<a href="<?php echo base_url('user/login');?>">登录</a>
+                        <a class="register_href" href="<?php echo base_url('user/register');?>">注册</a>　<a class="login_href" href="<?php echo base_url('user/login');?>">登录</a>
                         <?php endif; ?>
                     </div>
                 </div>

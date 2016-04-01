@@ -2,10 +2,18 @@ body {
     background: url(../img/grid.png);
 }
 
+
 @media (min-width: 992px) {
     .container {
         max-width: 970px;
     }
+}
+
+@media (min-width: 1200px) {
+	.container {
+        max-width: 1170px;
+    }
+	
 }
 
 @media (min-width: 768px) {
@@ -124,4 +132,92 @@ blockquote p {
 
 .reply-foot{
 	text-align: right;
+}
+
+.ji-bg-building{
+	position:relative;
+	background: url("../../static/img/JIbuilding.jpg") no-repeat center;
+	opacity:0.2;
+	filter: "alpha(opacity=20)";
+	-ms-filter: "alpha(opacity=20)"; /* 旧版IE */
+	background-size: 100%;
+}
+
+.ji-bg-text{
+	position:absolute;
+	padding-left: 7px;
+	top: 0px;
+}
+
+/* Modified By AuroraZK*/
+.navbar-default {
+    background-color:#74abdb;
+}
+
+.navbar-default .navbar-brand {
+    color: #000000;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: #ffffff;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #000000;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #ffffff;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #ffffff;
+    background-color: #3071a9;
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+   	background-color: #74abdb;
+   	border-color: #74abdb;
+}
+
+.btn-primary:hover {
+    background-color: #74abdb;
+    border-color: #74abdb;
+}
+
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+    background-color: #74abdb;
+    border-color: #74abdb;
+}
+
+.btn-primary.active.focus,
+.open > .dropdown-toggle.btn-primary.focus {
+    background-color: #74abdb;
+    border-color: #75acdc;
+}
+
+.panel {
+    border: 0px solid transparent;
+    border-radius: 8px;
+}
+ 
+.panel-footer {
+    background-color: #f5f5fc;
+    border-top: 1px solid #f5f5fc;
+}
+
+.panel-default {
+    border-color: transparent;
+}
+
+.panel-default > .panel-heading {
+    color: #000000;
+    background-color: #f5f5fc;
 }

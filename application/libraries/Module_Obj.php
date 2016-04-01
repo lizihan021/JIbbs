@@ -6,6 +6,7 @@ class Module_Obj
 	public $name_ch;
 	public $name_en;
 	public $name;
+	public $topic_num;
 	
 	public function __construct()
 	{
@@ -17,5 +18,6 @@ class Module_Obj
 		$this->id = 0;
 		$this->name_ch = 'error_module';
 		$this->name_en = 'error_module';
+		$this->topic_num = 0;
 	}
 }

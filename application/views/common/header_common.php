@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="<?php echo base_url('static/css/bootstrap.css');?>" rel="stylesheet">
+    <link href="<?php echo base_url('static/css/bootstrap.min.css');?>" rel="stylesheet">
     <link rel="shortcut icon" href="<?php echo base_url('static/img/favicon.png');?>">
 	<link href="<?php echo base_url('static/css/custom.css');?>" rel="stylesheet">
     <script src="../../../static/js/jquery.min.js"></script>
@@ -15,7 +15,47 @@
       <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>                                                                                 
       <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>                                                                                  
     <![endif]-->                                                                                                                                                      
-                                                                                                                                                                      
+    <script type="text/javascript">
+		function get_avatar_path(username, avatar, type)
+		{
+			var path = '<?php echo base_url('avatar');?>/';
+			if (avatar == '')
+			{
+				if (type != '')
+				{
+					path += type + '-';
+				}
+				path += 'default.png';
+			}
+			else
+			{
+				if (username != '')
+				{
+					path += username + '-';
+				}
+				if (type != '')
+				{
+					path += type + '-';
+				}
+				path += avatar;
+			}
+			return path;
+		}
+		
+		function refresh_common_href_str(str)
+		{
+			$(".login_href").attr('href', '<?php echo base_url('user/login');?>' + str);
+			$(".register_href").attr('href', '<?php echo base_url('user/register');?>' + str);
+			$(".logout_href").attr('href', '<?php echo base_url('user/logout');?>' + str);	
+		}
+		
+		function refresh_common_href()
+		{
+			refresh_common_href_str('?url=' + Base64.encodeURI(window.location.href));
+		}
+		
+	</script>
+      
     <title><?php echo $site_title;?> | <?php echo $site_name;?></title>                                                                                               
 </head>                                                                                                                                                               
 <body>                                                                                                                                                                
@@ -51,10 +91,10 @@
                     <?php if ($this->session->userdata('group_id')==1) {                                                                                              
                         echo '<li><a href="'. base_url('admin') . '">后台</a></li>';}?>                                                                               
                     <li><a href="<?php echo base_url('settings'); ?>">设置</a></li>                                                                                   
-                    <li><a href="<?php echo base_url('user/logout'); ?>">登出</a></li>                                                                                     
+                    <li><a class="logout_href" href="<?php echo base_url('user/logout'); ?>">登出</a></li>                                                                                     
                     <?php else : ?>                                                                                                                                   
-                    <li><a href="<?php echo base_url('user/register');?>">注册</a></li>                                                                                         
-                    <li><a href="<?php echo base_url('user/login');?>">登录</a></li>                                                                                       
+                    <li><a class="register_href" href="<?php echo base_url('user/register');?>">注册</a></li>                                                                                         
+                    <li><a class="login_href" href="<?php echo base_url('user/login');?>">登录</a></li>                                                                                       
                     <?php endif;?>                                                                                                                                    
                 </ul>                                                                                                                                                 
             </div><!-- /.navbar-collapse -->                                                                                                                          

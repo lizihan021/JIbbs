@@ -20,18 +20,22 @@ class Topic extends Front_Controller
 		}
 		else
 		{
-			$user = $this->user_model->get_user_by_id($topic->user_id);
+			//$user = $this->user_model->get_user_by_id($topic->user_id);
 			$data['site_title'] = $topic->name;
-			$data['user_name'] = $user->username;
-			$data['user_avatar'] = $user->avatar; 
+			$data['user_name'] = $this->session->userdata('username');
+			//$data['user_avatar'] = $user->avatar; 
 			$data['reply_num'] = $topic->reply_num;
 			if ($num == NULL)
 			{
 				$data['reply_now'] = 1;
 			}
-			else if ($num[0] < 1 || $num[0] > $topic->reply_num)
+			else if ($num[0] < 1)
 			{
 				$data['reply_now'] = 1;
+			}
+			else if ($num[0] > $topic->reply_num)
+			{
+				$data['reply_now'] = $topic->reply_num;
 			}
 			else
 			{

@@ -18,6 +18,15 @@ class User extends Front_Controller
         $this->form_validation->set_rules('email', '邮箱', $this->user_model->get_validation_rules('email'));
         $this->form_validation->set_rules('captcha', '验证码', $this->user_model->get_validation_rules('captcha'));
         
+		if ($this->input->get('url') == NULL)
+		{
+			$data['redirect_url'] = '';
+		}
+		else
+		{
+			$data['redirect_url'] = '?url='.$this->input->get('url');
+		}
+		
         if ($this->form_validation->run() == FALSE)
         {
             //form failed
@@ -37,7 +46,7 @@ class User extends Front_Controller
             );
             $this->user_model->register($data);
             $this->user_model->login($data);
-            redirect();
+			$this->site_model->redirect($this->input->get('url'));
         }
 	}
 	
@@ -93,11 +102,20 @@ class User extends Front_Controller
     {
         $this->load->helper('form');
         $this->load->library('form_validation');
-
+		
         $this->form_validation->set_rules('username', '用户名', 'trim|required');
         $this->form_validation->set_rules('password', '密码', 'trim|required|md5');
         $this->form_validation->set_rules('captcha', '验证码', $this->user_model->get_validation_rules('captcha'));
-
+		
+		if ($this->input->get('url') == NULL)
+		{
+			$data['redirect_url'] = '';
+		}
+		else
+		{
+			$data['redirect_url'] = '?url='.$this->input->get('url');
+		}
+		
         if ($this->form_validation->run() == FALSE)
         {
             //form failed
@@ -119,7 +137,7 @@ class User extends Front_Controller
             if ($result == 'success')
 			{
 				// 验证成功
-                redirect();
+				$this->site_model->redirect($this->input->get('url'));
             }
 			else
 			{
@@ -137,7 +155,7 @@ class User extends Front_Controller
     public function logout()
 	{
 		$this->user_model->logout();
-		redirect();
+		$this->site_model->redirect($this->input->get('url'));
 	}
 }
 
