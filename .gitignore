@@ -36,3 +36,6 @@ Desktop.ini
 
 
 captcha/*.jpg
+
+uploads/image/*
+!uploads/image/index.html

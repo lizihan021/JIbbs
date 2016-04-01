@@ -234,22 +234,24 @@ class Ajax extends CI_Controller
 			echo 'module undefined';
 			return;
 		}
+		
 		if ($this->input->post('topic') == '')
 		{
 			echo 'topic undefined';
 			return;
 		}
+		
 		if ($this->session->userdata('uid') == '')
 		{
 			echo 'user undefined';
 			return;
 		}
+		
 		if ($this->input->post('content') == '')
 		{
 			echo 'content undefined';
 			return;
 		}
-		
 		
 		$data = array
 		(

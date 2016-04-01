@@ -19,7 +19,7 @@
 				},
 				afterChange : function() {
 					var count = this.count('text');
-					var max_count = 10000;
+					var max_count = <?php echo $site_editor_count_max;?>;
 					if (count <= max_count)
 					{
 						$("#word_count").attr('class', '');
