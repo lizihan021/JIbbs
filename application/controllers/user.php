@@ -207,6 +207,12 @@ class User extends Front_Controller
         }
 		$this->load->view('user_avatar', $data);
 	}
+	
+	public function settings()
+	{
+		
+		
+	}
 }
 
 ?>

@@ -7,7 +7,7 @@ class Base_Controller extends CI_Controller
         parent::__construct();
         $this->load->database();
         
-        $this->output->enable_profiler(TRUE);
+        //$this->output->enable_profiler(TRUE);
         //全局传递网站设置数据
         $this->load->model('site_model');
         $site_settings = $this->site_model->get_site_settings();

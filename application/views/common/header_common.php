@@ -85,12 +85,12 @@
                         <input type="hidden" name="sitesearch" value="<?php echo base_url()?>">                                                                       
                     </div>                                                                                                                                            
                 </form>                                                                                                                                               
-                <ul class="nav navbar-nav navbar-right">$this->session->userdata('username'))                                                                                                              
+                <ul class="nav navbar-nav navbar-right">                                                                                                              
                     <?php if ($this->session->userdata('username')) : ?>                                                                                              
                     <li><a href="<?php echo base_url('member/'.$this->session->userdata('username')); ?>"><?php echo $this->session->userdata('username'); ?></a></li>
                     <?php if ($this->session->userdata('group_id')==1) {                                                                                              
                         echo '<li><a href="'. base_url('admin') . '">后台</a></li>';}?>                                                                               
-                    <li><a href="<?php echo base_url('settings'); ?>">设置</a></li>                                                                                   
+                    <li><a href="<?php echo base_url('user/settings'); ?>">设置</a></li>                                                                                   
                     <li><a class="logout_href" href="<?php echo base_url('user/logout'); ?>">登出</a></li>                                                                                     
                     <?php else : ?>                                                                                                                                   
                     <li><a class="register_href" href="<?php echo base_url('user/register');?>">注册</a></li>                                                                                         
