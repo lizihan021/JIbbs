@@ -158,7 +158,7 @@ class User extends Front_Controller
 		$this->site_model->redirect($this->input->get('url'));
 	}
 	
-	public function avatar()
+	private function avatar()
 	{
 		$this->load->helper('form');
 		

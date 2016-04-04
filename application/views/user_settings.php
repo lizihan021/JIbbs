@@ -11,9 +11,9 @@ include 'common/header_common.php';
                     </div>
                     <div class="panel-body">
 						<ul class="nav nav-pills nav-stacked">
-                            <li role="presentation" class="active"><a href="#">Home</a></li>
-                            <li role="presentation"><a href="#">Profile</a></li>
-                            <li role="presentation"><a href="#">Messages</a></li>
+                            <li role="presentation" class="active"><a href="#">个人资料</a></li>
+                            <li role="presentation" class="disabled"><a href="#">暂未开放</a></li>
+                            <li role="presentation" class="disabled"><a href="#">暂未开放</a></li>
                         </ul>
                     </div>
                 </div>
@@ -22,10 +22,16 @@ include 'common/header_common.php';
             <div class="col-md-8 col-lg-9">
 				<div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">修改头像</h3>
+                        <h3 class="panel-title">个人资料</h3>
                     </div>
                     <div class="panel-body">
-						<?php include 'plugins/avatar_change.php';?>
+                    	<div class="row">
+                        	<h5><label for="avatar_change" class="col-sm-3 control-label text-center">个人头像</label></h5>
+                        	<div id="avatar_change" class="col-sm-9">
+								<?php include 'plugins/avatar_change.php';?>
+                            </div>
+                        </div>
+                        <hr class="smallhr">
                     </div>
                 </div>
             </div>

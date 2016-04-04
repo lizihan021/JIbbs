@@ -148,9 +148,18 @@
 							<br><br><br><br><br><br><br><br><br><br><br><br>
                         </div>
                         <div class="ji-bg-text">
-                        	<br>
-                        	测试
-
+                        	<h4>
+                            <br>
+                        	欢迎参加 JIBBS ALPHA 测试！
+                            <br><br>
+                            参与测试的邮箱将在正式版中获得奖励
+							<br><br>
+                            目前有大量功能仍在完善中
+                            <br><br>
+                            <a href="https://github.com/SJTU-UMJI-Tech/JIbbs/">欢迎访问我们的github</a>
+                            <br><br>
+                            有任何bug反馈和功能建议请在issue中提出，谢谢！
+                            </h4>
 						</div>
                     </div>
                 </div>

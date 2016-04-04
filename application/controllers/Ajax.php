@@ -311,7 +311,18 @@ class Ajax extends CI_Controller
 			
 			unlink($config['source_image']);
 			
-			$response['result'] = base_url('uploads/avatar/'.$this->session->userdata('username').'-big.jpg');
+			$this->load->model('user_model');
+			$user = $this->user_model->get_user_by_id($this->session->userdata('uid'));
+			
+			if ($user->id == $this->session->userdata('uid'))
+			{
+				$this->user_model->update_avatar($user->id);
+				$response['result'] = base_url('uploads/avatar/'.$this->session->userdata('username').'-big.jpg');
+			}
+			else
+			{
+				$response['message'] = '用户错误，请刷新重试';
+			}
 		}
 		echo json_encode($response);
 
