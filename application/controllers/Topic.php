@@ -21,7 +21,7 @@ class Topic extends Front_Controller
 		else
 		{
 			//$user = $this->user_model->get_user_by_id($topic->user_id);
-			$data['site_title'] = $topic->name;
+			$data['site_title'] = base64_decode($topic->name);
 			$data['user_name'] = $this->session->userdata('username');
 			//$data['user_avatar'] = $user->avatar; 
 			$data['reply_num'] = $topic->reply_num;

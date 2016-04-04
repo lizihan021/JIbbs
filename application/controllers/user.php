@@ -119,7 +119,7 @@ class User extends Front_Controller
         if ($this->form_validation->run() == FALSE)
         {
             //form failed
-            $data['cap_image']=$this->_get_cap_image();
+            $data['cap_image'] = $this->_get_cap_image();
             $data['site_title'] = '登录';
 			$data['result'] = 'error';
             $this->load->view('user_login', $data);
@@ -157,6 +157,66 @@ class User extends Front_Controller
 		$this->user_model->logout();
 		$this->site_model->redirect($this->input->get('url'));
 	}
+	
+	private function avatar()
+	{
+		$this->load->helper('form');
+		
+		$config['upload_path'] = './uploads/temp/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size'] = '200';
+		$config['max_width'] = '1024';
+		$config['max_height'] = '1024';
+		$config['overwrite'] = true;
+		$config['file_name'] = md5(time());
+		
+		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
+		
+		$data['site_title'] = '上传头像';
+		if ( ! $this->upload->do_upload('userfile'))
+        {
+            $data['error'] = $this->upload->display_errors();
+        }
+        else
+        {
+			$data['error'] = $this->upload->data();
+			
+			$config['image_library'] = 'gd2';
+			$config['source_image'] = './uploads/temp/'.$data['error']['file_name'];
+			$config['new_image'] = './uploads/avatar/'.$this->session->userdata('username').'.jpg';
+			$config['width']     = 48;
+			$config['height']   = 48;
+			
+			$this->load->library('image_lib', $config);
+			
+			$this->image_lib->resize();			
+			
+			$config['new_image'] = './uploads/avatar/'.$this->session->userdata('username').'-big.jpg';
+			$config['width']     = 150;
+			$config['height']   = 150;
+			
+			$this->image_lib->initialize($config);
+			$this->image_lib->resize();			
+			
+			$this->load->helper('file');
+			
+			unlink($config['source_image']);
+			
+            $data['error'] = $this->upload->data();
+        }
+		$this->load->view('user_avatar', $data);
+	}
+	
+	public function settings()
+	{
+		$data['site_title'] = '设置';
+		
+		
+		$this->load->view('user_settings', $data);
+	}
+	
+	
 }
 
 ?>

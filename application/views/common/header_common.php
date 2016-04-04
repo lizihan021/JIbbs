@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="<?php echo base_url('static/css/bootstrap.css');?>" rel="stylesheet">
+    <link href="<?php echo base_url('static/css/bootstrap.min.css');?>" rel="stylesheet">
     <link rel="shortcut icon" href="<?php echo base_url('static/img/favicon.png');?>">
 	<link href="<?php echo base_url('static/css/custom.css');?>" rel="stylesheet">
     <script src="../../../static/js/jquery.min.js"></script>
+    <script src="../../../static/js/bootstrap.min.js"></script>   
                                                                                                                                                                       
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->                                                                            
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->                                                                                        
@@ -18,7 +19,7 @@
     <script type="text/javascript">
 		function get_avatar_path(username, avatar, type)
 		{
-			var path = '<?php echo base_url('avatar');?>/';
+			var path = '<?php echo base_url('uploads/avatar');?>/';
 			if (avatar == '')
 			{
 				if (type != '')
@@ -31,13 +32,13 @@
 			{
 				if (username != '')
 				{
-					path += username + '-';
+					path += username;
 				}
 				if (type != '')
 				{
-					path += type + '-';
+					path += '-' + type;
 				}
-				path += avatar;
+				path += '.jpg';
 			}
 			return path;
 		}
@@ -76,8 +77,8 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">                                                                                  
                 <ul class="nav navbar-nav">                                                                                                                           
                     <li<?php if (uri_string()=='') {echo ' class="active"';}?>><a href="<?php echo base_url();?>"><strong>首页</strong></a></li>                                       
-                    <li<?php if (uri_string()=='node') {echo ' class="active"';}?>><a href="<?php echo base_url('node');?>"><strong>节点</strong></a></li>                             
-                    <li<?php if (uri_string()=='topic/add') {echo ' class="active"';}?>><a href="<?php echo base_url('topic/add');?>"><strong>发表</strong></a></li>                   
+                    <li<?php if (uri_string()=='node') {echo ' class="active"';}?>><a href="<?php echo base_url('');?>"><strong>节点</strong></a></li>                             
+                    <li<?php if (uri_string()=='topic/add') {echo ' class="active"';}?>><a href="<?php echo base_url('');?>"><strong>发表</strong></a></li>                   
                 </ul>                                                                                                                                                 
                 <form class="navbar-form navbar-left" role="search" action="http://www.google.com/search" method="get" target="_blank">                               
                     <div class="form-group">                                                                                                                          
@@ -90,7 +91,7 @@
                     <li><a href="<?php echo base_url('member/'.$this->session->userdata('username')); ?>"><?php echo $this->session->userdata('username'); ?></a></li>
                     <?php if ($this->session->userdata('group_id')==1) {                                                                                              
                         echo '<li><a href="'. base_url('admin') . '">后台</a></li>';}?>                                                                               
-                    <li><a href="<?php echo base_url('settings'); ?>">设置</a></li>                                                                                   
+                    <li><a href="<?php echo base_url('user/settings'); ?>">设置</a></li>                                                                                   
                     <li><a class="logout_href" href="<?php echo base_url('user/logout'); ?>">登出</a></li>                                                                                     
                     <?php else : ?>                                                                                                                                   
                     <li><a class="register_href" href="<?php echo base_url('user/register');?>">注册</a></li>                                                                                         

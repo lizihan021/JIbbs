@@ -45,7 +45,7 @@
                 </div>
                 <div class="panel panel-default">
                     <center class="panel-body">
-                        <p>本网站由JI技术部开发</p>
+                        <p>本网站由<a href="https://github.com/SJTU-UMJI-Tech/">JI技术部</a>开发</p>
                     </center>
                 </div>
                 <div class="panel panel-default">

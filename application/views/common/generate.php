@@ -22,7 +22,7 @@
 				'</div>' +
 				'<a class="media-left" href="<?php echo base_url('member');?>/' + topic_data['user_name'] + '"><img class="img-rounded" src="' + get_avatar_path(topic_data['user_name'], topic_data['user_avatar'], '') + '" alt="' + topic_data['user_name'] + '_avatar"></a>' +
 				'<div class="media-body">' +
-					'<h4 class="media-heading topic-list-heading"><a href="<?php echo base_url('topic');?>/' + topic_data['topic_id'] + '">' + topic_data['topic_name'] + '</a></h4>' +
+					'<h4 class="media-heading topic-list-heading"><a href="<?php echo base_url('topic');?>/' + topic_data['topic_id'] + '">' + Base64.decode(topic_data['topic_name']) + '</a></h4>' +
 					'<p class="small text-muted">' +
 						'<span><a href="<?php echo base_url('module');?>/' + topic_data['module_id'] + '">' + topic_data['module_name'] + '</a></span>&nbsp;•&nbsp;' +
 						'<span><a href="<?php echo base_url('member');?>/' + topic_data['user_name'] + '">' + topic_data['user_name'] + '</a></span>&nbsp;•&nbsp;' +
@@ -37,6 +37,7 @@
 	
 	function generate_preview_list(list_data, callback_func)
 	{
+		var topic_per_page = <?php echo $site_home_topic_per_page;?>;
 		$.ajax
 		({
 			type: 'GET',
@@ -44,8 +45,8 @@
   			data:
 			{
 				module_id: list_data['module_id'],
-				first: 0,
-				step: 10,
+				first: (list_data['topic_page'] - 1) * topic_per_page,
+				step: topic_per_page,
 				order_field: 'UPDATE_TIMESTAMP',
 				order: 'desc',
 				key: ''
@@ -54,20 +55,29 @@
 			{
 				//alert(data);
 				var result = '<hr class="smallhr">';
+				var topic_num = 0;
 				if (data != '')
 				{
 					var raw_data = data.split('|');
 					for (index in raw_data)
 					{
-						result += generate_preview_topic(generate_array(raw_data[index]));
-						result += '<hr class="smallhr">';
+						if (index == 0)
+						{
+							topic_num = raw_data[0];
+						}
+						else
+						{
+							result += generate_preview_topic(generate_array(raw_data[index]));
+							result += '<hr class="smallhr">';
+						}
 					}
 				}
-				callback_func(result);
+				result += generate_pagination(Math.floor(list_data['topic_page']), Math.ceil(topic_num / topic_per_page), Math.floor(<?php echo $site_home_pagination_step;?>));
+				callback_func(result, topic_num);
 			},
 			error: function()
 			{
-				callback_func('');
+				callback_func('', 0);
 			},
   			dataType: 'text'
 		});
@@ -122,7 +132,7 @@
 				var result = '';
 				if (data != '')
 				{
-					var pagination = generate_pagination(Math.floor(list_data['reply_page']), Math.ceil(list_data['reply_num'] / reply_per_page));
+					var pagination = generate_pagination(Math.floor(list_data['reply_page']), Math.ceil(list_data['reply_num'] / reply_per_page), Math.floor(<?php echo $site_topic_pagination_step;?>));
 					result += pagination;
 					var raw_data = data.split('|');
 					var reply_num = 0;
@@ -137,7 +147,7 @@
 							if (index == 1)
 							{
 								result += '<div class="panel panel-default">';
-								result += '<div class="panel-heading">' + list_data['topic_name'] +'</div>';
+								result += '<div class="panel-heading">' + Base64.decode(list_data['topic_name']) +'</div>';
 							}
 							else
 							{
@@ -159,9 +169,8 @@
 		});
 	}
 	
-	function generate_pagination(page_now, page_num)
+	function generate_pagination(page_now, page_num, step)
 	{
-		var step = <?php echo $site_topic_pagination_step;?>;
 		var start = 1;
 		var end = page_num;
 		var result = 
