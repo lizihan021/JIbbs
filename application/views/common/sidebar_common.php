@@ -26,9 +26,9 @@
                                 <p class="username"><a href="<?php echo base_url('member/'.$this->session->userdata('username'));?>"><?php echo $this->session->userdata('username');?></a></p>
                             </div>
                             <div class="user-panel">
-                                <div class="col-xs-4"><center><a href="<?php echo base_url('topic/show/nodes');?>"><p class="big-font"><?php echo $this->session->userdata('node_follow');?></p><p class="text-muted">节点收藏</p></a></center></div>
-                                <div class="col-xs-4 side-border"><center><a href="<?php echo base_url('topic/show/topics');?>"><p class="big-font"><?php echo $this->session->userdata('topic_follow');?></p><p class="text-muted">主题收藏</p></a></center></div>
-                                <div class="col-xs-4"><center><a href="<?php echo base_url('topic/show/users');?>"><p class="big-font"><?php echo $this->session->userdata('user_follow');?></p><p class="text-muted">特别关注</p></a></center></div>
+                                <div class="col-xs-4"><center><a href="<?php echo base_url('topic/show/nodes');?>"><p class="big-font"><?php echo $this->session->userdata('node_follow');?></p><p class="text-muted">动态</p></a></center></div>
+                                <div class="col-xs-4 side-border"><center><a href="<?php echo base_url('topic/show/topics');?>"><p class="big-font"><?php echo $this->session->userdata('topic_follow');?></p><p class="text-muted">收藏</p></a></center></div>
+                                <div class="col-xs-4"><center><a href="<?php echo base_url('topic/show/users');?>"><p class="big-font"><?php echo $this->session->userdata('user_follow');?></p><p class="text-muted">关注</p></a></center></div>
                             </div>
                         </div>
                         <?php else : ?>
@@ -45,7 +45,11 @@
                 </div>
                 <div class="panel panel-default">
                     <center class="panel-body">
-                        <p>本网站由<a href="https://github.com/SJTU-UMJI-Tech/">JI技术部</a>开发</p>
+                        <p>
+                        	本网站由<a href="https://github.com/SJTU-UMJI-Tech/">JI技术部</a>开发
+                            <br>架构：刘逸灏
+                            <br>部分UI由周妍君完成
+                        </p>
                     </center>
                 </div>
                 <div class="panel panel-default">
@@ -55,7 +59,7 @@
                     <div class="panel-body">
                         <p>注册会员：<?php echo $site_user_number;?></p>
                         <p>　　主题：<?php echo $site_topic_number;?></p>
-                        <p>　　回复：<?php echo $site_comment_number;?></p>
+                        <p>　　回复：<?php echo $site_reply_number;?></p>
 
                     </div>
                 </div>

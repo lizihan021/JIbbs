@@ -75,7 +75,7 @@
 			
 			$("#reply_button").click(function(e)
 			{
-				if (editor.count('text') >= <?php echo $site_editor_count_max;?>)
+				if (editor.count('text') > <?php echo $site_editor_count_max;?>)
 				{
 					alert("帖子长度超过限制");
 					return;

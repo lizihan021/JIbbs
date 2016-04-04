@@ -147,7 +147,7 @@
 							if (index == 1)
 							{
 								result += '<div class="panel panel-default">';
-								result += '<div class="panel-heading">' + Base64.decode(list_data['topic_name']) +'</div>';
+								result += '<div class="panel-heading">' + list_data['topic_name'] +'</div>';
 							}
 							else
 							{
