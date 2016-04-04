@@ -39,13 +39,13 @@
                         <?php if ($this->session->userdata('username')) : ?>
                         <a href="<?php echo base_url('notification');?>"><?php echo $this->session->userdata('notification');?> 条未读提醒</a>
                         <?php else : ?>
-                        <a href="<?php echo base_url('user/register');?>">注册</a>　<a href="<?php echo base_url('user/login');?>">登录</a>
+                        <a class="register_href" href="<?php echo base_url('user/register');?>">注册</a>　<a class="login_href" href="<?php echo base_url('user/login');?>">登录</a>
                         <?php endif; ?>
                     </div>
                 </div>
                 <div class="panel panel-default">
                     <center class="panel-body">
-                        <p>本网站由JI技术部开发</p>
+                        <p>本网站由<a href="https://github.com/SJTU-UMJI-Tech/">JI技术部</a>开发</p>
                     </center>
                 </div>
                 <div class="panel panel-default">

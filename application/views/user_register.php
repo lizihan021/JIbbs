@@ -5,6 +5,7 @@ include 'common/text_validation.php';
     <script type='text/javascript'>
 		$(document).ready(function()
 		{
+			refresh_common_href_str('<?php echo $redirect_url;?>');
 			$("[data-toggle='tooltip']").tooltip();
 			// 验证后回调函数
 			$.extend(
@@ -160,14 +161,14 @@ include 'common/text_validation.php';
     
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-8 col-lg-9">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">欢迎注册</h3>
                     </div>
                     <div class="panel-body">
                         <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
-                        <form action="<?php echo base_url('user/register');?>" class="form-horizontal" role="form" method="post" accept-charset="utf-8">
+                        <form action="<?php echo base_url('user/register').$redirect_url;?>" class="form-horizontal" role="form" method="post" accept-charset="utf-8">
                             <div id="username_div" class="form-group">
                                 <label for="username" class="col-sm-2 control-label">用户名</label>
                                 <div class="col-sm-5">

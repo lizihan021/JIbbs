@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="user_register.php" server="G:/github/JIBBS/" local="131015784401465696" remote="131015784400000000" Dst="0" />
-<file name="user_login.php" server="G:/github/JIBBS/" local="131023435159515906" remote="131023435150000000" Dst="0" />
-<file name="home.php" server="G:/github/JIBBS/" local="131034619634901464" remote="131034619630000000" Dst="0" />
+<file name="user_register.php" server="G:/github/JIBBS/" local="131039873359889762" remote="131039873350000000" Dst="0" />
+<file name="user_login.php" server="G:/github/JIBBS/" local="131039873359879755" remote="131039873350000000" Dst="0" />
+<file name="home.php" server="G:/github/JIBBS/" local="131039873445035585" remote="131039873440000000" Dst="0" />
 <file name="index.html" server="G:/github/JIBBS/" local="131009634156265121" remote="131009634150000000" Dst="0" />
-<file name="topic.php" server="G:/github/JIBBS/" local="131033962546033965" remote="131033962540000000" Dst="0" />
+<file name="topic.php" server="G:/github/JIBBS/" local="131039873445070610" remote="131039873440000000" Dst="0" />
+<file name="user_avatar.php" server="G:/github/JIBBS/" local="131039873350000000" remote="131039873350000000" Dst="0" />
+<file name="user_settings.php" server="G:/github/JIBBS/" local="131039914880000000" remote="131039914880000000" Dst="0" />
 </dwsync>
