@@ -5,14 +5,20 @@
 
     <!-- Current avatar -->
     <div class="avatar-view" title="Change the avatar">
-      <img src="<?php echo base_url('static/img/picture.jpg');?>" alt="Avatar">
+      <img id="avatar-view-img" alt="Avatar">
+      <script type="text/javascript">
+		  $(document).ready(function()
+		  {
+			  $("#avatar-view-img").attr('src', get_avatar_path('<?php echo $this->session->userdata('username');?>', '<?php echo $this->session->userdata('avatar');?>', 'big'));
+		  });
+	  </script>
     </div>
 
     <!-- Cropping modal -->
     <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
-          <form class="avatar-form" action="<?php echo base_url('user/avatar_upload');?>" enctype="multipart/form-data" method="post">
+          <form class="avatar-form" action="<?php echo base_url('ajax/avatar_upload');?>" enctype="multipart/form-data" method="post">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
               <h4 class="modal-title" id="avatar-modal-label">Change Avatar</h4>
@@ -74,6 +80,5 @@
   </div>
   
   
-    <link href="../../../static/cropper/css/avatar.css" rel="stylesheet">
   	<script src="../../../static/cropper/cropper.min.js"></script>
     <script src="../../../static/cropper/js/avatar.js"></script>

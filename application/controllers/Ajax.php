@@ -264,4 +264,57 @@ class Ajax extends CI_Controller
 		$topic_id = $this->topic_model->create($data);
 		echo $topic_id;
 	}
+	
+	public function avatar_upload()
+	{
+		$this->load->helper('form');
+		
+		$response = array(
+		  'state'  => 200,
+		  'message' => 'unknown error',
+		  'result' => false
+		);
+		
+		$avatar_file = $this->input->post('avatar_file');
+		$avatar_file = str_replace('data:image/png;base64,', '', $avatar_file);
+		$avatar_img = base64_decode($avatar_file);
+		$avatar_temp_name = md5(time()).'.png';
+		$avatar_size = file_put_contents('./uploads/temp/'.$avatar_temp_name, $avatar_img);
+		if ($avatar_size <= 0)
+		{
+			$response['message'] = '上传失败';
+		}
+		else if ($avatar_size >= 200000)
+		{
+			$response['message'] = '文件占用空间太大';
+		}
+		else
+		{		
+			$config['image_library'] = 'gd2';
+			$config['source_image'] = './uploads/temp/'.$avatar_temp_name;
+			$config['new_image'] = './uploads/avatar/'.$this->session->userdata('username').'-big.jpg';
+			$config['width']     = 150;
+			$config['height']   = 150;
+			
+			$this->load->library('image_lib', $config);
+			
+			$this->image_lib->resize();			
+			
+			$config['new_image'] = './uploads/avatar/'.$this->session->userdata('username').'.jpg';
+			$config['width']     = 48;
+			$config['height']   = 48;
+			
+			$this->image_lib->initialize($config);
+			$this->image_lib->resize();			
+			
+			//$this->load->helper('file');
+			
+			unlink($config['source_image']);
+			
+			$response['result'] = base_url('uploads/avatar/'.$this->session->userdata('username').'-big.jpg');
+		}
+		echo json_encode($response);
+
+		
+	}
 }

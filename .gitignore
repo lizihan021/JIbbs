@@ -38,4 +38,6 @@ Desktop.ini
 captcha/*.jpg
 
 uploads/image/*
+uploads/temp/*
 !uploads/image/index.html
+!uploads/temp/index.html
