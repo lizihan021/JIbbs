@@ -210,9 +210,13 @@ class User extends Front_Controller
 	
 	public function settings()
 	{
+		$data['site_title'] = '设置';
 		
 		
+		$this->load->view('user_settings', $data);
 	}
+	
+	
 }
 
 ?>

@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="<?php echo base_url('static/img/favicon.png');?>">
 	<link href="<?php echo base_url('static/css/custom.css');?>" rel="stylesheet">
     <script src="../../../static/js/jquery.min.js"></script>
+    <script src="../../../static/js/bootstrap.min.js"></script>   
                                                                                                                                                                       
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->                                                                            
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->                                                                                        
