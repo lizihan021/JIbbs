@@ -89,7 +89,7 @@
 		var content = Base64.decode(reply_data['content']);
 		
 		var result = 
-			'<div class="panel-body" id="reply_' + reply_data['floor_id'] + '">' +
+			'<div class="panel-body" id="reply_' + reply_data['floor_id'] + '" username="' + reply_data['user_name'] + '">' +
 				'<div class="row show-grid">' +
 					'<div class="col-md-3">' +
 						'<center>' +
@@ -98,10 +98,12 @@
 						'</center>' +
 					'</div>' +
 					'<div class="col-md-9">' +
+						(reply_data['reply_floor'] > 0 ? '<a class="floor-href" href="javascript:void(0)" floorid="' + reply_data['reply_floor'] + '">回复：' + reply_data['reply_floor'] + '楼</a><br><br>' : '') +
 						content +
 					'</div>' +
 				'</div>' +
 				'<div class="reply-foot text-right text-muted">' +
+					'<span><a class="floor-reply-href" href="javascript:void(0)" floorid="' + reply_data['floor_id'] + '">回复</a></span>&nbsp;•&nbsp;' +
 					'<span>' + reply_data['floor_id'] + '楼</span>&nbsp;•&nbsp;' +
 					'<span>' + reply_data['create_time'] + '</span>' +
 				'</div>' +
@@ -181,7 +183,7 @@
 		// First
 		if (page_now >= 2 + step)
 		{
-			result += '<li><a class="ji-pagination" pageid="1" href="javascipt:void(0);">1</a></li>';
+			result += '<li><a class="ji-pagination" pageid="1" href="javascript:void(0);">1</a></li>';
 		}
 		else
 		{
@@ -194,7 +196,7 @@
 				result += '<li>';
 			}
 			result += 
-                        '<a class="ji-pagination" pageid="1" href="javascipt:void(0);" aria-label="First">' +
+                        '<a class="ji-pagination" pageid="1" href="javascript:void(0);" aria-label="First">' +
                             '<span class="glyphicon glyphicon-fast-backward" pageid="1" aria-hidden="true"></span>' +
                         '</a>' +
                     '</li>'
@@ -211,7 +213,7 @@
 			result += '<li>';
 		}
 		result += 
-					'<a class="ji-pagination" pageid="backward" href="javascipt:void(0);" aria-label="Backward">' +
+					'<a class="ji-pagination" pageid="backward" href="javascript:void(0);" aria-label="Backward">' +
 						'<span class="glyphicon glyphicon-backward" pageid="backward" aria-hidden="true"></span>' +
 					'</a>' +
 				'</li>'
@@ -227,7 +229,7 @@
 			result += '<li>';
 		}
 		result +=
-                        '<a class="ji-pagination" pageid="previous" href="javascipt:void(0);" aria-label="Next">' +
+                        '<a class="ji-pagination" pageid="previous" href="javascript:void(0);" aria-label="Next">' +
                             '<span class="glyphicon glyphicon-chevron-left" pageid="previous" aria-hidden="true"></span>' +
                         '</a>' +
                     '</li>'
@@ -257,7 +259,7 @@
 			{
 				result += '<li>';
 			}
-			result += '<a class="ji-pagination" pageid="' + i + '" href="javascipt:void(0);">' + i + '</a></li>';
+			result += '<a class="ji-pagination" pageid="' + i + '" href="javascript:void(0);">' + i + '</a></li>';
 		}
 		
 		// Next
@@ -270,7 +272,7 @@
 			result += '<li>';
 		}
 		result +=
-                        '<a class="ji-pagination" pageid="next" href="javascipt:void(0);" aria-label="Next">' +
+                        '<a class="ji-pagination" pageid="next" href="javascript:void(0);" aria-label="Next">' +
                             '<span class="glyphicon glyphicon-chevron-right" pageid="next" aria-hidden="true"></span>' +
                         '</a>' +
                     '</li>'
@@ -286,7 +288,7 @@
 			result += '<li>';
 		}
 		result += 
-					'<a class="ji-pagination" pageid="forward" href="javascipt:void(0);" aria-label="Forward">' +
+					'<a class="ji-pagination" pageid="forward" href="javascript:void(0);" aria-label="Forward">' +
 						'<span class="glyphicon glyphicon-forward" pageid="forward" aria-hidden="true"></span>' +
 					'</a>' +
 				'</li>'
@@ -294,7 +296,7 @@
 		// Last
 		if (page_now < page_num - step)
 		{
-			result += '<li><a class="ji-pagination" pageid="' + page_num + '" href="javascipt:void(0);">' + page_num + '</a></li>';
+			result += '<li><a class="ji-pagination" pageid="' + page_num + '" href="javascript:void(0);">' + page_num + '</a></li>';
 		}
 		else
 		{
@@ -307,7 +309,7 @@
 				result += '<li>';
 			}
 			result += 
-                        '<a class="ji-pagination" pageid="' + page_num + '" href="javascipt:void(0);" aria-label="Last">' +
+                        '<a class="ji-pagination" pageid="' + page_num + '" href="javascript:void(0);" aria-label="Last">' +
                             '<span class="glyphicon glyphicon-fast-forward" pageid="' + page_num + '" aria-hidden="true"></span>' +
                         '</a>' +
                     '</li>'

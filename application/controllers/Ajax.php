@@ -176,7 +176,8 @@ class Ajax extends CI_Controller
 				',time_ago,'        . $this->get_time_delay($reply->UPDATE_TIMESTAMP) .
 				',create_time,'     . $reply->CREATE_TIMESTAMP .
 				',update_time,'     . $reply->UPDATE_TIMESTAMP .
-				',floor_id,'        . $reply->floor_id;
+				',floor_id,'        . $reply->floor_id.
+				',reply_floor,'      . $reply->reply_floor;
 		}
 		echo implode('|', $reply_str);		
 	}
@@ -209,8 +210,14 @@ class Ajax extends CI_Controller
 		(
 			'topic_id'    => $topic->id,
 			'user_id'     => $this->session->userdata('uid'),
-			'content'     => base64_encode($this->input->post('content'))
+			'content'     => base64_encode($this->input->post('content')),
+			'reply_floor' => $this->input->post('reply_floor')
 		);
+		
+		if ($data['reply_floor'] < 0 || $data['reply_floor'] > $topic->reply_num)
+		{
+			$data['reply_floor'] = 0;
+		}
 		
 		if ($this->input->post('reply_id') > 0)
 		{

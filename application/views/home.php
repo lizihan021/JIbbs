@@ -46,7 +46,8 @@
 							arr['topic_page'] = data.page_now;
 							generate_preview_list(arr, $.main_body_change);
 						}
-					});	
+					});
+					
 				},
 				
 				main_body_trig: function(id)

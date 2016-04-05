@@ -40,8 +40,8 @@ class Reply_Model extends CI_Model
 	
 	public function create($data)
 	{
+    	$this->db->insert('bbs_reply', $data);
 		$this->db->update('bbs_topic', array('reply_num'=>$data['floor_id'],'last_reply_id'=>$data['user_id']), 'id='.$data['topic_id']);
 		$this->db->set('ovalue', 'ovalue+1', FALSE)->where('oname', 'site_reply_number')->update('bbs_config');
-    	$this->db->insert('bbs_reply', $data);
 	}
 }
