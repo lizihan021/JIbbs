@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="<?php echo base_url('static/css/bootstrap.min.css');?>" rel="stylesheet">
     <link rel="shortcut icon" href="<?php echo base_url('static/img/favicon.png');?>">
-	<link href="<?php echo base_url('static/css/custom.css');?>" rel="stylesheet">
     <script src="../../../static/js/jquery.min.js"></script>
+    <script src="../../../static/js/bootstrap.min.js"></script>   
+    <link href="<?php echo base_url('static/css/bootstrap.min.css');?>" rel="stylesheet">
+	<link href="<?php echo base_url('static/css/custom.css');?>" rel="stylesheet">
+
                                                                                                                                                                       
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->                                                                            
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->                                                                                        
@@ -85,12 +87,12 @@
                         <input type="hidden" name="sitesearch" value="<?php echo base_url()?>">                                                                       
                     </div>                                                                                                                                            
                 </form>                                                                                                                                               
-                <ul class="nav navbar-nav navbar-right">$this->session->userdata('username'))                                                                                                              
+                <ul class="nav navbar-nav navbar-right">                                                                                                              
                     <?php if ($this->session->userdata('username')) : ?>                                                                                              
                     <li><a href="<?php echo base_url('member/'.$this->session->userdata('username')); ?>"><?php echo $this->session->userdata('username'); ?></a></li>
                     <?php if ($this->session->userdata('group_id')==1) {                                                                                              
                         echo '<li><a href="'. base_url('admin') . '">后台</a></li>';}?>                                                                               
-                    <li><a href="<?php echo base_url('settings'); ?>">设置</a></li>                                                                                   
+                    <li><a href="<?php echo base_url('user/settings'); ?>">设置</a></li>                                                                                   
                     <li><a class="logout_href" href="<?php echo base_url('user/logout'); ?>">登出</a></li>                                                                                     
                     <?php else : ?>                                                                                                                                   
                     <li><a class="register_href" href="<?php echo base_url('user/register');?>">注册</a></li>                                                                                         

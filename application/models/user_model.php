@@ -101,5 +101,9 @@ class User_Model extends CI_Model
 		return $user;
 	}
 	
+	public function update_avatar($id)
+	{
+		$this->db->update('bbs_user', array('avatar'=>'1'), 'id='.$id);
+	}
 }    
 ?>

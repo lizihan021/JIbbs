@@ -127,13 +127,13 @@ class User extends Front_Controller
         else
         {
             //form success
-            $data = array
+            $login_data = array
 			(
                 'username' => $this->input->post('username', TRUE),
                 'password' => $this->input->post('password')
             );
 			
-			$result = $this->user_model->login($data);
+			$result = $this->user_model->login($login_data);
             if ($result == 'success')
 			{
 				// 验证成功
@@ -158,7 +158,7 @@ class User extends Front_Controller
 		$this->site_model->redirect($this->input->get('url'));
 	}
 	
-	public function avatar()
+	private function avatar()
 	{
 		$this->load->helper('form');
 		
@@ -207,6 +207,16 @@ class User extends Front_Controller
         }
 		$this->load->view('user_avatar', $data);
 	}
+	
+	public function settings()
+	{
+		$data['site_title'] = '设置';
+		
+		
+		$this->load->view('user_settings', $data);
+	}
+	
+	
 }
 
 ?>

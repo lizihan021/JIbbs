@@ -46,7 +46,8 @@
 							arr['topic_page'] = data.page_now;
 							generate_preview_list(arr, $.main_body_change);
 						}
-					});	
+					});
+					
 				},
 				
 				main_body_trig: function(id)
@@ -89,7 +90,7 @@
 					alert("请输入帖子标题");
 					return;
 				}
-				if (editor.count('text') >= <?php echo $site_editor_count_max;?>)
+				if (editor.count('text') > <?php echo $site_editor_count_max;?>)
 				{
 					alert("帖子长度超过限制");
 					return;
@@ -148,9 +149,20 @@
 							<br><br><br><br><br><br><br><br><br><br><br><br>
                         </div>
                         <div class="ji-bg-text">
-                        	<br>
-                        	测试
-
+                        	<h4>
+                            <br>
+                        	欢迎参加 JIBBS ALPHA 测试！
+                            <br><br>
+                            参与测试的邮箱将在正式版中获得奖励
+							<br><br>
+                            目前有大量功能仍在完善中
+                            <br><br>
+                            <a href="https://github.com/SJTU-UMJI-Tech/JIbbs/">欢迎访问我们的github</a>
+                            <br><br>
+                            有任何bug反馈和功能建议请直接发帖或在issue中提出，谢谢！
+                            <br><br>
+                            帖子加载卡住基本上是密院的数据库卡住了，轻喷
+                            </h4>
 						</div>
                     </div>
                 </div>

@@ -176,7 +176,8 @@ class Ajax extends CI_Controller
 				',time_ago,'        . $this->get_time_delay($reply->UPDATE_TIMESTAMP) .
 				',create_time,'     . $reply->CREATE_TIMESTAMP .
 				',update_time,'     . $reply->UPDATE_TIMESTAMP .
-				',floor_id,'        . $reply->floor_id;
+				',floor_id,'        . $reply->floor_id.
+				',reply_floor,'      . $reply->reply_floor;
 		}
 		echo implode('|', $reply_str);		
 	}
@@ -209,8 +210,14 @@ class Ajax extends CI_Controller
 		(
 			'topic_id'    => $topic->id,
 			'user_id'     => $this->session->userdata('uid'),
-			'content'     => base64_encode($this->input->post('content'))
+			'content'     => base64_encode($this->input->post('content')),
+			'reply_floor' => $this->input->post('reply_floor')
 		);
+		
+		if ($data['reply_floor'] < 0 || $data['reply_floor'] > $topic->reply_num)
+		{
+			$data['reply_floor'] = 0;
+		}
 		
 		if ($this->input->post('reply_id') > 0)
 		{
@@ -263,5 +270,69 @@ class Ajax extends CI_Controller
 		
 		$topic_id = $this->topic_model->create($data);
 		echo $topic_id;
+	}
+	
+	public function avatar_upload()
+	{
+		$this->load->helper('form');
+		
+		$response = array(
+		  'state'  => 200,
+		  'message' => 'unknown error',
+		  'result' => false
+		);
+		
+		$avatar_file = $this->input->post('avatar_file');
+		$avatar_file = str_replace('data:image/png;base64,', '', $avatar_file);
+		$avatar_img = base64_decode($avatar_file);
+		$avatar_temp_name = md5(time()).'.png';
+		$avatar_size = file_put_contents('./uploads/temp/'.$avatar_temp_name, $avatar_img);
+		if ($avatar_size <= 0)
+		{
+			$response['message'] = '上传失败';
+		}
+		else if ($avatar_size >= 200000)
+		{
+			$response['message'] = '文件占用空间太大';
+		}
+		else
+		{		
+			$config['image_library'] = 'gd2';
+			$config['source_image'] = './uploads/temp/'.$avatar_temp_name;
+			$config['new_image'] = './uploads/avatar/'.$this->session->userdata('username').'-big.jpg';
+			$config['width']     = 150;
+			$config['height']   = 150;
+			
+			$this->load->library('image_lib', $config);
+			
+			$this->image_lib->resize();			
+			
+			$config['new_image'] = './uploads/avatar/'.$this->session->userdata('username').'.jpg';
+			$config['width']     = 48;
+			$config['height']   = 48;
+			
+			$this->image_lib->initialize($config);
+			$this->image_lib->resize();			
+			
+			//$this->load->helper('file');
+			
+			unlink($config['source_image']);
+			
+			$this->load->model('user_model');
+			$user = $this->user_model->get_user_by_id($this->session->userdata('uid'));
+			
+			if ($user->id == $this->session->userdata('uid'))
+			{
+				$this->user_model->update_avatar($user->id);
+				$response['result'] = base_url('uploads/avatar/'.$this->session->userdata('username').'-big.jpg');
+			}
+			else
+			{
+				$response['message'] = '用户错误，请刷新重试';
+			}
+		}
+		echo json_encode($response);
+
+		
 	}
 }

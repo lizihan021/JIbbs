@@ -15,6 +15,7 @@
 			var first_load = true;
 			var reply_per_page = <?php echo $site_topic_reply_per_page;?>;
 			var floor_id = <?php echo $reply_now;?>;
+			var reply_floor_id = 0;
 			
 			var arr=[];
 			arr['topic_id']   = <?php echo $topic_id;?>;
@@ -32,6 +33,20 @@
 					var newUrl = '/topic/' + arr['topic_id'] + '/' + floor_id;
 					history.pushState(stateObject,title,newUrl);
 					refresh_common_href(true);
+				},
+				
+				change_reply_floor: function()
+				{
+					if (reply_floor_id <= 0 || reply_floor_id > arr['reply_num'])
+					{
+						$("#editor_reply").attr('style', 'display:none');
+					}
+					else
+					{
+						$("#editor_reply").attr('style', 'display:block');
+						var reply_user_name = $("#reply_" + reply_floor_id).attr('username');
+						$("#editor_reply div input").val(reply_floor_id + '楼：' + reply_user_name);
+					}
 				},
 				
 				reply_list_change: function(result, reply_num)
@@ -65,7 +80,17 @@
 							floor_id = reply_per_page * (arr['reply_page'] - 1) + 1;
 							generate_reply_list(arr, $.reply_list_change);
 						}
-					});	
+					});
+					$("a.floor-reply-href").click(function(e)
+					{
+						reply_floor_id = $(e.target).attr("floorid");
+						$.change_reply_floor();
+					});
+					$("a.floor-href").click(function(e)
+					{
+						floor_id = $(e.target).attr("floorid");
+						generate_reply_list(arr, $.reply_list_change);
+					});
 				}
 			});
 			
@@ -75,7 +100,7 @@
 			
 			$("#reply_button").click(function(e)
 			{
-				if (editor.count('text') >= <?php echo $site_editor_count_max;?>)
+				if (editor.count('text') > <?php echo $site_editor_count_max;?>)
 				{
 					alert("帖子长度超过限制");
 					return;
@@ -95,7 +120,8 @@
 					{
 						content: content,
 						topic_id: arr['topic_id'],
-						reply_id: 0
+						reply_id: 0,
+						reply_floor: reply_floor_id
 					},
 					success: function(data)
 					{
@@ -121,6 +147,11 @@
 				});
 			});
 			
+			$("#editor_reply_remove").click(function(e)
+			{
+				reply_floor_id = 0;
+				$.change_reply_floor();
+			});
 			
 		});
 
@@ -134,6 +165,13 @@
         </div>
         
         <div id="editor_form" style="display:none">
+        	<div id="editor_reply" style="display:none">
+            	<div class="input-group">
+                    <span class="input-group-addon" id="editor_reply_addon">回复</span>
+                    <input type="text" class="form-control" placeholder="None" aria-describedby="editor_reply_addon" readonly="readonly">
+                    <span id="editor_reply_remove" class="input-group-addon"><button type="button" class="btn btn-danger"></button></span>
+                </div>
+            </div>
             <form>
                 <textarea name="content" style="width:100%;height:250px;visibility:hidden;"></textarea>
             </form>
