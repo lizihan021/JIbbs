@@ -221,3 +221,18 @@ blockquote p {
     color: #000000;
     background-color: #f5f5fc;
 }
+
+fieldset {
+  padding: .35em .625em .75em;
+  margin: 0 1px;
+  border: 1px solid #c0c0c0;
+  width:90%;
+  color: #ccc;
+}
+legend {
+  padding: 0;
+  border: 0;
+  font-size: 12px;
+  font-weight: 800;
+  width: 10%;
+}
