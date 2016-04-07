@@ -97,9 +97,9 @@
 							'<br><a href="<?php echo base_url('member');?>/' + reply_data['user_name'] + '"><h4>' + reply_data['user_name'] + '</h4></a><br>' +
 						'</center>' +
 					'</div>' +
-					'<div class="col-md-9">' +
-						(reply_data['reply_floor'] > 0 ? '<a class="floor-href" href="javascript:void(0)" floorid="' + reply_data['reply_floor'] + '">回复：' + reply_data['reply_floor'] + '楼</a><br><br>' : '') +
-						content +
+					'<div class="col-md-9">' + 
+						(reply_data['reply_floor'] > 0 ? '<form>' + '<fieldset>' + '<legend>' +'回复：<a class="floor-href" href="javascript:void(0)" floorid="' + reply_data['reply_floor'] + '">' + reply_data['reply_floor'] + '楼</a>'+ '</legend>' +'点击上方连接查看'+reply_data['reply_floor'] + '楼内容'+'</fieldset><br>' +'</form>' : '')  +
+						content + 
 					'</div>' +
 				'</div>' +
 				'<div class="reply-foot text-right text-muted">' +

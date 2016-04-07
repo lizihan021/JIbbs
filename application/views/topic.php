@@ -4,7 +4,7 @@
 	include 'common/kindeditor.php';
 	include 'common/header_syntaxhighlighter.php';
 ?>
-	
+	<link href="../../static/css/custom.css" rel="stylesheet">
     <script src="../../static/js/pagination.js"></script>
 	<script type='text/javascript'>
 		
