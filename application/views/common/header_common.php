@@ -21,7 +21,7 @@
 		function get_avatar_path(username, avatar, type)
 		{
 			var path = '<?php echo base_url('uploads/avatar');?>/';
-			if (avatar == '')
+			if (avatar == null)
 			{
 				if (type != '')
 				{

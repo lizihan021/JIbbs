@@ -38,6 +38,24 @@ class Reply_Model extends CI_Model
         return $reply_arr;
 	}
 	
+	public function get_reply_summary($data)
+	{
+		$this->load->model('user_model');
+		$query = $this->db->get_where('bbs_reply', array('topic_id'=>$data['topic_id'], 'floor_id'=>$data['floor_id']));
+		if ($query->num_rows() < 1)
+		{
+			$reply = new Reply_Obj();
+			$reply->set_error();
+			return $reply;
+		}
+		$reply = $query->row(0, 'Reply_Obj');
+		if ($reply->id != 0)
+		{
+			$reply->user_name = $this->user_model->get_user_by_id($reply->user_id)->username;
+		}
+		return $reply;
+	}
+	
 	public function create($data)
 	{
     	$this->db->insert('bbs_reply', $data);

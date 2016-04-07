@@ -51,6 +51,7 @@
 				order: 'desc',
 				key: ''
 			},
+			dataType: 'json',
   			success: function(data)
 			{
 				//alert(data);
@@ -58,7 +59,7 @@
 				var topic_num = 0;
 				if (data != '')
 				{
-					var raw_data = data.split('|');
+					var raw_data = JSON.parse(data);
 					for (index in raw_data)
 					{
 						if (index == 0)
@@ -67,7 +68,7 @@
 						}
 						else
 						{
-							result += generate_preview_topic(generate_array(raw_data[index]));
+							result += generate_preview_topic(raw_data[index]);
 							result += '<hr class="smallhr">';
 						}
 					}
@@ -84,10 +85,24 @@
 		
 	}
 	
-	function generate_reply(reply_data)
+	function generate_reply(reply_data, reply_floor_data)
 	{
 		var content = Base64.decode(reply_data['content']);
-		
+		var reply = '';
+		if (reply_data['reply_floor'] > 0)
+		{
+			reply =
+				'<form>' + 
+					'<fieldset>' +
+						'<legend>' +
+							'回复：<a class="floor-href" href="javascript:void(0)" floorid="' + reply_data['reply_floor'] + '">' + reply_data['reply_floor'] + '楼 ' + reply_floor_data.user_name +'</a>' +
+						'</legend>' +
+						Base64.decode(reply_floor_data.content) +
+					'</fieldset>' +
+					'<br>' +
+				'</form>'
+				;
+		}
 		var result = 
 			'<div class="panel-body" id="reply_' + reply_data['floor_id'] + '" username="' + reply_data['user_name'] + '">' +
 				'<div class="row show-grid">' +
@@ -98,7 +113,7 @@
 						'</center>' +
 					'</div>' +
 					'<div class="col-md-9">' + 
-						(reply_data['reply_floor'] > 0 ? '<form>' + '<fieldset>' + '<legend>' +'回复：<a class="floor-href" href="javascript:void(0)" floorid="' + reply_data['reply_floor'] + '">' + reply_data['reply_floor'] + '楼</a>'+ '</legend>' +'点击上方连接查看'+reply_data['reply_floor'] + '楼内容'+'</fieldset><br>' +'</form>' : '')  +
+						reply +
 						content + 
 					'</div>' +
 				'</div>' +
@@ -136,13 +151,13 @@
 				{
 					var pagination = generate_pagination(Math.floor(list_data['reply_page']), Math.ceil(list_data['reply_num'] / reply_per_page), Math.floor(<?php echo $site_topic_pagination_step;?>));
 					result += pagination;
-					var raw_data = data.split('|');
+					var raw_data = JSON.parse(data);
 					var reply_num = 0;
 					for (index in raw_data)
 					{
 						if (index == 0)
 						{
-							reply_num = raw_data[0];
+							reply_num = raw_data[0].reply_num;
 						}
 						else
 						{
@@ -155,7 +170,19 @@
 							{
 								result += '<div class="panel panel-default">';
 							}
-							result += generate_reply(generate_array(raw_data[index])) + '</div>';
+							if (raw_data[index].reply_floor <= 0)
+							{
+								result += generate_reply(raw_data[index], null);
+							}
+							else if (raw_data[index].reply_floor > (list_data['reply_page'] - 1) * reply_per_page && raw_data[index].reply_floor <= list_data['reply_page'] * reply_per_page)
+							{
+								result += generate_reply(raw_data[index], raw_data[(raw_data[index].reply_floor - 1) % reply_per_page + 1]);
+							}
+							else
+							{
+								result += generate_reply(raw_data[index], raw_data[0][raw_data[index].reply_floor]);
+							}
+							result += '</div>';
 						}
 					}
 					result += pagination;
