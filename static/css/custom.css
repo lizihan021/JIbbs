@@ -234,5 +234,6 @@ legend {
   border: 0;
   font-size: 12px;
   font-weight: 800;
-  width: 10%;
+  width:auto;
+
 }
