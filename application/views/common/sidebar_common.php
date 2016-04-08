@@ -2,7 +2,7 @@
                 <div class="center-block">
                     <br>
                     <center>
-                    	<img src="../../static/img/JIsign.jpg" height="150">
+                    	<img src="../../static/img/JIsign.png" height="150">
                     </center>
                     <br><br>
                 </div>

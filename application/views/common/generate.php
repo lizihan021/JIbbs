@@ -112,8 +112,8 @@
 							'<br><a href="<?php echo base_url('member');?>/' + reply_data['user_name'] + '"><h4>' + reply_data['user_name'] + '</h4></a><br>' +
 						'</center>' +
 					'</div>' +
-					'<div class="col-md-9">' + 
-						reply +
+					'<div class="col-md-9"><br>' + 
+						reply + 
 						content + 
 					'</div>' +
 				'</div>' +
