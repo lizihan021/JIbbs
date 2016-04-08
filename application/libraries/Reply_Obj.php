@@ -9,6 +9,7 @@ class Reply_Obj
 	public $content;
 	public $CREATE_TIMESTAMP;
 	public $UPDATE_TIMESTAMP;
+	public $state;
 	
 	public function __construct()
 	{

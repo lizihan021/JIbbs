@@ -17,7 +17,8 @@ class Reply_Model extends CI_Model
 
 		$this->db->select('*')->from('bbs_reply')
 			->order_by($data['order_field'], $data['order'])
-			->limit($data['step'], $data['first'])
+			//->limit($data['step'], $data['first'])
+			->where(array('floor_id >'=>$data['first'], 'floor_id <='=>$data['first'] + $data['step']))
 			->like('content', $data['key']);
 			
 		if ($data['topic_id'] > 0)
