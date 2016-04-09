@@ -17,11 +17,11 @@ class Module extends Front_Controller
 		{
 			$data['module_now'] = 1;
 		}
-		else if ($id[0] < 1)
+		else if ($id < 1)
 		{
 			$data['module_now'] = 1;
 		}
-		else if ($id[0] > count($module_name_array))
+		else if ($id > count($module_name_array))
 		{
 			$data['module_now'] = count($module_name_array);
 		}
