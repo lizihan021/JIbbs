@@ -60,7 +60,6 @@
                         <p>注册会员：<?php echo $site_user_number;?></p>
                         <p>　　主题：<?php echo $site_topic_number;?></p>
                         <p>　　回复：<?php echo $site_reply_number;?></p>
-
                     </div>
                 </div>
             </div><!-- /.col-md-4 -->
