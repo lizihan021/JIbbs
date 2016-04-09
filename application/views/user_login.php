@@ -1,6 +1,7 @@
 <?php
 include 'common/header.php';
 include 'headers/kindeditor.php';
+include 'headers/text_validation.php';
 ?>
     <script type='text/javascript'>
 	
@@ -29,7 +30,7 @@ include 'headers/kindeditor.php';
 				$("#username").val('<?php echo set_value('username')?>');
 			}
 			
-			$("#captcha").change(function()
+			$("#captcha").keyup(function()
 			{
 				text_valid(
 					$("#captcha").val(),
