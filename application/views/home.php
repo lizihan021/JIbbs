@@ -27,17 +27,17 @@
                         <div class="ji-bg-text">
                         	<h4>
                             <br>
-                        	欢迎参加 JIBBS ALPHA 测试！
+                        	欢迎访问 JIBBS 正式版 (v0.1.0)
                             <br><br>
-                            参与测试的邮箱将在正式版中获得奖励
+                            感谢33位测试者提出的宝贵建议
 							<br><br>
                             目前有大量功能仍在完善中
                             <br><br>
+                            如个人资料完善，个人主页等
+                            <br><br>
                             <a href="https://github.com/SJTU-UMJI-Tech/JIbbs/">欢迎访问我们的github</a>
                             <br><br>
-                            有任何bug反馈和功能建议请直接发帖或在issue中提出，谢谢！
-                            <br><br>
-                            帖子加载卡住基本上是密院的数据库卡住了，轻喷
+                            有任何bug反馈和功能建议请直接在相关板块发帖或在issue中提出，谢谢！
                             </h4>
 						</div>
                     </div>
