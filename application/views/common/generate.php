@@ -51,6 +51,7 @@
 				order: 'desc',
 				key: ''
 			},
+			dataType: 'json',
   			success: function(data)
 			{
 				//alert(data);
@@ -58,7 +59,7 @@
 				var topic_num = 0;
 				if (data != '')
 				{
-					var raw_data = data.split('|');
+					var raw_data = JSON.parse(data);
 					for (index in raw_data)
 					{
 						if (index == 0)
@@ -67,7 +68,7 @@
 						}
 						else
 						{
-							result += generate_preview_topic(generate_array(raw_data[index]));
+							result += generate_preview_topic(raw_data[index]);
 							result += '<hr class="smallhr">';
 						}
 					}
@@ -84,12 +85,26 @@
 		
 	}
 	
-	function generate_reply(reply_data)
+	function generate_reply(reply_data, reply_floor_data)
 	{
 		var content = Base64.decode(reply_data['content']);
-		
+		var reply = '';
+		if (reply_data['reply_floor'] > 0)
+		{
+			reply =
+				'<form>' + 
+					'<fieldset>' +
+						'<legend>' +
+							'回复：<a class="floor-href" href="javascript:void(0)" floorid="' + reply_data['reply_floor'] + '">' + reply_data['reply_floor'] + '楼 ' + reply_floor_data.user_name +'</a>' +
+						'</legend>' +
+						Base64.decode(reply_floor_data.content) +
+					'</fieldset>' +
+					'<br>' +
+				'</form>'
+				;
+		}
 		var result = 
-			'<div class="panel-body" id="reply_' + reply_data['floor_id'] + '">' +
+			'<div class="panel-body" id="reply_' + reply_data['floor_id'] + '" username="' + reply_data['user_name'] + '">' +
 				'<div class="row show-grid">' +
 					'<div class="col-md-3">' +
 						'<center>' +
@@ -97,11 +112,13 @@
 							'<br><a href="<?php echo base_url('member');?>/' + reply_data['user_name'] + '"><h4>' + reply_data['user_name'] + '</h4></a><br>' +
 						'</center>' +
 					'</div>' +
-					'<div class="col-md-9">' +
-						content +
+					'<div class="col-md-9"><br>' + 
+						reply + 
+						content + 
 					'</div>' +
 				'</div>' +
 				'<div class="reply-foot text-right text-muted">' +
+					'<span><a class="floor-reply-href" href="javascript:void(0)" floorid="' + reply_data['floor_id'] + '">回复</a></span>&nbsp;•&nbsp;' +
 					'<span>' + reply_data['floor_id'] + '楼</span>&nbsp;•&nbsp;' +
 					'<span>' + reply_data['create_time'] + '</span>' +
 				'</div>' +
@@ -134,26 +151,44 @@
 				{
 					var pagination = generate_pagination(Math.floor(list_data['reply_page']), Math.ceil(list_data['reply_num'] / reply_per_page), Math.floor(<?php echo $site_topic_pagination_step;?>));
 					result += pagination;
-					var raw_data = data.split('|');
+					var raw_data = JSON.parse(data);
 					var reply_num = 0;
+					var floor_first = true
 					for (index in raw_data)
 					{
 						if (index == 0)
 						{
-							reply_num = raw_data[0];
+							reply_num = raw_data[0].reply_num;
+						}
+						else if (raw_data[index].state == -1)
+						{
+							
 						}
 						else
 						{
-							if (index == 1)
+							if (floor_first)
 							{
+								floor_first = false;
 								result += '<div class="panel panel-default">';
-								result += '<div class="panel-heading">' + Base64.decode(list_data['topic_name']) +'</div>';
+								result += '<div class="panel-heading">' + list_data['topic_name'] +'</div>';
 							}
 							else
 							{
 								result += '<div class="panel panel-default">';
 							}
-							result += generate_reply(generate_array(raw_data[index])) + '</div>';
+							if (raw_data[index].reply_floor <= 0)
+							{
+								result += generate_reply(raw_data[index], null);
+							}
+							else if (raw_data[index].reply_floor > (list_data['reply_page'] - 1) * reply_per_page && raw_data[index].reply_floor <= list_data['reply_page'] * reply_per_page)
+							{
+								result += generate_reply(raw_data[index], raw_data[(raw_data[index].reply_floor - 1) % reply_per_page + 1]);
+							}
+							else
+							{
+								result += generate_reply(raw_data[index], raw_data[0][raw_data[index].reply_floor]);
+							}
+							result += '</div>';
 						}
 					}
 					result += pagination;
@@ -181,7 +216,7 @@
 		// First
 		if (page_now >= 2 + step)
 		{
-			result += '<li><a class="ji-pagination" pageid="1" href="javascipt:void(0);">1</a></li>';
+			result += '<li><a class="ji-pagination" pageid="1" href="javascript:void(0);">1</a></li>';
 		}
 		else
 		{
@@ -194,7 +229,7 @@
 				result += '<li>';
 			}
 			result += 
-                        '<a class="ji-pagination" pageid="1" href="javascipt:void(0);" aria-label="First">' +
+                        '<a class="ji-pagination" pageid="1" href="javascript:void(0);" aria-label="First">' +
                             '<span class="glyphicon glyphicon-fast-backward" pageid="1" aria-hidden="true"></span>' +
                         '</a>' +
                     '</li>'
@@ -211,7 +246,7 @@
 			result += '<li>';
 		}
 		result += 
-					'<a class="ji-pagination" pageid="backward" href="javascipt:void(0);" aria-label="Backward">' +
+					'<a class="ji-pagination" pageid="backward" href="javascript:void(0);" aria-label="Backward">' +
 						'<span class="glyphicon glyphicon-backward" pageid="backward" aria-hidden="true"></span>' +
 					'</a>' +
 				'</li>'
@@ -227,7 +262,7 @@
 			result += '<li>';
 		}
 		result +=
-                        '<a class="ji-pagination" pageid="previous" href="javascipt:void(0);" aria-label="Next">' +
+                        '<a class="ji-pagination" pageid="previous" href="javascript:void(0);" aria-label="Next">' +
                             '<span class="glyphicon glyphicon-chevron-left" pageid="previous" aria-hidden="true"></span>' +
                         '</a>' +
                     '</li>'
@@ -257,7 +292,7 @@
 			{
 				result += '<li>';
 			}
-			result += '<a class="ji-pagination" pageid="' + i + '" href="javascipt:void(0);">' + i + '</a></li>';
+			result += '<a class="ji-pagination" pageid="' + i + '" href="javascript:void(0);">' + i + '</a></li>';
 		}
 		
 		// Next
@@ -270,7 +305,7 @@
 			result += '<li>';
 		}
 		result +=
-                        '<a class="ji-pagination" pageid="next" href="javascipt:void(0);" aria-label="Next">' +
+                        '<a class="ji-pagination" pageid="next" href="javascript:void(0);" aria-label="Next">' +
                             '<span class="glyphicon glyphicon-chevron-right" pageid="next" aria-hidden="true"></span>' +
                         '</a>' +
                     '</li>'
@@ -286,7 +321,7 @@
 			result += '<li>';
 		}
 		result += 
-					'<a class="ji-pagination" pageid="forward" href="javascipt:void(0);" aria-label="Forward">' +
+					'<a class="ji-pagination" pageid="forward" href="javascript:void(0);" aria-label="Forward">' +
 						'<span class="glyphicon glyphicon-forward" pageid="forward" aria-hidden="true"></span>' +
 					'</a>' +
 				'</li>'
@@ -294,7 +329,7 @@
 		// Last
 		if (page_now < page_num - step)
 		{
-			result += '<li><a class="ji-pagination" pageid="' + page_num + '" href="javascipt:void(0);">' + page_num + '</a></li>';
+			result += '<li><a class="ji-pagination" pageid="' + page_num + '" href="javascript:void(0);">' + page_num + '</a></li>';
 		}
 		else
 		{
@@ -307,7 +342,7 @@
 				result += '<li>';
 			}
 			result += 
-                        '<a class="ji-pagination" pageid="' + page_num + '" href="javascipt:void(0);" aria-label="Last">' +
+                        '<a class="ji-pagination" pageid="' + page_num + '" href="javascript:void(0);" aria-label="Last">' +
                             '<span class="glyphicon glyphicon-fast-forward" pageid="' + page_num + '" aria-hidden="true"></span>' +
                         '</a>' +
                     '</li>'

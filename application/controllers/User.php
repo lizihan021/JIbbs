@@ -127,13 +127,13 @@ class User extends Front_Controller
         else
         {
             //form success
-            $data = array
+            $login_data = array
 			(
                 'username' => $this->input->post('username', TRUE),
                 'password' => $this->input->post('password')
             );
 			
-			$result = $this->user_model->login($data);
+			$result = $this->user_model->login($login_data);
             if ($result == 'success')
 			{
 				// 验证成功

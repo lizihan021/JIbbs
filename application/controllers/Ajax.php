@@ -128,18 +128,21 @@ class Ajax extends CI_Controller
 		$index = 1;
 		foreach ($topic_arr as $topic)
 		{
-			$topic_str[$index++] = 
-				 'user_name,'       . $this->user_model->get_user_by_id($topic->user_id)->username .
-				',user_reply_name,' . $this->user_model->get_user_by_id($topic->last_reply_id)->username .
-				',user_avatar,'     . $this->user_model->get_user_by_id($topic->user_id)->avatar .
-				',module_name,'     . $this->module_model->get_module_by_id($topic->module_id)->name .
-				',module_id,'       . $topic->module_id .
-				',topic_name,'      . $topic->name .
-				',topic_id,'        . $topic->id .
-				',reply_num,'       . $topic->reply_num .
-				',time_ago,'        . $this->get_time_delay($topic->UPDATE_TIMESTAMP);
+			$topic_str[$index++] = array
+			(
+				'user_name'        => $this->user_model->get_user_by_id($topic->user_id)->username,
+				'user_reply_name'  => $this->user_model->get_user_by_id($topic->last_reply_id)->username ,
+				'user_avatar'      => $this->user_model->get_user_by_id($topic->user_id)->avatar ,
+				'module_name'      => $this->module_model->get_module_by_id($topic->module_id)->name ,
+				'module_id'        => $topic->module_id ,
+				'topic_name'       => $topic->name ,
+				'topic_id'         => $topic->id ,
+				'reply_num'        => $topic->reply_num ,
+				'time_ago'         => $this->get_time_delay($topic->UPDATE_TIMESTAMP)
+			);
 		}
-		echo implode('|', $topic_str);		
+		echo json_encode($topic_str);
+			
 	}
 	
 	public function get_topic_reply()
@@ -165,20 +168,37 @@ class Ajax extends CI_Controller
 			return;
 		}
 		
-		$reply_str[0] = $topic->reply_num;
+		$reply_str[0] = array('reply_num' => $topic->reply_num);
 		$index = 1;
 		foreach ($reply_arr as $reply)
 		{
-			$reply_str[$index++] = 
-				 'user_name,'       . $this->user_model->get_user_by_id($reply->user_id)->username .
-				',user_avatar,'     . $this->user_model->get_user_by_id($reply->user_id)->avatar .
-				',content,'         . $reply->content .
-				',time_ago,'        . $this->get_time_delay($reply->UPDATE_TIMESTAMP) .
-				',create_time,'     . $reply->CREATE_TIMESTAMP .
-				',update_time,'     . $reply->UPDATE_TIMESTAMP .
-				',floor_id,'        . $reply->floor_id;
+			$user = $this->user_model->get_user_by_id($reply->user_id);
+			if ($reply->state != 0 && $user->id != $this->session->userdata('uid'))
+			{
+				$reply_str[$index] = array('state' => -1);
+			}
+			else
+			{
+				$reply_str[$index] = array
+				(
+					'user_name'       => $user->username,
+					'user_avatar'     => $user->avatar,
+					'content'         => $reply->content,
+					'time_ago'        => $this->get_time_delay($reply->UPDATE_TIMESTAMP),
+					'create_time'     => $reply->CREATE_TIMESTAMP,
+					'update_time'     => $reply->UPDATE_TIMESTAMP,
+					'floor_id'        => $reply->floor_id,
+					'reply_floor'     => $reply->reply_floor,
+					'state'           => $reply->state
+				);
+				if (!isset($reply_str[0][$reply->reply_floor]) && $reply->reply_floor > 0 && $reply->reply_floor <= $this->input->get('first') || $reply->reply_floor > $this->input->get('first') + $this->input->get('step'))
+				{
+					$reply_str[0][$reply->reply_floor] = $this->reply_model->get_reply_summary(array('topic_id'=>$this->input->get('topic_id'), 'floor_id'=>$reply->reply_floor));
+				}
+			}
+			$index++;
 		}
-		echo implode('|', $reply_str);		
+		echo json_encode($reply_str);
 	}
 	
 	public function reply_submit()
@@ -209,8 +229,14 @@ class Ajax extends CI_Controller
 		(
 			'topic_id'    => $topic->id,
 			'user_id'     => $this->session->userdata('uid'),
-			'content'     => base64_encode($this->input->post('content'))
+			'content'     => base64_encode($this->input->post('content')),
+			'reply_floor' => $this->input->post('reply_floor')
 		);
+		
+		if ($data['reply_floor'] < 0 || $data['reply_floor'] > $topic->reply_num)
+		{
+			$data['reply_floor'] = 0;
+		}
 		
 		if ($this->input->post('reply_id') > 0)
 		{
