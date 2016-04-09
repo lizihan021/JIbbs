@@ -37,10 +37,11 @@ Desktop.ini
 
 captcha/*.jpg
 
+uploads/avatar/*
 uploads/image/*
 uploads/temp/*
+!uploads/avatar/index.html
 !uploads/image/index.html
 !uploads/temp/index.html
 
 application/config/config.php
-application/config/database.php

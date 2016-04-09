@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Topic_Model extends CI_Model
+class Topic_model extends CI_Model
 {
 		
     function __construct()
@@ -67,6 +67,7 @@ class Topic_Model extends CI_Model
 			return 0;
 		}
 		$this->db->set('topic_num', 'topic_num+1', FALSE)->where('id', $data['module_id'])->update('bbs_module');
+		$this->db->set('ovalue', 'ovalue+1', FALSE)->where('oname', 'site_topic_number')->update('bbs_config');
 		//$this->db->update('bbs_module', array('topic_num'=>'topic_num+1'), 'id='.$data['module_id']);
 		$this->db->insert('bbs_reply', array
 		(

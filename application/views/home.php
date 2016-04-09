@@ -46,7 +46,8 @@
 							arr['topic_page'] = data.page_now;
 							generate_preview_list(arr, $.main_body_change);
 						}
-					});	
+					});
+					
 				},
 				
 				main_body_trig: function(id)
@@ -89,7 +90,7 @@
 					alert("请输入帖子标题");
 					return;
 				}
-				if (editor.count('text') >= <?php echo $site_editor_count_max;?>)
+				if (editor.count('text') > <?php echo $site_editor_count_max;?>)
 				{
 					alert("帖子长度超过限制");
 					return;
@@ -158,7 +159,9 @@
                             <br><br>
                             <a href="https://github.com/SJTU-UMJI-Tech/JIbbs/">欢迎访问我们的github</a>
                             <br><br>
-                            有任何bug反馈和功能建议请在issue中提出，谢谢！
+                            有任何bug反馈和功能建议请直接发帖或在issue中提出，谢谢！
+                            <br><br>
+                            帖子加载卡住基本上是密院的数据库卡住了，轻喷
                             </h4>
 						</div>
                     </div>
