@@ -89,15 +89,15 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">                                                                                  
                 <ul class="nav navbar-nav">                                                                                                                           
                     <li<?php if (uri_string()=='') {echo ' class="active"';}?>><a href="<?php echo base_url();?>"><strong>首页</strong></a></li>                                       
-                    <li<?php if (uri_string()=='node') {echo ' class="active"';}?>><a href="<?php echo base_url('');?>"><strong>节点</strong></a></li>                             
-                    <li<?php if (uri_string()=='topic/add') {echo ' class="active"';}?>><a href="<?php echo base_url('');?>"><strong>发表</strong></a></li>                   
+                    <li<?php if (uri_string()=='node') {echo ' class="active"';}?>><a href="<?php echo base_url('module');?>"><strong>模块</strong></a></li>                             
+                    <li<?php if (uri_string()=='topic/add') {echo ' class="active"';}?>><a href="<?php echo base_url('topic/add');?>"><strong>发表</strong></a></li>                   
                 </ul>                                                                                                                                                 
-                <form class="navbar-form navbar-left" role="search" action="http://www.google.com/search" method="get" target="_blank">                               
+                <!--<form class="navbar-form navbar-left" role="search" action="http://www.google.com/search" method="get" target="_blank">                               
                     <div class="form-group">                                                                                                                          
                         <input type="text" class="form-control" placeholder="Search" name="q">                                                                        
                         <input type="hidden" name="sitesearch" value="<?php echo base_url()?>">                                                                       
                     </div>                                                                                                                                            
-                </form>                                                                                                                                               
+                </form>-->                                                                                                                                               
                 <ul class="nav navbar-nav navbar-right">                                                                                                              
                     <?php if ($this->session->userdata('username')) : ?>                                                                                              
                     <li><a href="<?php echo base_url('member/'.$this->session->userdata('username')); ?>"><?php echo $this->session->userdata('username'); ?></a></li>

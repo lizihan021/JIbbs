@@ -28,11 +28,14 @@
 			{	
 				change_url: function()
 				{
-					var stateObject = {};
-					var title = "";
 					var newUrl = '/topic/' + arr['topic_id'] + '/' + floor_id;
-					history.pushState(stateObject,title,newUrl);
-					refresh_common_href(true);
+					if (newUrl != window.location.pathname)
+					{
+						var stateObject = {};
+						var title = "";
+						history.pushState(stateObject,title,newUrl);
+						refresh_common_href(true);
+					}
 				},
 				
 				change_reply_floor: function()
