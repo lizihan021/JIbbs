@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Reply_Obj
+class Reply_obj
 {
 	public $id;
 	public $topic_id;
