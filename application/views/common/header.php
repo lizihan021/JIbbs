@@ -89,7 +89,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">                                                                                  
                 <ul class="nav navbar-nav">                                                                                                                           
                     <li<?php if (uri_string()=='') {echo ' class="active"';}?>><a href="<?php echo base_url();?>"><strong>首页</strong></a></li>                                       
-                    <li<?php if (uri_string()=='node') {echo ' class="active"';}?>><a href="<?php echo base_url('module');?>"><strong>模块</strong></a></li>                             
+                    <li<?php if (strstr(uri_string(), 'module')==0&&strstr(uri_string(), 'odule')==1) {echo ' class="active"';}?>><a href="<?php echo base_url('module/1');?>"><strong>模块</strong></a></li>                             
                     <li<?php if (uri_string()=='topic/add') {echo ' class="active"';}?>><a href="<?php echo base_url('topic/add');?>"><strong>发表</strong></a></li>                   
                 </ul>                                                                                                                                                 
                 <!--<form class="navbar-form navbar-left" role="search" action="http://www.google.com/search" method="get" target="_blank">                               
