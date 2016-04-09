@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Reply_Model extends CI_Model
+class Reply_model extends CI_Model
 {
 		
     function __construct()
