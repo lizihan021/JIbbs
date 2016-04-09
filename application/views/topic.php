@@ -1,8 +1,8 @@
 <?php 
-	include 'common/header_common.php';
+	include 'common/header.php';
 	include 'common/generate.php';	
-	include 'common/kindeditor.php';
-	include 'common/header_syntaxhighlighter.php';
+	include 'headers/kindeditor.php';
+	include 'headers/syntaxhighlighter.php';
 ?>
 	<link href="../../static/css/custom.css" rel="stylesheet">
     <script src="../../static/js/pagination.js"></script>
@@ -195,11 +195,11 @@
             
         </div>
         
-        <?php include 'common/editor_login.php';?>
+        <?php include 'plugins/editor_login.php';?>
         
         
     </div><!-- /.container -->
 
-<?php include 'common/footer_common.php';?>
+<?php include 'common/footer.php';?>
 </body>
 </html>

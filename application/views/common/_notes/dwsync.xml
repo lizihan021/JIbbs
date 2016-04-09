@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="header_common.php" server="G:/github/JIBBS/" local="131046898109939391" remote="131046898100000000" Dst="0" />
-<file name="text_validation.php" server="G:/github/JIBBS/" local="131023435159415835" remote="131023435150000000" Dst="0" />
-<file name="sidebar_common.php" server="G:/github/JIBBS/" local="131046897542488290" remote="131046897540000000" Dst="0" />
-<file name="footer_common.php" server="G:/github/JIBBS/" local="131046815803575362" remote="131046815800000000" Dst="0" />
-<file name="generate.php" server="G:/github/JIBBS/" local="131046852353240316" remote="131046852350000000" Dst="0" />
-<file name="header_syntaxhighlighter.php" server="G:/github/JIBBS/" local="131029501393113184" remote="131029501390000000" Dst="0" />
-<file name="kindeditor.php" server="G:/github/JIBBS/" local="131039877100985378" remote="131039877100000000" Dst="0" />
-<file name="editor_login.php" server="G:/github/JIBBS/" local="131039873444985541" remote="131039873440000000" Dst="0" />
+<file name="generate.php" server="G:/github/JIBBS/" local="131046914720946453" remote="131046914720000000" Dst="0" />
+<file name="footer.php" server="G:/github/JIBBS/" local="131046815803575362" remote="131046815800000000" Dst="0" />
+<file name="header.php" server="G:/github/JIBBS/" local="131046925714532834" remote="131046925710000000" Dst="0" />
+<file name="sidebar.php" server="G:/github/JIBBS/" local="131046914720976642" remote="131046914720000000" Dst="0" />
 </dwsync>

@@ -1,16 +1,14 @@
 <?php
 include 'common/header.php';
-include 'headers/kindeditor.php';
+include 'common/generate.php';
 ?>
     
     <div class="container">
         <div class="row">
         	<div class="col-md-8 col-lg-9">
             
-            	<?php include 'plugins/editor_topic.php';?>
-                
-                <?php include 'plugins/editor_login.php';?>
-            	
+            	<?php include 'plugins/module_topic_list.php';?>
+                            	
             </div><!-- /.col-md-8 -->
 			
             

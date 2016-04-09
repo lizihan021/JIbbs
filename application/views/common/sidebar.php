@@ -47,6 +47,7 @@
                     <center class="panel-body">
                         <p>
                         	本网站由<a href="https://github.com/SJTU-UMJI-Tech/">JI技术部</a>开发
+                            <br>服务器：李子涵
                             <br>架构：刘逸灏
                             <br>部分UI由周妍君完成
                         </p>
