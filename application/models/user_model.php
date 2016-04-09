@@ -82,6 +82,8 @@ class User_Model extends CI_Model
 	public function logout()
 	{
 		$this->session->set_userdata('username', '');
+		$this->session->set_userdata('uid', '');
+		$this->session->set_userdata('avatar', '');
 	}
 	
 	public function get_validation_rules($data)

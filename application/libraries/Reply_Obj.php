@@ -23,5 +23,6 @@ class Reply_Obj
 		$this->user_id = 0;
 		$this->floor_id = 0;
 		$this->content = 'error_topic';
+		$this->state = 0;
 	}
 }
