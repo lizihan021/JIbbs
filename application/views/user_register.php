@@ -1,6 +1,7 @@
 <?php
 include 'common/header.php';
 include 'headers/kindeditor.php';
+include 'headers/text_validation.php';
 ?>
     <script type='text/javascript'>
 		$(document).ready(function()
@@ -144,7 +145,7 @@ include 'headers/kindeditor.php';
 			});
 			
 			// 检查 captcha 是否正确
-			$("#captcha").change(function()
+			$("#captcha").keyup(function()
 			{
 				text_valid(
 					$("#captcha").val(),
