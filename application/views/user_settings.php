@@ -1,5 +1,5 @@
 <?php
-include 'common/header_common.php';
+include 'common/header.php';
 ?>
     
     <div class="container">
@@ -40,6 +40,6 @@ include 'common/header_common.php';
         </div><!-- /.row -->
     </div><!-- /.container -->
 
-<?php include 'common/footer_common.php';?>
+<?php include 'common/footer.php';?>
 </body>
 </html>
