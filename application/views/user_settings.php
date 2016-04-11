@@ -2,6 +2,46 @@
 include 'common/header.php';
 ?>
     <script type='text/javascript'>
+		function generate_settings_select(data)
+		{
+			var result = [
+				'<div class="btn-group">',
+                	'<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">',
+					'<span id="settings-', data.name, '-text" sid="', (data.selected != null ? data.selected : 0), '"></span> <span class="caret"></span>',
+					'</button>',
+					'<ul class="dropdown-menu">'
+			];
+			for (index in data.option)
+			{
+				if (data.option[index][0] < 0)
+				{
+					result.push(
+						'<li role="separator" class="divider"></li>');
+				}
+				else
+				{
+					result.push(
+						'<li><a sid="', data.option[index][0], '"settings-', data.name, '-option" href="javasrcipt:void(0)">', data.option[index][1], '</a></li>');
+				}
+			}			
+			result.push(
+					'</ul>',
+				'</div>');
+			return result.join('');
+		}
+		
+		function init_settings_select(data)
+		{
+			$(".settings-"+data.name+"-option").each(function()
+			{
+				if($(this).attr('sid') == user_type)
+				{
+					$("#settings-"+data.name+"-text").html($(this).html());
+					$("#user_type_text").attr('sid', (data.selected != null ? data.selected : 0));
+				}
+			});
+		}
+		
 		$(document).ready(function()
 		{
 			
@@ -15,6 +55,22 @@ include 'common/header.php';
 				}
 			});
 			
+			data = [];
+			data.name = 'usertype';
+			data.selected = 0;
+			data.option = [
+				[0 , ' - - '],
+				[-1],
+				[10, '本科生'],
+				[11, '研究生'],
+				[-1],
+				[20, '家长'],
+				[21, '老师'],
+				[22, '毕业校友']
+			];
+			
+			$("#avatar_change").append(generate_settings_select(data));
+			init_settings_select(data);
 			
 			var settings_config = [];
 			settings_config[10] = [1];
