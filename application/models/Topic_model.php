@@ -57,7 +57,7 @@ class Topic_model extends CI_Model
 		(
 			'module_id'     => $data['module_id'],
 			'user_id'       => $data['user_id'],
-			'name'          => $data['topic'],
+			'name'          => preg_replace("/<([a-zA-Z]+)[^>]*>/","<\\1>",$data['topic']),
 			'reply_num'     => 1,
 			'last_reply_id' => $data['user_id']
 		));

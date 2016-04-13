@@ -21,7 +21,7 @@ include 'common/header.php';
 				else
 				{
 					result.push(
-						'<li><a sid="', data.option[index][0], '"settings-', data.name, '-option" href="javasrcipt:void(0)">', data.option[index][1], '</a></li>');
+						'<li><a sid="', data.option[index][0], '" class="settings-', data.name, '-option" href="javasrcipt:void(0)">', data.option[index][1], '</a></li>');
 				}
 			}			
 			result.push(
@@ -34,54 +34,51 @@ include 'common/header.php';
 		{
 			$(".settings-"+data.name+"-option").each(function()
 			{
-				if($(this).attr('sid') == user_type)
+				if($(this).attr('sid') == data.selected)
 				{
 					$("#settings-"+data.name+"-text").html($(this).html());
-					$("#user_type_text").attr('sid', (data.selected != null ? data.selected : 0));
+					$("#settings-"+data.name+"-text").attr('sid', (data.selected != null ? data.selected : 0));
 				}
+			});
+			$(".settings-"+data.name+"-option").click(function(e)
+			{
+				$("#settings-"+data.name+"-text").html($(e.target).html());
+				$("#settings-"+data.name+"-text").attr('sid', $(e.target).attr('sid'));
 			});
 		}
 		
 		$(document).ready(function()
 		{
 			
-			var user_type = <?php echo $user_type;?>;
-			$(".user_type_select").each(function()
+
+			var settings = [];
+			
+			settings[1] = 
 			{
-				if($(this).attr('tid') == user_type)
-				{
-					$("#user_type_text").html($(this).html());
-					$("#user_type_text").attr('tid', user_type);
-				}
-			});
+				name : 'usertype',
+				selected : 0,
+				option : 
+				[
+					[0 , ' - - '],
+					[-1],
+					[10, '本科生'],
+					[11, '研究生'],
+					[-1],
+					[20, '家长'],
+					[21, '老师'],
+					[22, '毕业校友']
+				]
+			};
 			
-			data = [];
-			data.name = 'usertype';
-			data.selected = 0;
-			data.option = [
-				[0 , ' - - '],
-				[-1],
-				[10, '本科生'],
-				[11, '研究生'],
-				[-1],
-				[20, '家长'],
-				[21, '老师'],
-				[22, '毕业校友']
-			];
+			//alert(JSON.stringify(settings));
 			
-			$("#avatar_change").append(generate_settings_select(data));
-			init_settings_select(data);
+			$("#settings-row-1").append(generate_settings_select(settings[1]));
+			init_settings_select(settings[1]);
 			
 			var settings_config = [];
 			settings_config[10] = [1];
 			
-			$(".user_type_select").click(function(e)
-			{
-				user_type = $(e.target).attr('tid');
-				$("#user_type_text").html($(e.target).html());
-				$("#user_type_text").attr('tid', user_type);
-			});
-
+			
 		});
 	</script>
     
@@ -121,20 +118,8 @@ include 'common/header.php';
                         <div class="ji-settings">
                         	<div class="row">
                                 <h5><label for="main_settings" class="col-sm-3 control-label text-center">个人身份</label></h5>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span id="user_type_text" tid="0"></span> <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a tid="0"  class="user_type_select" href="javasrcipt:void(0)"> - - </a></li>
-	                                    <li role="separator" class="divider"></li>
-                                        <li><a tid="10" class="user_type_select" href="javasrcipt:void(0)">本科生</a></li>
-                                        <li><a tid="11" class="user_type_select" href="javasrcipt:void(0)">研究生</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a tid="20" class="user_type_select" href="javasrcipt:void(0)">家长</a></li>
-                                        <li><a tid="21" class="user_type_select" href="javasrcipt:void(0)">老师</a></li>
-                                        <li><a tid="22" class="user_type_select" href="javasrcipt:void(0)">毕业校友</a></li>
-                                    </ul>
+                                <div id="settings-row-1">
+                                
                                 </div>
                        		</div>
                         

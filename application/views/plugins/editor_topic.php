@@ -34,7 +34,7 @@
 					alert("帖子长度超过限制");
 					return;
 				}
-				var content = editor.html();
+				var content = editor.text();
 				if (content == '')
 				{
 					alert("请输入帖子内容");
