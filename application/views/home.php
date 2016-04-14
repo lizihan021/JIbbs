@@ -27,7 +27,7 @@
                         <div class="ji-bg-text">
                         	<h4>
                             <br>
-                        	欢迎访问 JIBBS 正式版 (v0.1.0)
+                        	欢迎访问 JIBBS 正式版 (v0.1.2) 过滤bug已修复！
                             <br><br>
                             感谢33位测试者提出的宝贵建议
 							<br><br>
